@@ -1,0 +1,1550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="customer_phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_linkman" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="customer_fax" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_postcode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bank" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bank_account" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="get_materials">
+          <Key>
+            <PropertyRef Name="get_materials_id" />
+          </Key>
+          <Property Name="get_materials_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_plan_id" Type="int" Nullable="false" />
+          <Property Name="get_department" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="get_time" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="in_materialr">
+          <Key>
+            <PropertyRef Name="in_materialr_id" />
+          </Key>
+          <Property Name="in_materialr_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="materialr_plan_id" Type="int" />
+          <Property Name="materialr_num" Type="int" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="in_repertory">
+          <Key>
+            <PropertyRef Name="in_repertory_id" />
+          </Key>
+          <Property Name="in_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pro_production_id" Type="int" Nullable="false" />
+          <Property Name="person_handling" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="in_time" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="materialr">
+          <Key>
+            <PropertyRef Name="materialr_details_id" />
+          </Key>
+          <Property Name="materialr_details_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="materialr_details_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="materialr_type_id" Type="int" Nullable="false" />
+          <Property Name="materialr_details_price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="materialr_details">
+          <Key>
+            <PropertyRef Name="materials_id" />
+          </Key>
+          <Property Name="materials_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="w_materials_id" Type="int" Nullable="false" />
+          <Property Name="materialr_details_id" Type="int" Nullable="false" />
+          <Property Name="materialr_epertory_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="materialr_epertory">
+          <Key>
+            <PropertyRef Name="materialr_epertory_id" />
+          </Key>
+          <Property Name="materialr_epertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="materialr_details_id" Type="int" Nullable="false" />
+          <Property Name="materialr_num" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="materialr_type">
+          <Key>
+            <PropertyRef Name="materialr_type_id" />
+          </Key>
+          <Property Name="materialr_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="materialr_type_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="product_type_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="materials_plan">
+          <Key>
+            <PropertyRef Name="materialr_plan_id" />
+          </Key>
+          <Property Name="materialr_plan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="materialr_details_id" Type="int" Nullable="false" />
+          <Property Name="materialr_num" Type="int" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="materials_quality_testing">
+          <Key>
+            <PropertyRef Name="quality_testing_id" />
+          </Key>
+          <Property Name="quality_testing_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="in_materialr_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="quality_testing_time" Type="date" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="result" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="orderr_id" />
+          </Key>
+          <Property Name="orderr_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_id" Type="int" Nullable="false" />
+          <Property Name="order_starttime" Type="date" Nullable="false" />
+          <Property Name="order_endtime" Type="date" />
+          <Property Name="person_handling" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="order_paid" Type="money" Nullable="false" />
+          <Property Name="order_unpaid" Type="money" Nullable="false" />
+          <Property Name="order_status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="order_delivery_way" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order_details">
+          <Key>
+            <PropertyRef Name="order_details_id" />
+          </Key>
+          <Property Name="order_details_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="order_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="order_details_money" Type="money" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="out_in_money">
+          <Key>
+            <PropertyRef Name="out_in_details_id" />
+          </Key>
+          <Property Name="out_in_details_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="out_in_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="statue" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="out_materialr">
+          <Key>
+            <PropertyRef Name="out_materialr_id" />
+          </Key>
+          <Property Name="out_materialr_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="get_materials_id" Type="int" Nullable="false" />
+          <Property Name="materialr_details_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="out_repertory">
+          <Key>
+            <PropertyRef Name="out_repertory_id" />
+          </Key>
+          <Property Name="out_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderr_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="person_handling" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="out_time" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pro_production">
+          <Key>
+            <PropertyRef Name="pro_production_id" />
+          </Key>
+          <Property Name="pro_production_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_plan_id" Type="int" Nullable="false" />
+          <Property Name="pro_production_dep" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="product_time" Type="date" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pro_repertory">
+          <Key>
+            <PropertyRef Name="repertory_id" />
+          </Key>
+          <Property Name="repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_plan_id" Type="int" Nullable="false" />
+          <Property Name="pro_repertory_num" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_num" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="product_producer" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="product_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="product_price" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="product_address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="unit" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product_plan">
+          <Key>
+            <PropertyRef Name="product_plan_id" />
+          </Key>
+          <Property Name="product_plan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_plan_num" Type="int" Nullable="false" />
+          <Property Name="order_details_id" Type="int" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="product_time" Type="date" Nullable="false" />
+          <Property Name="product_end_time" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product_quality_testing">
+          <Key>
+            <PropertyRef Name="quality_testing_id" />
+          </Key>
+          <Property Name="quality_testing_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pro_production_id" Type="int" Nullable="false" />
+          <Property Name="quality_testing_time" Type="date" Nullable="false" />
+          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="result" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product_type">
+          <Key>
+            <PropertyRef Name="product_type_id" />
+          </Key>
+          <Property Name="product_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_type_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_get_materials_product_plan">
+          <End Role="product_plan" Type="Self.product_plan" Multiplicity="1" />
+          <End Role="get_materials" Type="Self.get_materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_plan">
+              <PropertyRef Name="product_plan_id" />
+            </Principal>
+            <Dependent Role="get_materials">
+              <PropertyRef Name="product_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_in_materialr_materials_plan">
+          <End Role="materials_plan" Type="Self.materials_plan" Multiplicity="0..1" />
+          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materials_plan">
+              <PropertyRef Name="materialr_plan_id" />
+            </Principal>
+            <Dependent Role="in_materialr">
+              <PropertyRef Name="materialr_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_in_repertory_pro_production">
+          <End Role="pro_production" Type="Self.pro_production" Multiplicity="1" />
+          <End Role="in_repertory" Type="Self.in_repertory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pro_production">
+              <PropertyRef Name="pro_production_id" />
+            </Principal>
+            <Dependent Role="in_repertory">
+              <PropertyRef Name="pro_production_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_details_materialr">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="materialr_details" Type="Self.materialr_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="materialr_details">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_details_materialr_details">
+          <End Role="get_materials" Type="Self.get_materials" Multiplicity="1" />
+          <End Role="materialr_details" Type="Self.materialr_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="get_materials">
+              <PropertyRef Name="get_materials_id" />
+            </Principal>
+            <Dependent Role="materialr_details">
+              <PropertyRef Name="w_materials_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_details_materialr_type">
+          <End Role="materialr_type" Type="Self.materialr_type" Multiplicity="1" />
+          <End Role="materialr" Type="Self.materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr_type">
+              <PropertyRef Name="materialr_type_id" />
+            </Principal>
+            <Dependent Role="materialr">
+              <PropertyRef Name="materialr_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_epertory_materialr_details">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="materialr_epertory" Type="Self.materialr_epertory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="materialr_epertory">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_type_product_type">
+          <End Role="product_type" Type="Self.product_type" Multiplicity="1" />
+          <End Role="materialr_type" Type="Self.materialr_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_type">
+              <PropertyRef Name="product_type_id" />
+            </Principal>
+            <Dependent Role="materialr_type">
+              <PropertyRef Name="product_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materials_quality_testing_in_materialr">
+          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="1" />
+          <End Role="materials_quality_testing" Type="Self.materials_quality_testing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="in_materialr">
+              <PropertyRef Name="in_materialr_id" />
+            </Principal>
+            <Dependent Role="materials_quality_testing">
+              <PropertyRef Name="in_materialr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_customer">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_details_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderr_id" />
+            </Principal>
+            <Dependent Role="order_details">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_details_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="order_details">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_in_money_in_materialr">
+          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="1" />
+          <End Role="out_in_money" Type="Self.out_in_money" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="in_materialr">
+              <PropertyRef Name="in_materialr_id" />
+            </Principal>
+            <Dependent Role="out_in_money">
+              <PropertyRef Name="out_in_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_in_money_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="out_in_money" Type="Self.out_in_money" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderr_id" />
+            </Principal>
+            <Dependent Role="out_in_money">
+              <PropertyRef Name="out_in_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_materialr_get_materials">
+          <End Role="get_materials" Type="Self.get_materials" Multiplicity="1" />
+          <End Role="out_materialr" Type="Self.out_materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="get_materials">
+              <PropertyRef Name="get_materials_id" />
+            </Principal>
+            <Dependent Role="out_materialr">
+              <PropertyRef Name="get_materials_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_materialr_materialr_details">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="out_materialr" Type="Self.out_materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="out_materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_repertory_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="out_repertory" Type="Self.out_repertory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderr_id" />
+            </Principal>
+            <Dependent Role="out_repertory">
+              <PropertyRef Name="orderr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pro_production_product_plan">
+          <End Role="product_plan" Type="Self.product_plan" Multiplicity="1" />
+          <End Role="pro_production" Type="Self.pro_production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_plan">
+              <PropertyRef Name="product_plan_id" />
+            </Principal>
+            <Dependent Role="pro_production">
+              <PropertyRef Name="product_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pro_repertory_product_plan">
+          <End Role="product_plan" Type="Self.product_plan" Multiplicity="1" />
+          <End Role="pro_repertory" Type="Self.pro_repertory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_plan">
+              <PropertyRef Name="product_plan_id" />
+            </Principal>
+            <Dependent Role="pro_repertory">
+              <PropertyRef Name="product_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_plan_order_details">
+          <End Role="order_details" Type="Self.order_details" Multiplicity="1" />
+          <End Role="product_plan" Type="Self.product_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order_details">
+              <PropertyRef Name="order_details_id" />
+            </Principal>
+            <Dependent Role="product_plan">
+              <PropertyRef Name="order_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quality_testing_pro_production">
+          <End Role="pro_production" Type="Self.pro_production" Multiplicity="1" />
+          <End Role="product_quality_testing" Type="Self.product_quality_testing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pro_production">
+              <PropertyRef Name="pro_production_id" />
+            </Principal>
+            <Dependent Role="product_quality_testing">
+              <PropertyRef Name="pro_production_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_materialr">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="materials_plan" Type="Self.materials_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="materials_plan">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoeModelStoreContainer">
+          <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="get_materials" EntityType="Self.get_materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="in_materialr" EntityType="Self.in_materialr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="in_repertory" EntityType="Self.in_repertory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="materialr" EntityType="Self.materialr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="materialr_details" EntityType="Self.materialr_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="materialr_epertory" EntityType="Self.materialr_epertory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="materialr_type" EntityType="Self.materialr_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="materials_plan" EntityType="Self.materials_plan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="materials_quality_testing" EntityType="Self.materials_quality_testing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_details" EntityType="Self.order_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="out_in_money" EntityType="Self.out_in_money" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="out_materialr" EntityType="Self.out_materialr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="out_repertory" EntityType="Self.out_repertory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pro_production" EntityType="Self.pro_production" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pro_repertory" EntityType="Self.pro_repertory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_plan" EntityType="Self.product_plan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_quality_testing" EntityType="Self.product_quality_testing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_type" EntityType="Self.product_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_get_materials_product_plan" Association="Self.FK_get_materials_product_plan">
+            <End Role="product_plan" EntitySet="product_plan" />
+            <End Role="get_materials" EntitySet="get_materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_in_materialr_materials_plan" Association="Self.FK_in_materialr_materials_plan">
+            <End Role="materials_plan" EntitySet="materials_plan" />
+            <End Role="in_materialr" EntitySet="in_materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_in_repertory_pro_production" Association="Self.FK_in_repertory_pro_production">
+            <End Role="pro_production" EntitySet="pro_production" />
+            <End Role="in_repertory" EntitySet="in_repertory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_details_materialr" Association="Self.FK_materialr_details_materialr">
+            <End Role="materialr" EntitySet="materialr" />
+            <End Role="materialr_details" EntitySet="materialr_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_details_materialr_details" Association="Self.FK_materialr_details_materialr_details">
+            <End Role="get_materials" EntitySet="get_materials" />
+            <End Role="materialr_details" EntitySet="materialr_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_details_materialr_type" Association="Self.FK_materialr_details_materialr_type">
+            <End Role="materialr_type" EntitySet="materialr_type" />
+            <End Role="materialr" EntitySet="materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_epertory_materialr_details" Association="Self.FK_materialr_epertory_materialr_details">
+            <End Role="materialr" EntitySet="materialr" />
+            <End Role="materialr_epertory" EntitySet="materialr_epertory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_type_product_type" Association="Self.FK_materialr_type_product_type">
+            <End Role="product_type" EntitySet="product_type" />
+            <End Role="materialr_type" EntitySet="materialr_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materials_quality_testing_in_materialr" Association="Self.FK_materials_quality_testing_in_materialr">
+            <End Role="in_materialr" EntitySet="in_materialr" />
+            <End Role="materials_quality_testing" EntitySet="materials_quality_testing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_customer" Association="Self.FK_order_customer">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_details_order" Association="Self.FK_order_details_order">
+            <End Role="order" EntitySet="order" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_details_product" Association="Self.FK_order_details_product">
+            <End Role="product" EntitySet="product" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_in_money_in_materialr" Association="Self.FK_out_in_money_in_materialr">
+            <End Role="in_materialr" EntitySet="in_materialr" />
+            <End Role="out_in_money" EntitySet="out_in_money" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_in_money_order" Association="Self.FK_out_in_money_order">
+            <End Role="order" EntitySet="order" />
+            <End Role="out_in_money" EntitySet="out_in_money" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_materialr_get_materials" Association="Self.FK_out_materialr_get_materials">
+            <End Role="get_materials" EntitySet="get_materials" />
+            <End Role="out_materialr" EntitySet="out_materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_materialr_materialr_details" Association="Self.FK_out_materialr_materialr_details">
+            <End Role="materialr" EntitySet="materialr" />
+            <End Role="out_materialr" EntitySet="out_materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_repertory_order" Association="Self.FK_out_repertory_order">
+            <End Role="order" EntitySet="order" />
+            <End Role="out_repertory" EntitySet="out_repertory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pro_production_product_plan" Association="Self.FK_pro_production_product_plan">
+            <End Role="product_plan" EntitySet="product_plan" />
+            <End Role="pro_production" EntitySet="pro_production" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pro_repertory_product_plan" Association="Self.FK_pro_repertory_product_plan">
+            <End Role="product_plan" EntitySet="product_plan" />
+            <End Role="pro_repertory" EntitySet="pro_repertory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_plan_order_details" Association="Self.FK_product_plan_order_details">
+            <End Role="order_details" EntitySet="order_details" />
+            <End Role="product_plan" EntitySet="product_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quality_testing_pro_production" Association="Self.FK_quality_testing_pro_production">
+            <End Role="pro_production" EntitySet="pro_production" />
+            <End Role="product_quality_testing" EntitySet="product_quality_testing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_materialr" Association="Self.FK_Table_1_materialr">
+            <End Role="materialr" EntitySet="materialr" />
+            <End Role="materials_plan" EntitySet="materials_plan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShoeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_linkman" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bank_account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_customer" FromRole="customer" ToRole="order" />
+        </EntityType>
+        <EntityType Name="get_materials">
+          <Key>
+            <PropertyRef Name="get_materials_id" />
+          </Key>
+          <Property Name="get_materials_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_plan_id" Type="Int32" Nullable="false" />
+          <Property Name="get_department" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="get_time" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="product_plan" Relationship="Self.FK_get_materials_product_plan" FromRole="get_materials" ToRole="product_plan" />
+          <NavigationProperty Name="materialr_details" Relationship="Self.FK_materialr_details_materialr_details" FromRole="get_materials" ToRole="materialr_details" />
+          <NavigationProperty Name="out_materialr" Relationship="Self.FK_out_materialr_get_materials" FromRole="get_materials" ToRole="out_materialr" />
+        </EntityType>
+        <EntityType Name="in_materialr">
+          <Key>
+            <PropertyRef Name="in_materialr_id" />
+          </Key>
+          <Property Name="in_materialr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="materialr_plan_id" Type="Int32" />
+          <Property Name="materialr_num" Type="Int32" Nullable="false" />
+          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="materials_plan" Relationship="Self.FK_in_materialr_materials_plan" FromRole="in_materialr" ToRole="materials_plan" />
+          <NavigationProperty Name="materials_quality_testing" Relationship="Self.FK_materials_quality_testing_in_materialr" FromRole="in_materialr" ToRole="materials_quality_testing" />
+          <NavigationProperty Name="out_in_money" Relationship="Self.FK_out_in_money_in_materialr" FromRole="in_materialr" ToRole="out_in_money" />
+        </EntityType>
+        <EntityType Name="in_repertory">
+          <Key>
+            <PropertyRef Name="in_repertory_id" />
+          </Key>
+          <Property Name="in_repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pro_production_id" Type="Int32" Nullable="false" />
+          <Property Name="person_handling" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="in_time" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="pro_production" Relationship="Self.FK_in_repertory_pro_production" FromRole="in_repertory" ToRole="pro_production" />
+        </EntityType>
+        <EntityType Name="materialr">
+          <Key>
+            <PropertyRef Name="materialr_details_id" />
+          </Key>
+          <Property Name="materialr_details_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="materialr_details_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="materialr_type_id" Type="Int32" Nullable="false" />
+          <Property Name="materialr_details_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="materialr_details" Relationship="Self.FK_materialr_details_materialr" FromRole="materialr" ToRole="materialr_details" />
+          <NavigationProperty Name="materialr_type" Relationship="Self.FK_materialr_details_materialr_type" FromRole="materialr" ToRole="materialr_type" />
+          <NavigationProperty Name="materialr_epertory" Relationship="Self.FK_materialr_epertory_materialr_details" FromRole="materialr" ToRole="materialr_epertory" />
+          <NavigationProperty Name="out_materialr" Relationship="Self.FK_out_materialr_materialr_details" FromRole="materialr" ToRole="out_materialr" />
+          <NavigationProperty Name="materials_plan" Relationship="Self.FK_Table_1_materialr" FromRole="materialr" ToRole="materials_plan" />
+        </EntityType>
+        <EntityType Name="materialr_details">
+          <Key>
+            <PropertyRef Name="materials_id" />
+          </Key>
+          <Property Name="materials_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="w_materials_id" Type="Int32" Nullable="false" />
+          <Property Name="materialr_details_id" Type="Int32" Nullable="false" />
+          <Property Name="materialr_epertory_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="get_materials" Relationship="Self.FK_materialr_details_materialr_details" FromRole="materialr_details" ToRole="get_materials" />
+          <NavigationProperty Name="materialr" Relationship="Self.FK_materialr_details_materialr" FromRole="materialr_details" ToRole="materialr" />
+        </EntityType>
+        <EntityType Name="materialr_epertory">
+          <Key>
+            <PropertyRef Name="materialr_epertory_id" />
+          </Key>
+          <Property Name="materialr_epertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="materialr_details_id" Type="Int32" Nullable="false" />
+          <Property Name="materialr_num" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="materialr" Relationship="Self.FK_materialr_epertory_materialr_details" FromRole="materialr_epertory" ToRole="materialr" />
+        </EntityType>
+        <EntityType Name="materialr_type">
+          <Key>
+            <PropertyRef Name="materialr_type_id" />
+          </Key>
+          <Property Name="materialr_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="materialr_type_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_type_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="materialr" Relationship="Self.FK_materialr_details_materialr_type" FromRole="materialr_type" ToRole="materialr" />
+          <NavigationProperty Name="product_type" Relationship="Self.FK_materialr_type_product_type" FromRole="materialr_type" ToRole="product_type" />
+        </EntityType>
+        <EntityType Name="materials_plan">
+          <Key>
+            <PropertyRef Name="materialr_plan_id" />
+          </Key>
+          <Property Name="materialr_plan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="materialr_details_id" Type="Int32" Nullable="false" />
+          <Property Name="materialr_num" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="in_materialr" Relationship="Self.FK_in_materialr_materials_plan" FromRole="materials_plan" ToRole="in_materialr" />
+          <NavigationProperty Name="materialr" Relationship="Self.FK_Table_1_materialr" FromRole="materials_plan" ToRole="materialr" />
+        </EntityType>
+        <EntityType Name="materials_quality_testing">
+          <Key>
+            <PropertyRef Name="quality_testing_id" />
+          </Key>
+          <Property Name="quality_testing_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="in_materialr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="quality_testing_time" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="operator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="result" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="in_materialr" Relationship="Self.FK_materials_quality_testing_in_materialr" FromRole="materials_quality_testing" ToRole="in_materialr" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="orderr_id" />
+          </Key>
+          <Property Name="orderr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_id" Type="Int32" Nullable="false" />
+          <Property Name="order_starttime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="order_endtime" Type="DateTime" Precision="0" />
+          <Property Name="person_handling" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="order_paid" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="order_unpaid" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="order_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="order_delivery_way" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="customer" Relationship="Self.FK_order_customer" FromRole="order" ToRole="customer" />
+          <NavigationProperty Name="order_details" Relationship="Self.FK_order_details_order" FromRole="order" ToRole="order_details" />
+          <NavigationProperty Name="out_in_money" Relationship="Self.FK_out_in_money_order" FromRole="order" ToRole="out_in_money" />
+          <NavigationProperty Name="out_repertory" Relationship="Self.FK_out_repertory_order" FromRole="order" ToRole="out_repertory" />
+        </EntityType>
+        <EntityType Name="order_details">
+          <Key>
+            <PropertyRef Name="order_details_id" />
+          </Key>
+          <Property Name="order_details_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="order_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="order_details_money" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_details_order" FromRole="order_details" ToRole="order" />
+          <NavigationProperty Name="product" Relationship="Self.FK_order_details_product" FromRole="order_details" ToRole="product" />
+          <NavigationProperty Name="product_plan" Relationship="Self.FK_product_plan_order_details" FromRole="order_details" ToRole="product_plan" />
+        </EntityType>
+        <EntityType Name="out_in_money">
+          <Key>
+            <PropertyRef Name="out_in_details_id" />
+          </Key>
+          <Property Name="out_in_details_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="out_in_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="statue" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="in_materialr" Relationship="Self.FK_out_in_money_in_materialr" FromRole="out_in_money" ToRole="in_materialr" />
+          <NavigationProperty Name="order" Relationship="Self.FK_out_in_money_order" FromRole="out_in_money" ToRole="order" />
+        </EntityType>
+        <EntityType Name="out_materialr">
+          <Key>
+            <PropertyRef Name="out_materialr_id" />
+          </Key>
+          <Property Name="out_materialr_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="get_materials_id" Type="Int32" Nullable="false" />
+          <Property Name="materialr_details_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="get_materials" Relationship="Self.FK_out_materialr_get_materials" FromRole="out_materialr" ToRole="get_materials" />
+          <NavigationProperty Name="materialr" Relationship="Self.FK_out_materialr_materialr_details" FromRole="out_materialr" ToRole="materialr" />
+        </EntityType>
+        <EntityType Name="out_repertory">
+          <Key>
+            <PropertyRef Name="out_repertory_id" />
+          </Key>
+          <Property Name="out_repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="person_handling" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="out_time" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="order" Relationship="Self.FK_out_repertory_order" FromRole="out_repertory" ToRole="order" />
+        </EntityType>
+        <EntityType Name="pro_production">
+          <Key>
+            <PropertyRef Name="pro_production_id" />
+          </Key>
+          <Property Name="pro_production_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_plan_id" Type="Int32" Nullable="false" />
+          <Property Name="pro_production_dep" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_time" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="in_repertory" Relationship="Self.FK_in_repertory_pro_production" FromRole="pro_production" ToRole="in_repertory" />
+          <NavigationProperty Name="product_plan" Relationship="Self.FK_pro_production_product_plan" FromRole="pro_production" ToRole="product_plan" />
+          <NavigationProperty Name="product_quality_testing" Relationship="Self.FK_quality_testing_pro_production" FromRole="pro_production" ToRole="product_quality_testing" />
+        </EntityType>
+        <EntityType Name="pro_repertory">
+          <Key>
+            <PropertyRef Name="repertory_id" />
+          </Key>
+          <Property Name="repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_plan_id" Type="Int32" Nullable="false" />
+          <Property Name="pro_repertory_num" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="product_plan" Relationship="Self.FK_pro_repertory_product_plan" FromRole="pro_repertory" ToRole="product_plan" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_producer" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="unit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="order_details" Relationship="Self.FK_order_details_product" FromRole="product" ToRole="order_details" />
+        </EntityType>
+        <EntityType Name="product_plan">
+          <Key>
+            <PropertyRef Name="product_plan_id" />
+          </Key>
+          <Property Name="product_plan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_plan_num" Type="Int32" Nullable="false" />
+          <Property Name="order_details_id" Type="Int32" Nullable="false" />
+          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_time" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="product_end_time" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="get_materials" Relationship="Self.FK_get_materials_product_plan" FromRole="product_plan" ToRole="get_materials" />
+          <NavigationProperty Name="order_details" Relationship="Self.FK_product_plan_order_details" FromRole="product_plan" ToRole="order_details" />
+          <NavigationProperty Name="pro_production" Relationship="Self.FK_pro_production_product_plan" FromRole="product_plan" ToRole="pro_production" />
+          <NavigationProperty Name="pro_repertory" Relationship="Self.FK_pro_repertory_product_plan" FromRole="product_plan" ToRole="pro_repertory" />
+        </EntityType>
+        <EntityType Name="product_quality_testing">
+          <Key>
+            <PropertyRef Name="quality_testing_id" />
+          </Key>
+          <Property Name="quality_testing_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pro_production_id" Type="Int32" Nullable="false" />
+          <Property Name="quality_testing_time" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="result" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="pro_production" Relationship="Self.FK_quality_testing_pro_production" FromRole="product_quality_testing" ToRole="pro_production" />
+        </EntityType>
+        <EntityType Name="product_type">
+          <Key>
+            <PropertyRef Name="product_type_id" />
+          </Key>
+          <Property Name="product_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_type_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="materialr_type" Relationship="Self.FK_materialr_type_product_type" FromRole="product_type" ToRole="materialr_type" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_order_customer">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_get_materials_product_plan">
+          <End Role="product_plan" Type="Self.product_plan" Multiplicity="1" />
+          <End Role="get_materials" Type="Self.get_materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_plan">
+              <PropertyRef Name="product_plan_id" />
+            </Principal>
+            <Dependent Role="get_materials">
+              <PropertyRef Name="product_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_details_materialr_details">
+          <End Role="get_materials" Type="Self.get_materials" Multiplicity="1" />
+          <End Role="materialr_details" Type="Self.materialr_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="get_materials">
+              <PropertyRef Name="get_materials_id" />
+            </Principal>
+            <Dependent Role="materialr_details">
+              <PropertyRef Name="w_materials_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_materialr_get_materials">
+          <End Role="get_materials" Type="Self.get_materials" Multiplicity="1" />
+          <End Role="out_materialr" Type="Self.out_materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="get_materials">
+              <PropertyRef Name="get_materials_id" />
+            </Principal>
+            <Dependent Role="out_materialr">
+              <PropertyRef Name="get_materials_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_in_materialr_materials_plan">
+          <End Role="materials_plan" Type="Self.materials_plan" Multiplicity="0..1" />
+          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materials_plan">
+              <PropertyRef Name="materialr_plan_id" />
+            </Principal>
+            <Dependent Role="in_materialr">
+              <PropertyRef Name="materialr_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materials_quality_testing_in_materialr">
+          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="1" />
+          <End Role="materials_quality_testing" Type="Self.materials_quality_testing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="in_materialr">
+              <PropertyRef Name="in_materialr_id" />
+            </Principal>
+            <Dependent Role="materials_quality_testing">
+              <PropertyRef Name="in_materialr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_in_money_in_materialr">
+          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="1" />
+          <End Role="out_in_money" Type="Self.out_in_money" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="in_materialr">
+              <PropertyRef Name="in_materialr_id" />
+            </Principal>
+            <Dependent Role="out_in_money">
+              <PropertyRef Name="out_in_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_in_repertory_pro_production">
+          <End Role="pro_production" Type="Self.pro_production" Multiplicity="1" />
+          <End Role="in_repertory" Type="Self.in_repertory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pro_production">
+              <PropertyRef Name="pro_production_id" />
+            </Principal>
+            <Dependent Role="in_repertory">
+              <PropertyRef Name="pro_production_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_details_materialr">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="materialr_details" Type="Self.materialr_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="materialr_details">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_details_materialr_type">
+          <End Role="materialr_type" Type="Self.materialr_type" Multiplicity="1" />
+          <End Role="materialr" Type="Self.materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr_type">
+              <PropertyRef Name="materialr_type_id" />
+            </Principal>
+            <Dependent Role="materialr">
+              <PropertyRef Name="materialr_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_epertory_materialr_details">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="materialr_epertory" Type="Self.materialr_epertory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="materialr_epertory">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_materialr_materialr_details">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="out_materialr" Type="Self.out_materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="out_materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_materialr">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="materials_plan" Type="Self.materials_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="materials_plan">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materialr_type_product_type">
+          <End Role="product_type" Type="Self.product_type" Multiplicity="1" />
+          <End Role="materialr_type" Type="Self.materialr_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_type">
+              <PropertyRef Name="product_type_id" />
+            </Principal>
+            <Dependent Role="materialr_type">
+              <PropertyRef Name="product_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_details_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderr_id" />
+            </Principal>
+            <Dependent Role="order_details">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_in_money_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="out_in_money" Type="Self.out_in_money" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderr_id" />
+            </Principal>
+            <Dependent Role="out_in_money">
+              <PropertyRef Name="out_in_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_repertory_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="out_repertory" Type="Self.out_repertory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderr_id" />
+            </Principal>
+            <Dependent Role="out_repertory">
+              <PropertyRef Name="orderr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_details_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="order_details">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_plan_order_details">
+          <End Role="order_details" Type="Self.order_details" Multiplicity="1" />
+          <End Role="product_plan" Type="Self.product_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order_details">
+              <PropertyRef Name="order_details_id" />
+            </Principal>
+            <Dependent Role="product_plan">
+              <PropertyRef Name="order_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pro_production_product_plan">
+          <End Role="product_plan" Type="Self.product_plan" Multiplicity="1" />
+          <End Role="pro_production" Type="Self.pro_production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_plan">
+              <PropertyRef Name="product_plan_id" />
+            </Principal>
+            <Dependent Role="pro_production">
+              <PropertyRef Name="product_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quality_testing_pro_production">
+          <End Role="pro_production" Type="Self.pro_production" Multiplicity="1" />
+          <End Role="product_quality_testing" Type="Self.product_quality_testing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pro_production">
+              <PropertyRef Name="pro_production_id" />
+            </Principal>
+            <Dependent Role="product_quality_testing">
+              <PropertyRef Name="pro_production_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pro_repertory_product_plan">
+          <End Role="product_plan" Type="Self.product_plan" Multiplicity="1" />
+          <End Role="pro_repertory" Type="Self.pro_repertory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_plan">
+              <PropertyRef Name="product_plan_id" />
+            </Principal>
+            <Dependent Role="pro_repertory">
+              <PropertyRef Name="product_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="admin" EntityType="Self.admin" />
+          <EntitySet Name="customer" EntityType="Self.customer" />
+          <EntitySet Name="get_materials" EntityType="Self.get_materials" />
+          <EntitySet Name="in_materialr" EntityType="Self.in_materialr" />
+          <EntitySet Name="in_repertory" EntityType="Self.in_repertory" />
+          <EntitySet Name="materialr" EntityType="Self.materialr" />
+          <EntitySet Name="materialr_details" EntityType="Self.materialr_details" />
+          <EntitySet Name="materialr_epertory" EntityType="Self.materialr_epertory" />
+          <EntitySet Name="materialr_type" EntityType="Self.materialr_type" />
+          <EntitySet Name="materials_plan" EntityType="Self.materials_plan" />
+          <EntitySet Name="materials_quality_testing" EntityType="Self.materials_quality_testing" />
+          <EntitySet Name="order" EntityType="Self.order" />
+          <EntitySet Name="order_details" EntityType="Self.order_details" />
+          <EntitySet Name="out_in_money" EntityType="Self.out_in_money" />
+          <EntitySet Name="out_materialr" EntityType="Self.out_materialr" />
+          <EntitySet Name="out_repertory" EntityType="Self.out_repertory" />
+          <EntitySet Name="pro_production" EntityType="Self.pro_production" />
+          <EntitySet Name="pro_repertory" EntityType="Self.pro_repertory" />
+          <EntitySet Name="product" EntityType="Self.product" />
+          <EntitySet Name="product_plan" EntityType="Self.product_plan" />
+          <EntitySet Name="product_quality_testing" EntityType="Self.product_quality_testing" />
+          <EntitySet Name="product_type" EntityType="Self.product_type" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_order_customer" Association="Self.FK_order_customer">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_get_materials_product_plan" Association="Self.FK_get_materials_product_plan">
+            <End Role="product_plan" EntitySet="product_plan" />
+            <End Role="get_materials" EntitySet="get_materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_details_materialr_details" Association="Self.FK_materialr_details_materialr_details">
+            <End Role="get_materials" EntitySet="get_materials" />
+            <End Role="materialr_details" EntitySet="materialr_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_materialr_get_materials" Association="Self.FK_out_materialr_get_materials">
+            <End Role="get_materials" EntitySet="get_materials" />
+            <End Role="out_materialr" EntitySet="out_materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_in_materialr_materials_plan" Association="Self.FK_in_materialr_materials_plan">
+            <End Role="materials_plan" EntitySet="materials_plan" />
+            <End Role="in_materialr" EntitySet="in_materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materials_quality_testing_in_materialr" Association="Self.FK_materials_quality_testing_in_materialr">
+            <End Role="in_materialr" EntitySet="in_materialr" />
+            <End Role="materials_quality_testing" EntitySet="materials_quality_testing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_in_money_in_materialr" Association="Self.FK_out_in_money_in_materialr">
+            <End Role="in_materialr" EntitySet="in_materialr" />
+            <End Role="out_in_money" EntitySet="out_in_money" />
+          </AssociationSet>
+          <AssociationSet Name="FK_in_repertory_pro_production" Association="Self.FK_in_repertory_pro_production">
+            <End Role="pro_production" EntitySet="pro_production" />
+            <End Role="in_repertory" EntitySet="in_repertory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_details_materialr" Association="Self.FK_materialr_details_materialr">
+            <End Role="materialr" EntitySet="materialr" />
+            <End Role="materialr_details" EntitySet="materialr_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_details_materialr_type" Association="Self.FK_materialr_details_materialr_type">
+            <End Role="materialr_type" EntitySet="materialr_type" />
+            <End Role="materialr" EntitySet="materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_epertory_materialr_details" Association="Self.FK_materialr_epertory_materialr_details">
+            <End Role="materialr" EntitySet="materialr" />
+            <End Role="materialr_epertory" EntitySet="materialr_epertory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_materialr_materialr_details" Association="Self.FK_out_materialr_materialr_details">
+            <End Role="materialr" EntitySet="materialr" />
+            <End Role="out_materialr" EntitySet="out_materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_materialr" Association="Self.FK_Table_1_materialr">
+            <End Role="materialr" EntitySet="materialr" />
+            <End Role="materials_plan" EntitySet="materials_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materialr_type_product_type" Association="Self.FK_materialr_type_product_type">
+            <End Role="product_type" EntitySet="product_type" />
+            <End Role="materialr_type" EntitySet="materialr_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_details_order" Association="Self.FK_order_details_order">
+            <End Role="order" EntitySet="order" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_in_money_order" Association="Self.FK_out_in_money_order">
+            <End Role="order" EntitySet="order" />
+            <End Role="out_in_money" EntitySet="out_in_money" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_repertory_order" Association="Self.FK_out_repertory_order">
+            <End Role="order" EntitySet="order" />
+            <End Role="out_repertory" EntitySet="out_repertory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_details_product" Association="Self.FK_order_details_product">
+            <End Role="product" EntitySet="product" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_plan_order_details" Association="Self.FK_product_plan_order_details">
+            <End Role="order_details" EntitySet="order_details" />
+            <End Role="product_plan" EntitySet="product_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pro_production_product_plan" Association="Self.FK_pro_production_product_plan">
+            <End Role="product_plan" EntitySet="product_plan" />
+            <End Role="pro_production" EntitySet="pro_production" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quality_testing_pro_production" Association="Self.FK_quality_testing_pro_production">
+            <End Role="pro_production" EntitySet="pro_production" />
+            <End Role="product_quality_testing" EntitySet="product_quality_testing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pro_repertory_product_plan" Association="Self.FK_pro_repertory_product_plan">
+            <End Role="product_plan" EntitySet="product_plan" />
+            <End Role="pro_repertory" EntitySet="pro_repertory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShoeModelStoreContainer" CdmEntityContainer="ShoeEntities">
+          <EntitySetMapping Name="admin">
+            <EntityTypeMapping TypeName="ShoeModel.admin">
+              <MappingFragment StoreEntitySet="admin">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customer">
+            <EntityTypeMapping TypeName="ShoeModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="customer_linkman" ColumnName="customer_linkman" />
+                <ScalarProperty Name="customer_email" ColumnName="customer_email" />
+                <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+                <ScalarProperty Name="customer_fax" ColumnName="customer_fax" />
+                <ScalarProperty Name="customer_postcode" ColumnName="customer_postcode" />
+                <ScalarProperty Name="bank" ColumnName="bank" />
+                <ScalarProperty Name="bank_account" ColumnName="bank_account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="get_materials">
+            <EntityTypeMapping TypeName="ShoeModel.get_materials">
+              <MappingFragment StoreEntitySet="get_materials">
+                <ScalarProperty Name="get_materials_id" ColumnName="get_materials_id" />
+                <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
+                <ScalarProperty Name="get_department" ColumnName="get_department" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="get_time" ColumnName="get_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="in_materialr">
+            <EntityTypeMapping TypeName="ShoeModel.in_materialr">
+              <MappingFragment StoreEntitySet="in_materialr">
+                <ScalarProperty Name="in_materialr_id" ColumnName="in_materialr_id" />
+                <ScalarProperty Name="materialr_plan_id" ColumnName="materialr_plan_id" />
+                <ScalarProperty Name="materialr_num" ColumnName="materialr_num" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="in_repertory">
+            <EntityTypeMapping TypeName="ShoeModel.in_repertory">
+              <MappingFragment StoreEntitySet="in_repertory">
+                <ScalarProperty Name="in_repertory_id" ColumnName="in_repertory_id" />
+                <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
+                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="in_time" ColumnName="in_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materialr">
+            <EntityTypeMapping TypeName="ShoeModel.materialr">
+              <MappingFragment StoreEntitySet="materialr">
+                <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
+                <ScalarProperty Name="materialr_details_name" ColumnName="materialr_details_name" />
+                <ScalarProperty Name="materialr_type_id" ColumnName="materialr_type_id" />
+                <ScalarProperty Name="materialr_details_price" ColumnName="materialr_details_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materialr_details">
+            <EntityTypeMapping TypeName="ShoeModel.materialr_details">
+              <MappingFragment StoreEntitySet="materialr_details">
+                <ScalarProperty Name="materials_id" ColumnName="materials_id" />
+                <ScalarProperty Name="w_materials_id" ColumnName="w_materials_id" />
+                <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
+                <ScalarProperty Name="materialr_epertory_id" ColumnName="materialr_epertory_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materialr_epertory">
+            <EntityTypeMapping TypeName="ShoeModel.materialr_epertory">
+              <MappingFragment StoreEntitySet="materialr_epertory">
+                <ScalarProperty Name="materialr_epertory_id" ColumnName="materialr_epertory_id" />
+                <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
+                <ScalarProperty Name="materialr_num" ColumnName="materialr_num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materialr_type">
+            <EntityTypeMapping TypeName="ShoeModel.materialr_type">
+              <MappingFragment StoreEntitySet="materialr_type">
+                <ScalarProperty Name="materialr_type_id" ColumnName="materialr_type_id" />
+                <ScalarProperty Name="materialr_type_name" ColumnName="materialr_type_name" />
+                <ScalarProperty Name="product_type_id" ColumnName="product_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materials_plan">
+            <EntityTypeMapping TypeName="ShoeModel.materials_plan">
+              <MappingFragment StoreEntitySet="materials_plan">
+                <ScalarProperty Name="materialr_plan_id" ColumnName="materialr_plan_id" />
+                <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
+                <ScalarProperty Name="materialr_num" ColumnName="materialr_num" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materials_quality_testing">
+            <EntityTypeMapping TypeName="ShoeModel.materials_quality_testing">
+              <MappingFragment StoreEntitySet="materials_quality_testing">
+                <ScalarProperty Name="quality_testing_id" ColumnName="quality_testing_id" />
+                <ScalarProperty Name="in_materialr_id" ColumnName="in_materialr_id" />
+                <ScalarProperty Name="quality_testing_time" ColumnName="quality_testing_time" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="result" ColumnName="result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order">
+            <EntityTypeMapping TypeName="ShoeModel.order">
+              <MappingFragment StoreEntitySet="order">
+                <ScalarProperty Name="orderr_id" ColumnName="orderr_id" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="order_starttime" ColumnName="order_starttime" />
+                <ScalarProperty Name="order_endtime" ColumnName="order_endtime" />
+                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="order_paid" ColumnName="order_paid" />
+                <ScalarProperty Name="order_unpaid" ColumnName="order_unpaid" />
+                <ScalarProperty Name="order_status" ColumnName="order_status" />
+                <ScalarProperty Name="order_delivery_way" ColumnName="order_delivery_way" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_details">
+            <EntityTypeMapping TypeName="ShoeModel.order_details">
+              <MappingFragment StoreEntitySet="order_details">
+                <ScalarProperty Name="order_details_id" ColumnName="order_details_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="order_details_money" ColumnName="order_details_money" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="out_in_money">
+            <EntityTypeMapping TypeName="ShoeModel.out_in_money">
+              <MappingFragment StoreEntitySet="out_in_money">
+                <ScalarProperty Name="out_in_details_id" ColumnName="out_in_details_id" />
+                <ScalarProperty Name="out_in_id" ColumnName="out_in_id" />
+                <ScalarProperty Name="statue" ColumnName="statue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="out_materialr">
+            <EntityTypeMapping TypeName="ShoeModel.out_materialr">
+              <MappingFragment StoreEntitySet="out_materialr">
+                <ScalarProperty Name="out_materialr_id" ColumnName="out_materialr_id" />
+                <ScalarProperty Name="get_materials_id" ColumnName="get_materials_id" />
+                <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="out_repertory">
+            <EntityTypeMapping TypeName="ShoeModel.out_repertory">
+              <MappingFragment StoreEntitySet="out_repertory">
+                <ScalarProperty Name="out_repertory_id" ColumnName="out_repertory_id" />
+                <ScalarProperty Name="orderr_id" ColumnName="orderr_id" />
+                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="out_time" ColumnName="out_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pro_production">
+            <EntityTypeMapping TypeName="ShoeModel.pro_production">
+              <MappingFragment StoreEntitySet="pro_production">
+                <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
+                <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
+                <ScalarProperty Name="pro_production_dep" ColumnName="pro_production_dep" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="product_time" ColumnName="product_time" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pro_repertory">
+            <EntityTypeMapping TypeName="ShoeModel.pro_repertory">
+              <MappingFragment StoreEntitySet="pro_repertory">
+                <ScalarProperty Name="repertory_id" ColumnName="repertory_id" />
+                <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
+                <ScalarProperty Name="pro_repertory_num" ColumnName="pro_repertory_num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product">
+            <EntityTypeMapping TypeName="ShoeModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_num" ColumnName="product_num" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_producer" ColumnName="product_producer" />
+                <ScalarProperty Name="product_type" ColumnName="product_type" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_address" ColumnName="product_address" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_plan">
+            <EntityTypeMapping TypeName="ShoeModel.product_plan">
+              <MappingFragment StoreEntitySet="product_plan">
+                <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
+                <ScalarProperty Name="product_plan_num" ColumnName="product_plan_num" />
+                <ScalarProperty Name="order_details_id" ColumnName="order_details_id" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="product_time" ColumnName="product_time" />
+                <ScalarProperty Name="product_end_time" ColumnName="product_end_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_quality_testing">
+            <EntityTypeMapping TypeName="ShoeModel.product_quality_testing">
+              <MappingFragment StoreEntitySet="product_quality_testing">
+                <ScalarProperty Name="quality_testing_id" ColumnName="quality_testing_id" />
+                <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
+                <ScalarProperty Name="quality_testing_time" ColumnName="quality_testing_time" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="result" ColumnName="result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_type">
+            <EntityTypeMapping TypeName="ShoeModel.product_type">
+              <MappingFragment StoreEntitySet="product_type">
+                <ScalarProperty Name="product_type_id" ColumnName="product_type_id" />
+                <ScalarProperty Name="product_type_name" ColumnName="product_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ShoeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
