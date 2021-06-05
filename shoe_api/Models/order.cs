@@ -27,7 +27,7 @@ namespace shoe_api.Models
         public System.DateTime order_starttime { get; set; }
         public Nullable<System.DateTime> order_endtime { get; set; }
         public string person_handling { get; set; }
-        public string @operator { get; set; }
+        public string operator_per { get; set; }
         public decimal order_paid { get; set; }
         public decimal order_unpaid { get; set; }
         public string order_status { get; set; }

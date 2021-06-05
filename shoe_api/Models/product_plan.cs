@@ -25,7 +25,7 @@ namespace shoe_api.Models
         public int product_plan_id { get; set; }
         public int product_plan_num { get; set; }
         public int order_details_id { get; set; }
-        public string @operator { get; set; }
+        public string operator_per { get; set; }
         public System.DateTime product_time { get; set; }
         public System.DateTime product_end_time { get; set; }
     

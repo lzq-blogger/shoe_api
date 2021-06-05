@@ -17,7 +17,7 @@ namespace shoe_api.Models
         public int quality_testing_id { get; set; }
         public int pro_production_id { get; set; }
         public System.DateTime quality_testing_time { get; set; }
-        public string @operator { get; set; }
+        public string operator_per { get; set; }
         public string result { get; set; }
     
         public virtual pro_production pro_production { get; set; }

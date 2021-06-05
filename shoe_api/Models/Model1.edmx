@@ -36,7 +36,7 @@
           <Property Name="get_materials_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="product_plan_id" Type="int" Nullable="false" />
           <Property Name="get_department" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="status" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="get_time" Type="date" Nullable="false" />
         </EntityType>
@@ -47,7 +47,7 @@
           <Property Name="in_materialr_id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="materialr_plan_id" Type="int" />
           <Property Name="materialr_num" Type="int" Nullable="false" />
-          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="status" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="in_repertory">
@@ -57,7 +57,7 @@
           <Property Name="in_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pro_production_id" Type="int" Nullable="false" />
           <Property Name="person_handling" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="in_time" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="materialr">
@@ -110,7 +110,7 @@
           <Property Name="quality_testing_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="in_materialr_id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="quality_testing_time" Type="date" Nullable="false" />
-          <Property Name="operator" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="operator_per" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="result" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="order">
@@ -122,7 +122,7 @@
           <Property Name="order_starttime" Type="date" Nullable="false" />
           <Property Name="order_endtime" Type="date" />
           <Property Name="person_handling" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="operator" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="operator_per" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="order_paid" Type="money" Nullable="false" />
           <Property Name="order_unpaid" Type="money" Nullable="false" />
           <Property Name="order_status" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -161,7 +161,7 @@
           <Property Name="out_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="orderr_id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="person_handling" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="out_time" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="pro_production">
@@ -171,7 +171,7 @@
           <Property Name="pro_production_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="product_plan_id" Type="int" Nullable="false" />
           <Property Name="pro_production_dep" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="product_time" Type="date" Nullable="false" />
           <Property Name="status" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
@@ -203,7 +203,7 @@
           <Property Name="product_plan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="product_plan_num" Type="int" Nullable="false" />
           <Property Name="order_details_id" Type="int" Nullable="false" />
-          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="product_time" Type="date" Nullable="false" />
           <Property Name="product_end_time" Type="date" Nullable="false" />
         </EntityType>
@@ -214,7 +214,7 @@
           <Property Name="quality_testing_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pro_production_id" Type="int" Nullable="false" />
           <Property Name="quality_testing_time" Type="date" Nullable="false" />
-          <Property Name="operator" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="result" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="product_type">
@@ -648,7 +648,7 @@
           <Property Name="get_materials_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="product_plan_id" Type="Int32" Nullable="false" />
           <Property Name="get_department" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="get_time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="product_plan" Relationship="Self.FK_get_materials_product_plan" FromRole="get_materials" ToRole="product_plan" />
@@ -662,7 +662,7 @@
           <Property Name="in_materialr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="materialr_plan_id" Type="Int32" />
           <Property Name="materialr_num" Type="Int32" Nullable="false" />
-          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="materials_plan" Relationship="Self.FK_in_materialr_materials_plan" FromRole="in_materialr" ToRole="materials_plan" />
           <NavigationProperty Name="materials_quality_testing" Relationship="Self.FK_materials_quality_testing_in_materialr" FromRole="in_materialr" ToRole="materials_quality_testing" />
@@ -675,7 +675,7 @@
           <Property Name="in_repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="pro_production_id" Type="Int32" Nullable="false" />
           <Property Name="person_handling" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="in_time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="pro_production" Relationship="Self.FK_in_repertory_pro_production" FromRole="in_repertory" ToRole="pro_production" />
         </EntityType>
@@ -741,7 +741,7 @@
           <Property Name="quality_testing_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="in_materialr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="quality_testing_time" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="operator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator_per" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="result" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="in_materialr" Relationship="Self.FK_materials_quality_testing_in_materialr" FromRole="materials_quality_testing" ToRole="in_materialr" />
         </EntityType>
@@ -754,7 +754,7 @@
           <Property Name="order_starttime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="order_endtime" Type="DateTime" Precision="0" />
           <Property Name="person_handling" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="operator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator_per" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="order_paid" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="order_unpaid" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="order_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -804,7 +804,7 @@
           <Property Name="out_repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="orderr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="person_handling" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="out_time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="order" Relationship="Self.FK_out_repertory_order" FromRole="out_repertory" ToRole="order" />
         </EntityType>
@@ -815,7 +815,7 @@
           <Property Name="pro_production_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="product_plan_id" Type="Int32" Nullable="false" />
           <Property Name="pro_production_dep" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="product_time" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="in_repertory" Relationship="Self.FK_in_repertory_pro_production" FromRole="pro_production" ToRole="in_repertory" />
@@ -852,7 +852,7 @@
           <Property Name="product_plan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="product_plan_num" Type="Int32" Nullable="false" />
           <Property Name="order_details_id" Type="Int32" Nullable="false" />
-          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="product_time" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="product_end_time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="get_materials" Relationship="Self.FK_get_materials_product_plan" FromRole="product_plan" ToRole="get_materials" />
@@ -867,7 +867,7 @@
           <Property Name="quality_testing_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="pro_production_id" Type="Int32" Nullable="false" />
           <Property Name="quality_testing_time" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="operator" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="result" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="pro_production" Relationship="Self.FK_quality_testing_pro_production" FromRole="product_quality_testing" ToRole="pro_production" />
         </EntityType>
@@ -1304,7 +1304,7 @@
                 <ScalarProperty Name="get_materials_id" ColumnName="get_materials_id" />
                 <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
                 <ScalarProperty Name="get_department" ColumnName="get_department" />
-                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="get_time" ColumnName="get_time" />
               </MappingFragment>
@@ -1316,7 +1316,7 @@
                 <ScalarProperty Name="in_materialr_id" ColumnName="in_materialr_id" />
                 <ScalarProperty Name="materialr_plan_id" ColumnName="materialr_plan_id" />
                 <ScalarProperty Name="materialr_num" ColumnName="materialr_num" />
-                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1327,7 +1327,7 @@
                 <ScalarProperty Name="in_repertory_id" ColumnName="in_repertory_id" />
                 <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
                 <ScalarProperty Name="person_handling" ColumnName="person_handling" />
-                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="in_time" ColumnName="in_time" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1386,7 +1386,7 @@
                 <ScalarProperty Name="quality_testing_id" ColumnName="quality_testing_id" />
                 <ScalarProperty Name="in_materialr_id" ColumnName="in_materialr_id" />
                 <ScalarProperty Name="quality_testing_time" ColumnName="quality_testing_time" />
-                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="result" ColumnName="result" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1399,7 +1399,7 @@
                 <ScalarProperty Name="order_starttime" ColumnName="order_starttime" />
                 <ScalarProperty Name="order_endtime" ColumnName="order_endtime" />
                 <ScalarProperty Name="person_handling" ColumnName="person_handling" />
-                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="order_paid" ColumnName="order_paid" />
                 <ScalarProperty Name="order_unpaid" ColumnName="order_unpaid" />
                 <ScalarProperty Name="order_status" ColumnName="order_status" />
@@ -1442,7 +1442,7 @@
                 <ScalarProperty Name="out_repertory_id" ColumnName="out_repertory_id" />
                 <ScalarProperty Name="orderr_id" ColumnName="orderr_id" />
                 <ScalarProperty Name="person_handling" ColumnName="person_handling" />
-                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="out_time" ColumnName="out_time" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1453,7 +1453,7 @@
                 <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
                 <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
                 <ScalarProperty Name="pro_production_dep" ColumnName="pro_production_dep" />
-                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="product_time" ColumnName="product_time" />
                 <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
@@ -1488,7 +1488,7 @@
                 <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
                 <ScalarProperty Name="product_plan_num" ColumnName="product_plan_num" />
                 <ScalarProperty Name="order_details_id" ColumnName="order_details_id" />
-                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="product_time" ColumnName="product_time" />
                 <ScalarProperty Name="product_end_time" ColumnName="product_end_time" />
               </MappingFragment>
@@ -1500,7 +1500,7 @@
                 <ScalarProperty Name="quality_testing_id" ColumnName="quality_testing_id" />
                 <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
                 <ScalarProperty Name="quality_testing_time" ColumnName="quality_testing_time" />
-                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="result" ColumnName="result" />
               </MappingFragment>
             </EntityTypeMapping>
