@@ -10,14 +10,16 @@
 namespace shoe_api.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class xp_adminPage_Result
+    public partial class buy_materials_details
     {
-        public Nullable<long> Row { get; set; }
-        public int ID { get; set; }
-        public string name { get; set; }
-        public string account { get; set; }
-        public string pwd { get; set; }
-        public int SameRow { get; set; }
+        public int buy_materials_details_id { get; set; }
+        public string in_materialr_id { get; set; }
+        public int materialr_details_num { get; set; }
+        public int materialr_details_id { get; set; }
+    
+        public virtual in_materialr in_materialr { get; set; }
+        public virtual materialr materialr { get; set; }
     }
 }

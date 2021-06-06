@@ -11,7 +11,7 @@ namespace shoe_api.Controllers
     public class LoginController : ApiController
     {
 
-        ShoeEntities DB = new ShoeEntities();
+        ShoeEntities1 db = new ShoeEntities1();
         [HttpGet]
         public string Login()
         {

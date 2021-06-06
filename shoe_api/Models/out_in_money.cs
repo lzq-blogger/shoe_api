@@ -14,7 +14,7 @@ namespace shoe_api.Models
     
     public partial class out_in_money
     {
-        public int out_in_details_id { get; set; }
+        public int out_in_money_id { get; set; }
         public string out_in_id { get; set; }
         public string statue { get; set; }
     

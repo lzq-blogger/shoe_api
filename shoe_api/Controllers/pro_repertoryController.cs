@@ -10,7 +10,7 @@ namespace shoe_api.Controllers
 {
     public class pro_repertoryController : ApiController
     {
-        ShoeEntities db = new ShoeEntities();
+        ShoeEntities1 db = new ShoeEntities1();
         [HttpGet]
         //库存查询
         public string select_product()

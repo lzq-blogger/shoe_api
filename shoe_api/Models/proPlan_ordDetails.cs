@@ -10,12 +10,11 @@
 namespace shoe_api.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class xp_adminPage1_Result
+    public partial class proPlan_ordDetails
     {
-        public int ID { get; set; }
-        public string name { get; set; }
-        public string account { get; set; }
-        public string pwd { get; set; }
+        public int product_plan_id { get; set; }
+        public int product_plan_num { get; set; }
     }
 }
