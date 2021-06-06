@@ -19,7 +19,6 @@ namespace shoe_api.Models
         {
             this.get_materials = new HashSet<get_materials>();
             this.pro_production = new HashSet<pro_production>();
-            this.pro_repertory = new HashSet<pro_repertory>();
         }
     
         public int product_plan_id { get; set; }
@@ -35,7 +34,5 @@ namespace shoe_api.Models
         public virtual order_details order_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pro_production> pro_production { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<pro_repertory> pro_repertory { get; set; }
     }
 }

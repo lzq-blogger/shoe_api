@@ -10,15 +10,14 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class out_repertory
+    public partial class xp_adminPage_Result
     {
-        public int out_repertory_id { get; set; }
-        public string orderr_id { get; set; }
-        public string operator_per { get; set; }
-        public System.DateTime out_time { get; set; }
-    
-        public virtual order order { get; set; }
+        public Nullable<long> Row { get; set; }
+        public int ID { get; set; }
+        public string name { get; set; }
+        public string account { get; set; }
+        public string pwd { get; set; }
+        public int SameRow { get; set; }
     }
 }
