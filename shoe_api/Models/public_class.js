@@ -1,1 +1,0 @@
-﻿var session = "https://localhost:44360/api/product/pro_plan";
