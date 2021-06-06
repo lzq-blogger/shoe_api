@@ -10,14 +10,12 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class pro_repertory
+    public partial class xp_adminPage1_Result
     {
-        public int repertory_id { get; set; }
-        public int product_id { get; set; }
-        public int pro_repertory_num { get; set; }
-    
-        public virtual product product { get; set; }
+        public int ID { get; set; }
+        public string name { get; set; }
+        public string account { get; set; }
+        public string pwd { get; set; }
     }
 }

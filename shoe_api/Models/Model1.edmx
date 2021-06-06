@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="ID" />
@@ -56,7 +56,7 @@
           </Key>
           <Property Name="in_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pro_production_id" Type="int" Nullable="false" />
-          <Property Name="person_handling" Type="nvarchar" MaxLength="20" Nullable="false" />
+
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="in_time" Type="date" Nullable="false" />
         </EntityType>
@@ -160,7 +160,6 @@
           </Key>
           <Property Name="out_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="orderr_id" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="person_handling" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="out_time" Type="date" Nullable="false" />
         </EntityType>
@@ -180,7 +179,7 @@
             <PropertyRef Name="repertory_id" />
           </Key>
           <Property Name="repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="product_plan_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
           <Property Name="pro_repertory_num" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="product">
@@ -206,6 +205,7 @@
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="product_time" Type="date" Nullable="false" />
           <Property Name="product_end_time" Type="date" Nullable="false" />
+          <Property Name="status" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="product_quality_testing">
           <Key>
@@ -451,14 +451,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pro_repertory_product_plan">
-          <End Role="product_plan" Type="Self.product_plan" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="1" />
           <End Role="pro_repertory" Type="Self.pro_repertory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="product_plan">
-              <PropertyRef Name="product_plan_id" />
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
             </Principal>
             <Dependent Role="pro_repertory">
-              <PropertyRef Name="product_plan_id" />
+              <PropertyRef Name="product_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -498,6 +498,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="xp_adminPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="PageIndex" Type="int" Mode="In" />
+          <Parameter Name="PageWhere" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="ShoeModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
@@ -595,7 +600,7 @@
             <End Role="pro_production" EntitySet="pro_production" />
           </AssociationSet>
           <AssociationSet Name="FK_pro_repertory_product_plan" Association="Self.FK_pro_repertory_product_plan">
-            <End Role="product_plan" EntitySet="product_plan" />
+            <End Role="product" EntitySet="product" />
             <End Role="pro_repertory" EntitySet="pro_repertory" />
           </AssociationSet>
           <AssociationSet Name="FK_product_plan_order_details" Association="Self.FK_product_plan_order_details">
@@ -611,8 +616,7 @@
             <End Role="materials_plan" EntitySet="materials_plan" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShoeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -674,7 +678,6 @@
           </Key>
           <Property Name="in_repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="pro_production_id" Type="Int32" Nullable="false" />
-          <Property Name="person_handling" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="in_time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="pro_production" Relationship="Self.FK_in_repertory_pro_production" FromRole="in_repertory" ToRole="pro_production" />
@@ -803,7 +806,7 @@
           </Key>
           <Property Name="out_repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="orderr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="person_handling" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+
           <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="out_time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="order" Relationship="Self.FK_out_repertory_order" FromRole="out_repertory" ToRole="order" />
@@ -827,9 +830,9 @@
             <PropertyRef Name="repertory_id" />
           </Key>
           <Property Name="repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="product_plan_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
           <Property Name="pro_repertory_num" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="product_plan" Relationship="Self.FK_pro_repertory_product_plan" FromRole="pro_repertory" ToRole="product_plan" />
+          <NavigationProperty Name="product" Relationship="Self.FK_pro_repertory_product_plan" FromRole="pro_repertory" ToRole="product" />
         </EntityType>
         <EntityType Name="product">
           <Key>
@@ -844,6 +847,7 @@
           <Property Name="product_address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="unit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="order_details" Relationship="Self.FK_order_details_product" FromRole="product" ToRole="order_details" />
+          <NavigationProperty Name="pro_repertory" Relationship="Self.FK_pro_repertory_product_plan" FromRole="product" ToRole="pro_repertory" />
         </EntityType>
         <EntityType Name="product_plan">
           <Key>
@@ -855,10 +859,10 @@
           <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="product_time" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="product_end_time" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="get_materials" Relationship="Self.FK_get_materials_product_plan" FromRole="product_plan" ToRole="get_materials" />
           <NavigationProperty Name="order_details" Relationship="Self.FK_product_plan_order_details" FromRole="product_plan" ToRole="order_details" />
           <NavigationProperty Name="pro_production" Relationship="Self.FK_pro_production_product_plan" FromRole="product_plan" ToRole="pro_production" />
-          <NavigationProperty Name="pro_repertory" Relationship="Self.FK_pro_repertory_product_plan" FromRole="product_plan" ToRole="pro_repertory" />
         </EntityType>
         <EntityType Name="product_quality_testing">
           <Key>
@@ -1142,14 +1146,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pro_repertory_product_plan">
-          <End Role="product_plan" Type="Self.product_plan" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="1" />
           <End Role="pro_repertory" Type="Self.pro_repertory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="product_plan">
-              <PropertyRef Name="product_plan_id" />
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
             </Principal>
             <Dependent Role="pro_repertory">
-              <PropertyRef Name="product_plan_id" />
+              <PropertyRef Name="product_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1262,10 +1266,44 @@
             <End Role="product_quality_testing" EntitySet="product_quality_testing" />
           </AssociationSet>
           <AssociationSet Name="FK_pro_repertory_product_plan" Association="Self.FK_pro_repertory_product_plan">
-            <End Role="product_plan" EntitySet="product_plan" />
+            <End Role="product" EntitySet="product" />
             <End Role="pro_repertory" EntitySet="pro_repertory" />
           </AssociationSet>
+          <FunctionImport Name="xp_adminPage" ReturnType="Collection(ShoeModel.xp_adminPage_Result)">
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="xp_adminPage1" ReturnType="Collection(ShoeModel.xp_adminPage1_Result)">
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageWhere" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="xp_adminPage2" ReturnType="Collection(ShoeModel.xp_adminPage2_Result)">
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageWhere" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="xp_adminPage_Result">
+          <Property Type="Int64" Name="Row" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="account" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="pwd" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="SameRow" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="xp_adminPage1_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="account" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="pwd" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="xp_adminPage2_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="account" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="pwd" Nullable="false" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1326,7 +1364,7 @@
               <MappingFragment StoreEntitySet="in_repertory">
                 <ScalarProperty Name="in_repertory_id" ColumnName="in_repertory_id" />
                 <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
-                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
+
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="in_time" ColumnName="in_time" />
               </MappingFragment>
@@ -1441,7 +1479,7 @@
               <MappingFragment StoreEntitySet="out_repertory">
                 <ScalarProperty Name="out_repertory_id" ColumnName="out_repertory_id" />
                 <ScalarProperty Name="orderr_id" ColumnName="orderr_id" />
-                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
+
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="out_time" ColumnName="out_time" />
               </MappingFragment>
@@ -1463,7 +1501,7 @@
             <EntityTypeMapping TypeName="ShoeModel.pro_repertory">
               <MappingFragment StoreEntitySet="pro_repertory">
                 <ScalarProperty Name="repertory_id" ColumnName="repertory_id" />
-                <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="pro_repertory_num" ColumnName="pro_repertory_num" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1491,6 +1529,7 @@
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="product_time" ColumnName="product_time" />
                 <ScalarProperty Name="product_end_time" ColumnName="product_end_time" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1524,6 +1563,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="xp_adminPage2" FunctionName="ShoeModel.Store.xp_adminPage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoeModel.xp_adminPage2_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

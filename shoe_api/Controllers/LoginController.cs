@@ -24,18 +24,26 @@ namespace shoe_api.Controllers
         [HttpPost]
         public string LoginUp(dynamic dy)
         {
-            string name = dy.name;
-            string pwd = dy.pwd;
-            //var ad = DB.admin.ToList();
-            var flag = DB.admin.Where(a => a.name == name && a.pwd == pwd).ToList();
-            if (flag.Count > 0)
+            try
             {
-                return "{" + "message" + ":true," + "data" + ":" + Newtonsoft.Json.JsonConvert.SerializeObject(flag) + "}";
+                string name = dy.name;
+                string pwd = dy.pwd;
+                //var ad = DB.admin.ToList();
+                var flag = DB.admin.Where(a => a.name == name && a.pwd == pwd).ToList(); 
+                if (flag.Count > 0)
+                {
+                    return "{" + "message" + ":true," + "data" + ":" + Newtonsoft.Json.JsonConvert.SerializeObject(flag) + "}";
+                }
+                else
+                {
+                    return "message:" + "false";
+                }
             }
-            else
+            catch (Exception)
             {
-                return "message:" + "false";
+                return "message:" + "throw";
             }
+           
             //var json = Newtonsoft.Json.JsonConvert.SerializeObject(ad);
             //return flag;
 
