@@ -50,6 +50,7 @@
         <AssociationConnector Association="ShoeModel.FK_pro_production_product_plan" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_quality_testing_pro_production" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_pro_repertory_product_plan" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeModel.FK_pro_repertory_product_plan1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

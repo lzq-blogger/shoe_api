@@ -18,13 +18,13 @@ namespace shoe_api.Controllers
             var info = from pp in db.product_plan
                        join od in db.order_details
             on pp.order_details_id equals od.order_details_id
-                       select new { 
-                           product_plan_id = pp.product_plan_id ,
+                       select new {
+                           product_plan_id = pp.product_plan_id,
                            order_id = od.order_id,
-                           product_plan_num =pp.product_plan_num,
-                           operator_per=pp.operator_per,
-                           product_time=pp.product_time,
-                           product_end_time=pp.product_end_time,
+                           product_plan_num = pp.product_plan_num,
+                           operator_per = pp.operator_per,
+                           product_time = pp.product_time,
+                           product_end_time = pp.product_end_time,
                        };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(info);
             return json;
@@ -61,6 +61,71 @@ namespace shoe_api.Controllers
             }
             //新增数据
             db.product_plan.Add(pp);
+            //保存数据
+            db.SaveChanges();
+            return 2;
+        }
+        [HttpPost]
+        //新增领料单
+        public int add_get_materials([FromBody] get_materials gm)
+        {
+            //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
+            //判断非空
+            if (gm.product_plan_id.ToString() == null)
+            {
+                return 0;
+            }
+            if (gm.get_department.ToString() == null ||
+              gm.operator_per == null ||
+              gm.status == null ||
+              gm.get_time == null)
+            {
+                return 1;
+            }
+            //新增数据
+            db.get_materials.Add(gm);
+            //保存数据
+            db.SaveChanges();
+            return 2;
+        }
+        [HttpPost]
+        //添加材料
+        public int add_materials([FromBody] materialr_details md)
+        {
+            //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
+            //判断非空
+            if (md.w_materials_id.ToString() == null)
+            {
+                return 0;
+            }
+            if (md.materialr_epertory_id.ToString() == null)
+            {
+                return 1;
+            }
+            //新增数据
+            db.materialr_details.Add(md);
+            //保存数据
+            db.SaveChanges();
+            return 2;
+        }
+        [HttpPost]
+        //产品登记表
+        public int add_product([FromBody] pro_production pp)
+        {
+            //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
+            //判断非空
+            if (pp.product_plan_id.ToString() == null)
+            {
+                return 0;
+            }
+            if (pp.pro_production_dep.ToString() == null||
+                pp.operator_per.ToString() == null ||
+                pp.product_time.ToString() == null )
+            {
+                return 1;
+            }
+            //新增数据
+            db.pro_production.Add(pp);
             //保存数据
             db.SaveChanges();
             return 2;

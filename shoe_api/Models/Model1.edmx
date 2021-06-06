@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="ID" />
@@ -56,7 +56,6 @@
           </Key>
           <Property Name="in_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pro_production_id" Type="int" Nullable="false" />
-          <Property Name="person_handling" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="in_time" Type="date" Nullable="false" />
         </EntityType>
@@ -160,7 +159,6 @@
           </Key>
           <Property Name="out_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="orderr_id" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="person_handling" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="out_time" Type="date" Nullable="false" />
         </EntityType>
@@ -180,7 +178,7 @@
             <PropertyRef Name="repertory_id" />
           </Key>
           <Property Name="repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="product_plan_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
           <Property Name="pro_repertory_num" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="product">
@@ -206,6 +204,7 @@
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="product_time" Type="date" Nullable="false" />
           <Property Name="product_end_time" Type="date" Nullable="false" />
+          <Property Name="status" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="product_quality_testing">
           <Key>
@@ -451,14 +450,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pro_repertory_product_plan">
-          <End Role="product_plan" Type="Self.product_plan" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="1" />
           <End Role="pro_repertory" Type="Self.pro_repertory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="product_plan">
-              <PropertyRef Name="product_plan_id" />
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
             </Principal>
             <Dependent Role="pro_repertory">
-              <PropertyRef Name="product_plan_id" />
+              <PropertyRef Name="product_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -595,7 +594,7 @@
             <End Role="pro_production" EntitySet="pro_production" />
           </AssociationSet>
           <AssociationSet Name="FK_pro_repertory_product_plan" Association="Self.FK_pro_repertory_product_plan">
-            <End Role="product_plan" EntitySet="product_plan" />
+            <End Role="product" EntitySet="product" />
             <End Role="pro_repertory" EntitySet="pro_repertory" />
           </AssociationSet>
           <AssociationSet Name="FK_product_plan_order_details" Association="Self.FK_product_plan_order_details">
@@ -611,8 +610,7 @@
             <End Role="materials_plan" EntitySet="materials_plan" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShoeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -830,6 +828,8 @@
           <Property Name="product_plan_id" Type="Int32" Nullable="false" />
           <Property Name="pro_repertory_num" Type="Int32" Nullable="false" />
           <NavigationProperty Name="product_plan" Relationship="Self.FK_pro_repertory_product_plan" FromRole="pro_repertory" ToRole="product_plan" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="product" Relationship="ShoeModel.FK_pro_repertory_product_plan1" FromRole="pro_repertory" ToRole="product" />
         </EntityType>
         <EntityType Name="product">
           <Key>
@@ -844,6 +844,7 @@
           <Property Name="product_address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="unit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="order_details" Relationship="Self.FK_order_details_product" FromRole="product" ToRole="order_details" />
+          <NavigationProperty Name="pro_repertory" Relationship="ShoeModel.FK_pro_repertory_product_plan1" FromRole="product" ToRole="pro_repertory" />
         </EntityType>
         <EntityType Name="product_plan">
           <Key>
@@ -859,6 +860,7 @@
           <NavigationProperty Name="order_details" Relationship="Self.FK_product_plan_order_details" FromRole="product_plan" ToRole="order_details" />
           <NavigationProperty Name="pro_production" Relationship="Self.FK_pro_production_product_plan" FromRole="product_plan" ToRole="pro_production" />
           <NavigationProperty Name="pro_repertory" Relationship="Self.FK_pro_repertory_product_plan" FromRole="product_plan" ToRole="pro_repertory" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="product_quality_testing">
           <Key>
@@ -1265,7 +1267,23 @@
             <End Role="product_plan" EntitySet="product_plan" />
             <End Role="pro_repertory" EntitySet="pro_repertory" />
           </AssociationSet>
+          <AssociationSet Name="FK_pro_repertory_product_plan1" Association="ShoeModel.FK_pro_repertory_product_plan1">
+            <End Role="product" EntitySet="product" />
+            <End Role="pro_repertory" EntitySet="pro_repertory" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_pro_repertory_product_plan1">
+          <End Type="ShoeModel.product" Role="product" Multiplicity="1" />
+          <End Type="ShoeModel.pro_repertory" Role="pro_repertory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="pro_repertory">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1326,7 +1344,6 @@
               <MappingFragment StoreEntitySet="in_repertory">
                 <ScalarProperty Name="in_repertory_id" ColumnName="in_repertory_id" />
                 <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
-                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="in_time" ColumnName="in_time" />
               </MappingFragment>
@@ -1441,7 +1458,6 @@
               <MappingFragment StoreEntitySet="out_repertory">
                 <ScalarProperty Name="out_repertory_id" ColumnName="out_repertory_id" />
                 <ScalarProperty Name="orderr_id" ColumnName="orderr_id" />
-                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="out_time" ColumnName="out_time" />
               </MappingFragment>
@@ -1462,8 +1478,8 @@
           <EntitySetMapping Name="pro_repertory">
             <EntityTypeMapping TypeName="ShoeModel.pro_repertory">
               <MappingFragment StoreEntitySet="pro_repertory">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="repertory_id" ColumnName="repertory_id" />
-                <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
                 <ScalarProperty Name="pro_repertory_num" ColumnName="pro_repertory_num" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1485,6 +1501,7 @@
           <EntitySetMapping Name="product_plan">
             <EntityTypeMapping TypeName="ShoeModel.product_plan">
               <MappingFragment StoreEntitySet="product_plan">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
                 <ScalarProperty Name="product_plan_num" ColumnName="product_plan_num" />
                 <ScalarProperty Name="order_details_id" ColumnName="order_details_id" />
