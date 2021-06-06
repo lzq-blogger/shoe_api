@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace shoe_api
 {
@@ -10,6 +11,9 @@ namespace shoe_api
         public static void Register(HttpConfiguration config)
         {
             // Web API 配置和服务
+            //解决跨域问题，添加引用using System.Web.Http.Cors;，安装包microsoft.aspnet.webapi.cors
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+
 
             // Web API 路由
             config.MapHttpAttributeRoutes();
