@@ -30,7 +30,7 @@ namespace shoe_api.Controllers
             Pagedata.draw = obj.draw;
 
             //根据对应页码和条数进行查询
-           var list1 = db.xp_adminPage2(obj.length,obj.start,"").ToList();
+           var list1 = db.xp_adminPage(obj.length,obj.start,"").ToList();
 
             //查询数据表总共有多少条记录
             int rows1 = db.admin.ToList().Count;
@@ -41,7 +41,7 @@ namespace shoe_api.Controllers
             if (obj.search.value != null)
             {
                 rows2 = db.admin.Where(a => a.name == obj.search.value).ToList().Count;
-                list1 = db.xp_adminPage2(obj.length, obj.start , obj.search.value).ToList();
+                list1 = db.xp_adminPage(obj.length, obj.start , obj.search.value).ToList();
             }
 
             /// <summary>

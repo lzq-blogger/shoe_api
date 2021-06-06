@@ -9,7 +9,7 @@ namespace shoe_api.Models
     /// <summary>
     /// DataTables返回实体
     /// </summary>
-    public class BaseDataTables:admin
+    public class BaseDataTables
     {
         /// <summary>
         /// Datatables发送的draw是多少那么服务器就返回多少
