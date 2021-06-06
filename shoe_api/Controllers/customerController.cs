@@ -8,15 +8,15 @@ using System.Web.Http;
 
 namespace shoe_api.Controllers
 {
-    public class productController : ApiController
+    public class customerController : ApiController
     {
         ShoeEntities db = new ShoeEntities();
         [HttpGet]
-        public string cut()
+        public string adm()
         {
             var info = db.admin.ToList();
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(info);
-            return json.ToString();
+            return json;
         }
     }
 }
