@@ -56,6 +56,7 @@
           </Key>
           <Property Name="in_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pro_production_id" Type="int" Nullable="false" />
+
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="in_time" Type="date" Nullable="false" />
         </EntityType>
@@ -805,6 +806,7 @@
           </Key>
           <Property Name="out_repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="orderr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+
           <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="out_time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="order" Relationship="Self.FK_out_repertory_order" FromRole="out_repertory" ToRole="order" />
@@ -1362,6 +1364,7 @@
               <MappingFragment StoreEntitySet="in_repertory">
                 <ScalarProperty Name="in_repertory_id" ColumnName="in_repertory_id" />
                 <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
+
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="in_time" ColumnName="in_time" />
               </MappingFragment>
@@ -1476,6 +1479,7 @@
               <MappingFragment StoreEntitySet="out_repertory">
                 <ScalarProperty Name="out_repertory_id" ColumnName="out_repertory_id" />
                 <ScalarProperty Name="orderr_id" ColumnName="orderr_id" />
+
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="out_time" ColumnName="out_time" />
               </MappingFragment>
