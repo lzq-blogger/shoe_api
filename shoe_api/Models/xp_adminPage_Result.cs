@@ -10,16 +10,14 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class product_quality_testing
+    public partial class xp_adminPage_Result
     {
-        public int quality_testing_id { get; set; }
-        public int pro_production_id { get; set; }
-        public System.DateTime quality_testing_time { get; set; }
-        public string operator_per { get; set; }
-        public string result { get; set; }
-    
-        public virtual pro_production pro_production { get; set; }
+        public Nullable<long> Row { get; set; }
+        public int ID { get; set; }
+        public string name { get; set; }
+        public string account { get; set; }
+        public string pwd { get; set; }
+        public int SameRow { get; set; }
     }
 }

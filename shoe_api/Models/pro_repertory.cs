@@ -15,9 +15,9 @@ namespace shoe_api.Models
     public partial class pro_repertory
     {
         public int repertory_id { get; set; }
-        public int product_plan_id { get; set; }
+        public int product_id { get; set; }
         public int pro_repertory_num { get; set; }
     
-        public virtual product_plan product_plan { get; set; }
+        public virtual product product { get; set; }
     }
 }

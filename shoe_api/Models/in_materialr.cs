@@ -24,7 +24,7 @@ namespace shoe_api.Models
         public string in_materialr_id { get; set; }
         public Nullable<int> materialr_plan_id { get; set; }
         public int materialr_num { get; set; }
-        public string @operator { get; set; }
+        public string operator_per { get; set; }
         public string status { get; set; }
     
         public virtual materials_plan materials_plan { get; set; }

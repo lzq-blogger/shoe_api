@@ -24,7 +24,7 @@ namespace shoe_api.Models
         public int get_materials_id { get; set; }
         public int product_plan_id { get; set; }
         public string get_department { get; set; }
-        public string @operator { get; set; }
+        public string operator_per { get; set; }
         public string status { get; set; }
         public System.DateTime get_time { get; set; }
     
