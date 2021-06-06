@@ -14,7 +14,7 @@ namespace shoe_api.Controllers
         [HttpGet]
         public string cut()
         {
-            var info = db.admin.ToList();
+            var info = db.customer.ToList();
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(info);
             return json.ToString();
         }

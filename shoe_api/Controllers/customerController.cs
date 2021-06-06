@@ -12,10 +12,24 @@ namespace shoe_api.Controllers
     {
         ShoeEntities db = new ShoeEntities();
         [HttpGet]
-        public string adm()
+        //客户信息查询
+        public string cut()
         {
-            var info = db.admin.ToList();
+            //防止序列化恶性循环===========================
+            db.Configuration.ProxyCreationEnabled = false;
+            //==================================================
+            var info = db.customer.ToList();
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(info);
+            return json;
+        }
+
+        public string odr() 
+        {
+            //防止序列化恶性循环===========================
+            db.Configuration.ProxyCreationEnabled = false;
+            //==================================================
+            var info1 = db.order.ToList();
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(info1);
             return json;
         }
     }
