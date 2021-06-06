@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="ID" />
@@ -56,7 +56,6 @@
           </Key>
           <Property Name="in_repertory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pro_production_id" Type="int" Nullable="false" />
-
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="in_time" Type="date" Nullable="false" />
         </EntityType>
@@ -140,9 +139,9 @@
         </EntityType>
         <EntityType Name="out_in_money">
           <Key>
-            <PropertyRef Name="out_in_details_id" />
+            <PropertyRef Name="out_in_money_id" />
           </Key>
-          <Property Name="out_in_details_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="out_in_money_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="out_in_id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="statue" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
@@ -616,7 +615,8 @@
             <End Role="materials_plan" EntitySet="materials_plan" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShoeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -782,9 +782,9 @@
         </EntityType>
         <EntityType Name="out_in_money">
           <Key>
-            <PropertyRef Name="out_in_details_id" />
+            <PropertyRef Name="out_in_money_id" />
           </Key>
-          <Property Name="out_in_details_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="out_in_money_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="out_in_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="statue" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="in_materialr" Relationship="Self.FK_out_in_money_in_materialr" FromRole="out_in_money" ToRole="in_materialr" />
@@ -806,7 +806,6 @@
           </Key>
           <Property Name="out_repertory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="orderr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-
           <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="out_time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="order" Relationship="Self.FK_out_repertory_order" FromRole="out_repertory" ToRole="order" />
@@ -1272,33 +1271,10 @@
           <FunctionImport Name="xp_adminPage" ReturnType="Collection(ShoeModel.xp_adminPage_Result)">
             <Parameter Name="PageSize" Mode="In" Type="Int32" />
             <Parameter Name="PageIndex" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="xp_adminPage1" ReturnType="Collection(ShoeModel.xp_adminPage1_Result)">
-            <Parameter Name="PageSize" Mode="In" Type="Int32" />
-            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
-            <Parameter Name="PageWhere" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="xp_adminPage2" ReturnType="Collection(ShoeModel.xp_adminPage2_Result)">
-            <Parameter Name="PageSize" Mode="In" Type="Int32" />
-            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
             <Parameter Name="PageWhere" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="xp_adminPage_Result">
-          <Property Type="Int64" Name="Row" Nullable="true" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="account" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="pwd" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="SameRow" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="xp_adminPage1_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="account" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="pwd" Nullable="false" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="xp_adminPage2_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="name" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="account" Nullable="false" MaxLength="50" />
@@ -1364,7 +1340,6 @@
               <MappingFragment StoreEntitySet="in_repertory">
                 <ScalarProperty Name="in_repertory_id" ColumnName="in_repertory_id" />
                 <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
-
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="in_time" ColumnName="in_time" />
               </MappingFragment>
@@ -1459,7 +1434,7 @@
           <EntitySetMapping Name="out_in_money">
             <EntityTypeMapping TypeName="ShoeModel.out_in_money">
               <MappingFragment StoreEntitySet="out_in_money">
-                <ScalarProperty Name="out_in_details_id" ColumnName="out_in_details_id" />
+                <ScalarProperty Name="out_in_money_id" ColumnName="out_in_money_id" />
                 <ScalarProperty Name="out_in_id" ColumnName="out_in_id" />
                 <ScalarProperty Name="statue" ColumnName="statue" />
               </MappingFragment>
@@ -1479,7 +1454,6 @@
               <MappingFragment StoreEntitySet="out_repertory">
                 <ScalarProperty Name="out_repertory_id" ColumnName="out_repertory_id" />
                 <ScalarProperty Name="orderr_id" ColumnName="orderr_id" />
-
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="out_time" ColumnName="out_time" />
               </MappingFragment>
@@ -1563,9 +1537,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="xp_adminPage2" FunctionName="ShoeModel.Store.xp_adminPage">
+          <FunctionImportMapping FunctionImportName="xp_adminPage" FunctionName="ShoeModel.Store.xp_adminPage">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.xp_adminPage2_Result">
+              <ComplexTypeMapping TypeName="ShoeModel.xp_adminPage_Result">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="account" ColumnName="account" />

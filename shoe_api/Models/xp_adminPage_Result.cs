@@ -13,11 +13,9 @@ namespace shoe_api.Models
     
     public partial class xp_adminPage_Result
     {
-        public Nullable<long> Row { get; set; }
         public int ID { get; set; }
         public string name { get; set; }
         public string account { get; set; }
         public string pwd { get; set; }
-        public int SameRow { get; set; }
     }
 }

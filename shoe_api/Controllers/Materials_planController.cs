@@ -1,48 +1,44 @@
-﻿using System;
+﻿using shoe_api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using shoe_api.Models;
 using System.Web.Http;
 
 namespace shoe_api.Controllers
 {
-    [RoutePrefix("UserTypeGet")]
-    public class AdminController : ApiController
+    [RoutePrefix("Materials_plan")]
+    public class Materials_planController : ApiController
     {
 
-        /// <summary>
-        /// GetDataTablesMessage类是对于前端，接收DataTables回传数据model
-        /// </summary>
-        /// 
-        /// /// <summary>
-        /// BaseDataTables类是对于后端，返回DataTables所需要的值
-        /// </summary>
         ShoeEntities db = new ShoeEntities();
-        [Route("GetAllData")]
-        [HttpPost]
-        public BaseDataTables FenYe1([FromBody] GetDataTablesMessage obj)
-        {
 
+        [Route("POSTAllData")]
+        [HttpPost]
+        public BaseDataTables FenYe([FromBody] GetDataTablesMessage obj)
+        {
+            //防止序列化恶性循环===========================
+            db.Configuration.ProxyCreationEnabled = false;
+
+            //新建返回实例对象
             BaseDataTables Pagedata = new BaseDataTables();
 
             Pagedata.draw = obj.draw;
 
             //根据对应页码和条数进行查询
-           var list1 = db.xp_adminPage(obj.length,obj.start,"").ToList();
+            var list1 = db.materials_plan.ToList();
 
             //查询数据表总共有多少条记录
-            int rows1 = db.admin.ToList().Count;
+            int rows1 = db.materials_plan.ToList().Count;
 
             //记录过滤后的条数
             int rows2 = rows1;
-            //var list=new List<admin>();
-            if (obj.search.value != null)
-            {
-                rows2 = db.admin.Where(a => a.name == obj.search.value).ToList().Count;
-                list1 = db.xp_adminPage(obj.length, obj.start , obj.search.value).ToList();
-            }
+            //if (obj.search.value != null)
+            //{
+            //    rows2 = db.materials_plan.Where(a => a.name == obj.search.value).ToList().Count;
+            //    list1 = db.materials_plan.ToList();
+            //}
 
             /// <summary>
             /// 即没有过滤的记录数（数据库里总共记录数）
