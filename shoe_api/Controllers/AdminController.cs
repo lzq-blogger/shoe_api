@@ -54,7 +54,7 @@ namespace shoe_api.Controllers
             /// </summary>
             Pagedata.recordsFiltered = rows2;
 
-            Pagedata.data = list1;
+            //Pagedata.data = list1;
 
             return Pagedata;
         }

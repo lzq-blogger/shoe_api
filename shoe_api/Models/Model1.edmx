@@ -497,11 +497,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="xp_adminPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PageSize" Type="int" Mode="In" />
-          <Parameter Name="PageIndex" Type="int" Mode="In" />
-          <Parameter Name="PageWhere" Type="nvarchar" Mode="In" />
-        </Function>
         <EntityContainer Name="ShoeModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
