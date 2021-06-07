@@ -11,6 +11,7 @@ namespace shoe_api.Models
 {
     using System;
     using System.Data.Entity;
+    using System.Data.Entity.Core.Objects;
     using System.Data.Entity.Infrastructure;
     
     public partial class ShoeEntities : DbContext
