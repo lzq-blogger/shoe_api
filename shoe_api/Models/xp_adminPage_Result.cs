@@ -10,15 +10,12 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class out_in_money
+    public partial class xp_adminPage_Result
     {
-        public int out_in_money_id { get; set; }
-        public string out_in_id { get; set; }
-        public string statue { get; set; }
-    
-        public virtual in_materialr in_materialr { get; set; }
-        public virtual order order { get; set; }
+        public int ID { get; set; }
+        public string name { get; set; }
+        public string account { get; set; }
+        public string pwd { get; set; }
     }
 }

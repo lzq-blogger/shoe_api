@@ -139,9 +139,9 @@
         </EntityType>
         <EntityType Name="out_in_money">
           <Key>
-            <PropertyRef Name="out_in_details_id" />
+            <PropertyRef Name="out_in_money_id" />
           </Key>
-          <Property Name="out_in_details_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="out_in_money_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="out_in_id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="statue" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
@@ -777,9 +777,9 @@
         </EntityType>
         <EntityType Name="out_in_money">
           <Key>
-            <PropertyRef Name="out_in_details_id" />
+            <PropertyRef Name="out_in_money_id" />
           </Key>
-          <Property Name="out_in_details_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="out_in_money_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="out_in_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="statue" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="in_materialr" Relationship="Self.FK_out_in_money_in_materialr" FromRole="out_in_money" ToRole="in_materialr" />
@@ -1429,7 +1429,7 @@
           <EntitySetMapping Name="out_in_money">
             <EntityTypeMapping TypeName="ShoeModel.out_in_money">
               <MappingFragment StoreEntitySet="out_in_money">
-                <ScalarProperty Name="out_in_details_id" ColumnName="out_in_details_id" />
+                <ScalarProperty Name="out_in_money_id" ColumnName="out_in_money_id" />
                 <ScalarProperty Name="out_in_id" ColumnName="out_in_id" />
                 <ScalarProperty Name="statue" ColumnName="statue" />
               </MappingFragment>
