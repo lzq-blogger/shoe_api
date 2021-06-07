@@ -1532,16 +1532,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="xp_adminPage" FunctionName="ShoeModel.Store.xp_adminPage">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.xp_adminPage_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="account" ColumnName="account" />
-                <ScalarProperty Name="pwd" ColumnName="pwd" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
