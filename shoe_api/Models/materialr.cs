@@ -17,6 +17,7 @@ namespace shoe_api.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public materialr()
         {
+            this.buy_materials_details = new HashSet<buy_materials_details>();
             this.materialr_details = new HashSet<materialr_details>();
             this.materialr_epertory = new HashSet<materialr_epertory>();
             this.out_materialr = new HashSet<out_materialr>();
@@ -28,6 +29,8 @@ namespace shoe_api.Models
         public int materialr_type_id { get; set; }
         public decimal materialr_details_price { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<buy_materials_details> buy_materials_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<materialr_details> materialr_details { get; set; }
         public virtual materialr_type materialr_type { get; set; }
