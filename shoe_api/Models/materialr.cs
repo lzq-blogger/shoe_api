@@ -17,10 +17,11 @@ namespace shoe_api.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public materialr()
         {
+            this.buy_materials_details = new HashSet<buy_materials_details>();
             this.materialr_details = new HashSet<materialr_details>();
             this.materialr_epertory = new HashSet<materialr_epertory>();
+            this.materials_plan_details = new HashSet<materials_plan_details>();
             this.out_materialr = new HashSet<out_materialr>();
-            this.materials_plan = new HashSet<materials_plan>();
         }
     
         public int materialr_details_id { get; set; }
@@ -29,13 +30,15 @@ namespace shoe_api.Models
         public decimal materialr_details_price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<buy_materials_details> buy_materials_details { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<materialr_details> materialr_details { get; set; }
         public virtual materialr_type materialr_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<materialr_epertory> materialr_epertory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<out_materialr> out_materialr { get; set; }
+        public virtual ICollection<materials_plan_details> materials_plan_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<materials_plan> materials_plan { get; set; }
+        public virtual ICollection<out_materialr> out_materialr { get; set; }
     }
 }

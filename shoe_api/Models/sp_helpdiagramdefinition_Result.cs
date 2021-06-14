@@ -10,16 +10,10 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class out_repertory
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int out_repertory_id { get; set; }
-        public string orderr_id { get; set; }
-        public string operator_per { get; set; }
-        public System.DateTime out_time { get; set; }
-        public string person_handling { get; set; }
-    
-        public virtual order order { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

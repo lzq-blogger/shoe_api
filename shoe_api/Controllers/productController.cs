@@ -25,19 +25,17 @@ namespace shoe_api.Controllers
             }
             //根据对应页码和条数进行查询
             var list1 = from pp in db.product_plan
-                        join od in db.order_details
-             on pp.order_details_id equals od.order_details_id
+                        join od in db.product_plan_details
+             on pp.product_plan_id equals od.product_plan_id
                         select new
                         {
                             product_plan_id = pp.product_plan_id,
-                            order_id = od.order_id,
-                            product_plan_num = pp.product_plan_num,
                             operator_per = pp.operator_per,
                             product_time = pp.product_time,
                             product_end_time = pp.product_end_time,
                             status = pp.status
                         } into q
-                        where (q.order_id.Contains(info))
+                        where (q.product_plan_id.ToString().Contains(info))
                         select q;
             //查询数据表总共有多少条记录
             int rows1 = db.product_plan.ToList().Count;
@@ -93,7 +91,7 @@ namespace shoe_api.Controllers
             {
                 return 0;
             }
-            if (pp.product_plan_num.ToString() == null ||
+            if (
               pp.operator_per == null ||
               pp.product_time == null ||
               pp.product_end_time == null)
@@ -160,7 +158,7 @@ namespace shoe_api.Controllers
             }
             //根据对应页码和条数进行查询
             var list1 = from pp in db.pro_production
-                        where (pp.product_plan_id.ToString().Contains(info))
+                        where (pp.pro_production_id.ToString().Contains(info))
                         select pp;
             //查询数据表总共有多少条记录
             int rows1 = db.pro_production.ToList().Count;
@@ -226,7 +224,7 @@ namespace shoe_api.Controllers
         {
             //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
             //判断非空
-            if (pp.product_plan_id.ToString() == null)
+            if (pp.product_plan_details_id.ToString() == null)
             {
                 return 0;
             }

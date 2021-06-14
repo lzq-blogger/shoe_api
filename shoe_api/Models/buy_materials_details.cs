@@ -12,14 +12,14 @@ namespace shoe_api.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class out_repertory
+    public partial class buy_materials_details
     {
-        public int out_repertory_id { get; set; }
-        public string orderr_id { get; set; }
-        public string operator_per { get; set; }
-        public System.DateTime out_time { get; set; }
-        public string person_handling { get; set; }
+        public int buy_materials_details_id { get; set; }
+        public string in_materialr_id { get; set; }
+        public int materialr_details_num { get; set; }
+        public int materialr_details_id { get; set; }
     
-        public virtual order order { get; set; }
+        public virtual in_materialr in_materialr { get; set; }
+        public virtual materialr materialr { get; set; }
     }
 }
