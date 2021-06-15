@@ -19,7 +19,7 @@ namespace shoe_api.Controllers
         /// /// <summary>
         /// BaseDataTables类是对于后端，返回DataTables所需要的值
         /// </summary>
-        ShoeEntities db = new ShoeEntities();
+        ShoeEntities1 db = new ShoeEntities1();
         [Route("GetAllData")]
         [HttpPost]
         public BaseDataTables FenYe1([FromBody] GetDataTablesMessage obj)

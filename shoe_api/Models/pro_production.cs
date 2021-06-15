@@ -17,7 +17,6 @@ namespace shoe_api.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public pro_production()
         {
-            this.in_repertory = new HashSet<in_repertory>();
             this.product_quality_testing = new HashSet<product_quality_testing>();
         }
     
@@ -28,8 +27,6 @@ namespace shoe_api.Models
         public System.DateTime product_time { get; set; }
         public string status { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<in_repertory> in_repertory { get; set; }
         public virtual product_plan product_plan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<product_quality_testing> product_quality_testing { get; set; }

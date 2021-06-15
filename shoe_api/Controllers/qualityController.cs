@@ -10,7 +10,7 @@ namespace shoe_api.Controllers
 {
     public class qualityController : ApiController
     {
-        ShoeEntities db = new ShoeEntities();
+        ShoeEntities1 db = new ShoeEntities1();
 
         //查询产品生产
         [HttpPost]

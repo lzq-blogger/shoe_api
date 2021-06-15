@@ -12,13 +12,9 @@ namespace shoe_api.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class in_repertory
+    public partial class proPlan_ordDetails
     {
-        public int in_repertory_id { get; set; }
-        public int pro_production_id { get; set; }
-        public string operator_per { get; set; }
-        public System.DateTime in_time { get; set; }
-    
-        public virtual pro_production pro_production { get; set; }
+        public int product_plan_id { get; set; }
+        public int product_plan_num { get; set; }
     }
 }

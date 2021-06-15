@@ -10,7 +10,7 @@ namespace shoe_api.Controllers
 {
     public class customerController : ApiController
     {
-        ShoeEntities db = new ShoeEntities();
+        ShoeEntities1 db = new ShoeEntities1();
         //[HttpGet]
         ////客户信息查询
         //public string cut()

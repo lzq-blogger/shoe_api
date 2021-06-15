@@ -12,13 +12,11 @@ namespace shoe_api.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
-    public partial class ShoeEntities : DbContext
+    public partial class ShoeEntities1 : DbContext
     {
-        public ShoeEntities()
-            : base("name=ShoeEntities")
+        public ShoeEntities1()
+            : base("name=ShoeEntities1")
         {
         }
     
@@ -28,10 +26,10 @@ namespace shoe_api.Models
         }
     
         public virtual DbSet<admin> admin { get; set; }
+        public virtual DbSet<buy_materials_details> buy_materials_details { get; set; }
         public virtual DbSet<customer> customer { get; set; }
         public virtual DbSet<get_materials> get_materials { get; set; }
         public virtual DbSet<in_materialr> in_materialr { get; set; }
-        public virtual DbSet<in_repertory> in_repertory { get; set; }
         public virtual DbSet<materialr> materialr { get; set; }
         public virtual DbSet<materialr_details> materialr_details { get; set; }
         public virtual DbSet<materialr_epertory> materialr_epertory { get; set; }
@@ -50,22 +48,6 @@ namespace shoe_api.Models
         public virtual DbSet<product_quality_testing> product_quality_testing { get; set; }
         public virtual DbSet<product_type> product_type { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-    
-        public virtual ObjectResult<xp_adminPage_Result> xp_adminPage(Nullable<int> pageSize, Nullable<int> pageIndex, string pageWhere)
-        {
-            var pageSizeParameter = pageSize.HasValue ?
-                new ObjectParameter("PageSize", pageSize) :
-                new ObjectParameter("PageSize", typeof(int));
-    
-            var pageIndexParameter = pageIndex.HasValue ?
-                new ObjectParameter("PageIndex", pageIndex) :
-                new ObjectParameter("PageIndex", typeof(int));
-    
-            var pageWhereParameter = pageWhere != null ?
-                new ObjectParameter("PageWhere", pageWhere) :
-                new ObjectParameter("PageWhere", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage_Result>("xp_adminPage", pageSizeParameter, pageIndexParameter, pageWhereParameter);
-        }
+        public virtual DbSet<proPlan_ordDetails> proPlan_ordDetails { get; set; }
     }
 }
