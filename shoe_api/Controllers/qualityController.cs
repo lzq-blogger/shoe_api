@@ -28,7 +28,7 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.pro_production.ToList().Where(p => p.pro_production_id.ToString().Contains(info)
-            || p.product_plan_id.ToString().Contains(info) || p.pro_production_dep.Contains(info)
+             || p.pro_production_dep.Contains(info)
             || p.operator_per.Contains(info) || p.product_time.ToString().Contains(info)
             || p.status.Contains(info));
            
@@ -167,7 +167,7 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.in_materialr.ToList().Where(p => p.in_materialr_id.ToString().Contains(info)
-            || p.materialr_plan_id.ToString().Contains(info) || p.materialr_num.ToString().Contains(info)
+            || p.materialr_plan_id.ToString().Contains(info)
             || p.operator_per.Contains(info) || p.status.Contains(info));
 
             //查询数据表总共有多少条记录

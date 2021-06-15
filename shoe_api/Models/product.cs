@@ -20,6 +20,7 @@ namespace shoe_api.Models
             this.order = new HashSet<order>();
             this.order_details = new HashSet<order_details>();
             this.pro_repertory = new HashSet<pro_repertory>();
+            this.product_plan_details = new HashSet<product_plan_details>();
         }
     
         public int product_id { get; set; }
@@ -37,5 +38,7 @@ namespace shoe_api.Models
         public virtual ICollection<order_details> order_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pro_repertory> pro_repertory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<product_plan_details> product_plan_details { get; set; }
     }
 }

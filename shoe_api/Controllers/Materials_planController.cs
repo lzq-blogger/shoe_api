@@ -14,6 +14,7 @@ namespace shoe_api.Controllers
 
         ShoeEntities db = new ShoeEntities();
 
+        //查询
         [Route("POSTAllData")]
         [HttpPost]
         public BaseDataTables FenYe([FromBody] GetDataTablesMessage obj)

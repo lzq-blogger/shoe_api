@@ -12,23 +12,22 @@ namespace shoe_api.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class pro_production
+    public partial class product_plan_details
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public pro_production()
+        public product_plan_details()
         {
-            this.product_quality_testing = new HashSet<product_quality_testing>();
+            this.pro_production = new HashSet<pro_production>();
         }
     
-        public int pro_production_id { get; set; }
         public int product_plan_details_id { get; set; }
-        public string pro_production_dep { get; set; }
-        public string operator_per { get; set; }
-        public System.DateTime product_time { get; set; }
-        public string status { get; set; }
+        public int product_plan_id { get; set; }
+        public int product_details_num { get; set; }
+        public int product_id { get; set; }
     
-        public virtual product_plan_details product_plan_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<product_quality_testing> product_quality_testing { get; set; }
+        public virtual ICollection<pro_production> pro_production { get; set; }
+        public virtual product product { get; set; }
+        public virtual product_plan product_plan { get; set; }
     }
 }
