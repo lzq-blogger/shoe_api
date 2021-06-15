@@ -12,11 +12,13 @@ namespace shoe_api.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
-    public partial class ShoeEntities1 : DbContext
+    public partial class ShoeEntities : DbContext
     {
-        public ShoeEntities1()
-            : base("name=ShoeEntities1")
+        public ShoeEntities()
+            : base("name=ShoeEntities")
         {
         }
     
@@ -35,6 +37,7 @@ namespace shoe_api.Models
         public virtual DbSet<materialr_epertory> materialr_epertory { get; set; }
         public virtual DbSet<materialr_type> materialr_type { get; set; }
         public virtual DbSet<materials_plan> materials_plan { get; set; }
+        public virtual DbSet<materials_plan_details> materials_plan_details { get; set; }
         public virtual DbSet<materials_quality_testing> materials_quality_testing { get; set; }
         public virtual DbSet<order> order { get; set; }
         public virtual DbSet<order_details> order_details { get; set; }
@@ -45,25 +48,121 @@ namespace shoe_api.Models
         public virtual DbSet<pro_repertory> pro_repertory { get; set; }
         public virtual DbSet<product> product { get; set; }
         public virtual DbSet<product_plan> product_plan { get; set; }
+        public virtual DbSet<product_plan_details> product_plan_details { get; set; }
         public virtual DbSet<product_quality_testing> product_quality_testing { get; set; }
         public virtual DbSet<product_type> product_type { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<proPlan_ordDetails> proPlan_ordDetails { get; set; }
-                new ObjectParameter("PageSize", pageSize) :
-                new ObjectParameter("PageSize", typeof(int));
     
-            var pageIndexParameter = pageIndex.HasValue ?
-                new ObjectParameter("PageIndex", pageIndex) :
-                new ObjectParameter("PageIndex", typeof(int));
-    
-            var pageWhereParameter = pageWhere != null ?
-                new ObjectParameter("PageWhere", pageWhere) :
-                new ObjectParameter("PageWhere", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage1_Result>("xp_adminPage1", pageSizeParameter, pageIndexParameter, pageWhereParameter);
+        public virtual ObjectResult<in_repertory_detail_Result> in_repertory_detail()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<in_repertory_detail_Result>("in_repertory_detail");
         }
     
-        public virtual ObjectResult<xp_adminPage2_Result> xp_adminPage2(Nullable<int> pageSize, Nullable<int> pageIndex, string pageWhere)
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<xp_adminPage_Result> xp_adminPage(Nullable<int> pageSize, Nullable<int> pageIndex, string pageWhere)
         {
             var pageSizeParameter = pageSize.HasValue ?
                 new ObjectParameter("PageSize", pageSize) :
@@ -77,23 +176,10 @@ namespace shoe_api.Models
                 new ObjectParameter("PageWhere", pageWhere) :
                 new ObjectParameter("PageWhere", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage2_Result>("xp_adminPage2", pageSizeParameter, pageIndexParameter, pageWhereParameter);
-        }
-                new ObjectParameter("PageSize", pageSize) :
-                new ObjectParameter("PageSize", typeof(int));
-    
-            var pageIndexParameter = pageIndex.HasValue ?
-                new ObjectParameter("PageIndex", pageIndex) :
-                new ObjectParameter("PageIndex", typeof(int));
-    
-            var pageWhereParameter = pageWhere != null ?
-                new ObjectParameter("PageWhere", pageWhere) :
-                new ObjectParameter("PageWhere", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage1_Result>("xp_adminPage1", pageSizeParameter, pageIndexParameter, pageWhereParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage_Result>("xp_adminPage", pageSizeParameter, pageIndexParameter, pageWhereParameter);
         }
     
-        public virtual ObjectResult<xp_adminPage2_Result> xp_adminPage2(Nullable<int> pageSize, Nullable<int> pageIndex, string pageWhere)
+        public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageSize, Nullable<int> pageIndex, string pageWhere)
         {
             var pageSizeParameter = pageSize.HasValue ?
                 new ObjectParameter("PageSize", pageSize) :
@@ -107,7 +193,7 @@ namespace shoe_api.Models
                 new ObjectParameter("PageWhere", pageWhere) :
                 new ObjectParameter("PageWhere", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage2_Result>("xp_adminPage2", pageSizeParameter, pageIndexParameter, pageWhereParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageJihua_Result>("xp_SelectPageJihua", pageSizeParameter, pageIndexParameter, pageWhereParameter);
         }
     }
 }

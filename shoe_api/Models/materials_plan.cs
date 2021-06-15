@@ -18,15 +18,16 @@ namespace shoe_api.Models
         public materials_plan()
         {
             this.in_materialr = new HashSet<in_materialr>();
+            this.materials_plan_details = new HashSet<materials_plan_details>();
         }
     
         public int materialr_plan_id { get; set; }
-        public int materialr_details_id { get; set; }
-        public int materialr_num { get; set; }
         public string status { get; set; }
+        public string operator_per { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<in_materialr> in_materialr { get; set; }
-        public virtual materialr materialr { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<materials_plan_details> materials_plan_details { get; set; }
     }
 }

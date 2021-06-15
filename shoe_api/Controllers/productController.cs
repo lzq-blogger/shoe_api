@@ -10,7 +10,7 @@ namespace shoe_api.Controllers
 {
     public class productController : ApiController
     {
-        ShoeEntities1 db = new ShoeEntities1();
+        ShoeEntities db = new ShoeEntities();
         //生产计划查询
         [HttpGet]
         public string pro_plan()
@@ -21,7 +21,6 @@ namespace shoe_api.Controllers
                        select new {
                            product_plan_id = pp.product_plan_id,
                            order_id = od.order_id,
-                           product_plan_num = pp.product_plan_num,
                            operator_per = pp.operator_per,
                            product_time = pp.product_time,
                            product_end_time = pp.product_end_time,
@@ -52,7 +51,7 @@ namespace shoe_api.Controllers
             {
                 return 0;
             }
-            if (pp.product_plan_num.ToString() == null ||
+            if (/*pp.product_plan_num.ToString() == null ||*/
               pp.operator_per == null ||
               pp.product_time == null ||
               pp.product_end_time == null)
@@ -114,10 +113,10 @@ namespace shoe_api.Controllers
         {
             //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
             //判断非空
-            if (pp.product_plan_id.ToString() == null)
-            {
-                return 0;
-            }
+            //if (pp.product_plan_id.ToString() == null)
+            //{
+            //    return 0;
+            //}
             if (pp.pro_production_dep.ToString() == null||
                 pp.operator_per.ToString() == null ||
                 pp.product_time.ToString() == null )
