@@ -11,7 +11,7 @@ namespace shoe_api.Controllers
     public class LoginController : ApiController
     {
 
-        ShoeEntities1 db = new ShoeEntities1();
+        ShoeEntities db = new ShoeEntities();
         [HttpGet]
         public string Login()
         {
@@ -29,7 +29,7 @@ namespace shoe_api.Controllers
                 string name = dy.name;
                 string pwd = dy.pwd;
                 //var ad = DB.admin.ToList();
-                var flag = DB.admin.Where(a => a.name == name && a.pwd == pwd).ToList(); 
+                var flag = db.admin.Where(a => a.name == name && a.pwd == pwd).ToList(); 
                 if (flag.Count > 0)
                 {
                     return "{" + "message" + ":true," + "data" + ":" + Newtonsoft.Json.JsonConvert.SerializeObject(flag) + "}";

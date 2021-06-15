@@ -21,13 +21,13 @@ namespace shoe_api.Models
         }
     
         public int pro_production_id { get; set; }
-        public int product_plan_id { get; set; }
+        public int product_plan_details_id { get; set; }
         public string pro_production_dep { get; set; }
         public string operator_per { get; set; }
         public System.DateTime product_time { get; set; }
         public string status { get; set; }
     
-        public virtual product_plan product_plan { get; set; }
+        public virtual product_plan_details product_plan_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<product_quality_testing> product_quality_testing { get; set; }
     }

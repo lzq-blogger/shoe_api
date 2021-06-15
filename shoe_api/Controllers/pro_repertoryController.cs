@@ -10,7 +10,7 @@ namespace shoe_api.Controllers
 {
     public class pro_repertoryController : ApiController
     {
-        ShoeEntities1 db = new ShoeEntities1();
+        ShoeEntities db = new ShoeEntities();
         [HttpGet]
         //库存查询
         public string select_product()
@@ -31,25 +31,25 @@ namespace shoe_api.Controllers
         }
         [HttpPost]
         //产品入库单（质检完成）
-        public int in_repertory([FromBody] in_repertory ir)
-        {
-            //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
-            //判断非空
-            if (ir.pro_production_id.ToString() == null)
-            {
-                return 0;
-            }
-            if (ir.operator_per.ToString() == null ||
-              ir.in_time == null)
-            {
-                return 1;
-            }
-            //新增数据
-            db.in_repertory.Add(ir);
-            //保存数据
-            db.SaveChanges();
-            return 2;
-        }
+        //public int in_repertory([FromBody] in_repertory ir)
+        //{
+        //    //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
+        //    //判断非空
+        //    if (ir.pro_production_id.ToString() == null)
+        //    {
+        //        return 0;
+        //    }
+        //    if (ir.operator_per.ToString() == null ||
+        //      ir.in_time == null)
+        //    {
+        //        return 1;
+        //    }
+        //    //新增数据
+        //    //db.in_repertory.Add(ir);
+        //    //保存数据
+        //    db.SaveChanges();
+        //    return 2;
+        //}
         //产品出库单
         [HttpGet]
         //库存查询
