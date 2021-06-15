@@ -49,5 +49,65 @@ namespace shoe_api.Models
         public virtual DbSet<product_type> product_type { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<proPlan_ordDetails> proPlan_ordDetails { get; set; }
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageWhereParameter = pageWhere != null ?
+                new ObjectParameter("PageWhere", pageWhere) :
+                new ObjectParameter("PageWhere", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage1_Result>("xp_adminPage1", pageSizeParameter, pageIndexParameter, pageWhereParameter);
+        }
+    
+        public virtual ObjectResult<xp_adminPage2_Result> xp_adminPage2(Nullable<int> pageSize, Nullable<int> pageIndex, string pageWhere)
+        {
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageWhereParameter = pageWhere != null ?
+                new ObjectParameter("PageWhere", pageWhere) :
+                new ObjectParameter("PageWhere", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage2_Result>("xp_adminPage2", pageSizeParameter, pageIndexParameter, pageWhereParameter);
+        }
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageWhereParameter = pageWhere != null ?
+                new ObjectParameter("PageWhere", pageWhere) :
+                new ObjectParameter("PageWhere", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage1_Result>("xp_adminPage1", pageSizeParameter, pageIndexParameter, pageWhereParameter);
+        }
+    
+        public virtual ObjectResult<xp_adminPage2_Result> xp_adminPage2(Nullable<int> pageSize, Nullable<int> pageIndex, string pageWhere)
+        {
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageWhereParameter = pageWhere != null ?
+                new ObjectParameter("PageWhere", pageWhere) :
+                new ObjectParameter("PageWhere", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage2_Result>("xp_adminPage2", pageSizeParameter, pageIndexParameter, pageWhereParameter);
+        }
     }
 }
