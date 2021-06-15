@@ -22,28 +22,29 @@ namespace shoe_api.Controllers
         }
 
         [HttpPost]
-        public string LoginUp(dynamic dy)
+        [Route("api/Login/LoginUp")]
+        public object LoginUp(dynamic dy)
         {
             try
             {
-                string name = dy.name;
+                string account = dy.account;
                 string pwd = dy.pwd;
                 //var ad = DB.admin.ToList();
-                var flag = db.admin.Where(a => a.name == name && a.pwd == pwd).ToList(); 
-                if (flag.Count > 0)
+                var datas = DB.admin.Where(a => a.account == account && a.pwd == pwd).ToList();
+                if (datas.Count > 0)
                 {
-                    return "{" + "message" + ":true," + "data" + ":" + Newtonsoft.Json.JsonConvert.SerializeObject(flag) + "}";
+                    return "{" + "\"" + "message" + "\"" + ":" + "\"" + "true" + "\"," + "\"" + "data" + "\"" + ":" + Newtonsoft.Json.JsonConvert.SerializeObject(datas) + "}";
                 }
                 else
                 {
-                    return "message:" + "false";
+                    return "{" + "\"" + "message" + "\"" + ":" + "\"" + "账号或密码错误" + "\"" + "}";
                 }
             }
             catch (Exception)
             {
-                return "message:" + "throw";
+                return "{" + "\"" + "message" + "\"" + ":" + "\"" + "服务器出现错误！请重试！" + "\"" + "}";
             }
-           
+
             //var json = Newtonsoft.Json.JsonConvert.SerializeObject(ad);
             //return flag;
 

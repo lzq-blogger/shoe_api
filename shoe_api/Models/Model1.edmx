@@ -903,6 +903,17 @@
           <NavigationProperty Name="materialr" Relationship="Self.FK_materials_plan_details_materialr" FromRole="materials_plan_details" ToRole="materialr" />
           <NavigationProperty Name="materials_plan" Relationship="Self.FK_materials_plan_details_materials_plan1" FromRole="materials_plan_details" ToRole="materials_plan" />
         </EntityType>
+        <EntityType Name="materials_plan_details">
+          <Key>
+            <PropertyRef Name="materials_plan__details_id" />
+          </Key>
+          <Property Name="materials_plan__details_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="materialr_plan_id" Type="Int32" Nullable="false" />
+          <Property Name="materialr_details_num" Type="Int32" Nullable="false" />
+          <Property Name="materialr_details_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="materialr" Relationship="Self.FK_materials_plan_details_materialr" FromRole="materials_plan_details" ToRole="materialr" />
+          <NavigationProperty Name="materials_plan" Relationship="Self.FK_materials_plan_details_materials_plan1" FromRole="materials_plan_details" ToRole="materials_plan" />
+        </EntityType>
         <EntityType Name="materials_quality_testing">
           <Key>
             <PropertyRef Name="quality_testing_id" />
@@ -1377,6 +1388,18 @@
               <PropertyRef Name="product_id" />
             </Principal>
             <Dependent Role="pro_repertory">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_plan_details_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="product_plan_details" Type="Self.product_plan_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="product_plan_details">
               <PropertyRef Name="product_id" />
             </Dependent>
           </ReferentialConstraint>
