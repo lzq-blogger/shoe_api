@@ -30,7 +30,6 @@ namespace shoe_api.Controllers
                         select new
                         {
                             product_plan_id = pp.product_plan_id,
-                            order_id = od.order_id,
                             operator_per = pp.operator_per,
                             product_time = pp.product_time,
                             product_end_time = pp.product_end_time,
