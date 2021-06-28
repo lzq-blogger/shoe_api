@@ -14,8 +14,7 @@
         <EntityTypeShape EntityType="ShoeModel.materialr_details" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="ShoeModel.materialr_epertory" Width="1.5" PointX="7.5" PointY="12.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ShoeModel.materialr_type" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.materials_plan" Width="1.5" PointX="3" PointY="32.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.materials_plan_details" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.materials_plan_details" Width="2.125" PointX="7.875" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="ShoeModel.materials_quality_testing" Width="1.5" PointX="7.5" PointY="32" IsExpanded="true" />
         <EntityTypeShape EntityType="ShoeModel.order" Width="1.5" PointX="1.5" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="ShoeModel.order_details" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
@@ -36,7 +35,6 @@
         <AssociationConnector Association="ShoeModel.FK_get_materials_product_plan" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materialr_details_materialr_details" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_materialr_get_materials" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoeModel.FK_in_materialr_materials_plan" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materials_quality_testing_in_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_in_money_in_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materialr_details_materialr" ManuallyRouted="false" />
@@ -45,7 +43,6 @@
         <AssociationConnector Association="ShoeModel.FK_materials_plan_details_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_materialr_materialr_details" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materialr_type_product_type" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoeModel.FK_materials_plan_details_materials_plan1" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_order_details_order" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_order_product" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_in_money_order" ManuallyRouted="false" />
@@ -57,6 +54,9 @@
         <AssociationConnector Association="ShoeModel.FK_pro_repertory_product_plan" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_product_plan_details_product" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_product_plan_details_product_plan" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShoeModel.materials_plan" Width="1.5" PointX="0.75" PointY="21" />
+        <AssociationConnector Association="ShoeModel.FK_in_materialr_materials_plan" />
+        <AssociationConnector Association="ShoeModel.FK_materials_plan_details_materials_plan1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

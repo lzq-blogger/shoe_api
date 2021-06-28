@@ -36,7 +36,6 @@ namespace shoe_api.Models
         public virtual DbSet<materialr_details> materialr_details { get; set; }
         public virtual DbSet<materialr_epertory> materialr_epertory { get; set; }
         public virtual DbSet<materialr_type> materialr_type { get; set; }
-        public virtual DbSet<materials_plan> materials_plan { get; set; }
         public virtual DbSet<materials_plan_details> materials_plan_details { get; set; }
         public virtual DbSet<materials_quality_testing> materials_quality_testing { get; set; }
         public virtual DbSet<order> order { get; set; }
@@ -52,6 +51,7 @@ namespace shoe_api.Models
         public virtual DbSet<product_quality_testing> product_quality_testing { get; set; }
         public virtual DbSet<product_type> product_type { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<materials_plan> materials_plan { get; set; }
     
         public virtual ObjectResult<xp_adminPage_Result> xp_adminPage(Nullable<int> pageSize, Nullable<int> pageIndex, string pageWhere)
         {

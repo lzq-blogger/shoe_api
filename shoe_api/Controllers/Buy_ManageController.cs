@@ -76,14 +76,16 @@ namespace shoe_api.Controllers
                 //                status = mp.status,//处理状态
                 //            } into q
                 //            select q).Count();
-                //调用存储过程，参数：1、每页记录数(-1为查全部)，2、从第几条开始(-1为查全部)，3、查询条件
-                int rows1 = db.xp_SelectPageJihua(-1, -1,info).ToList().Count();
+
+                //调用存储过程，参数：1、每页记录数(-1为查全部)，2、从第几条开始(-1为查全部)，3、查询条件(为''查询全部)
+                int rows1 = db.xp_SelectPageJihua(-1, -1,"").ToList().Count();
+
 
                 //记录过滤后的条数(没有则默认为总共记录数)
                 int rows2 = rows1;
                 if (obj.search.value != null)
                 {
-                    rows2 =list1.Count();                    
+                    rows2 = db.xp_SelectPageJihua(-1, -1, info).ToList().Count();
                 }
 
                 ///返回参数
