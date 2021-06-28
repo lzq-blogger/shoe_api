@@ -52,27 +52,6 @@ namespace shoe_api.Controllers
             Pagedata.data = list1;
             return Pagedata;  
         }
-        //[HttpPost]
-        ////产品入库单（质检完成）
-        //public int in_repertory([FromBody] in_repertory ir)
-        //{
-        //    //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
-        //    //判断非空
-        //    if (ir.pro_production_id.ToString() == null)
-        //    {
-        //        return 0;
-        //    }
-        //    if (ir.operator_per.ToString() == null ||
-        //      ir.in_time == null)
-        //    {
-        //        return 1;
-        //    }
-        //    //新增数据
-        //    db.in_repertory.Add(ir);
-        //    //保存数据
-        //    db.SaveChanges();
-        //    return 2;
-        //}
         //产品出库单
         [HttpPost]
         //产品出库单
@@ -107,37 +86,35 @@ namespace shoe_api.Controllers
             return Pagedata;
         }
         //[HttpPost]
-        ////产品入库单
-        //public BaseDataTables select_in_product([FromBody] GetDataTablesMessage obj)
-        //{
-        //    db.Configuration.ProxyCreationEnabled = false;
-        //    BaseDataTables Pagedata = new BaseDataTables();
-        //    Pagedata.draw = obj.draw;
-        //    string info = "";
-        //    if (obj.search.value != null)
-        //    {
-        //        info = obj.search.value;
-        //    }
-        //    //根据对应页码和条数进行查询
-        //    var list1 = from p in db.in_repertory
-        //                select p into q
-        //                where (q.pro_production_id.ToString().Contains(info))
-        //                select q;
-        //    //查询数据表总共有多少条记录
-        //    int rows1 = db.in_repertory.ToList().Count;
-        //    //记录过滤后的条数
-        //    int rows2 = rows1;
-        //    /// <summary>
-        //    /// 即没有过滤的记录数（数据库里总共记录数）
-        //    /// </summary>
-        //    Pagedata.recordsTotal = rows1;
-        //    /// <summary>
-        //    /// 过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数）
-        //    /// </summary>
-        //    Pagedata.recordsFiltered = rows2;
-        //    Pagedata.data = list1;
-        //    return Pagedata;
-        //}
-        ////产品出库入库统计
+        //产品入库单
+        public BaseDataTables select_in_product([FromBody] GetDataTablesMessage obj)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            BaseDataTables Pagedata = new BaseDataTables();
+            Pagedata.draw = obj.draw;
+            string info = "";
+            if (obj.search.value != null)
+            {
+                info = obj.search.value;
+            }
+            //根据对应页码和条数进行查询
+            var list1 = db.Database.SqlQuery<in_repertory_detail_Result>("exec in_repertory_detail").ToList(); ;
+
+            //查询数据表总共有多少条记录
+            int rows1 = list1.Count;
+            //记录过滤后的条数
+            int rows2 = rows1;
+            /// <summary>
+            /// 即没有过滤的记录数（数据库里总共记录数）
+            /// </summary>
+            Pagedata.recordsTotal = rows1;
+            /// <summary>
+            /// 过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数）
+            /// </summary>
+            Pagedata.recordsFiltered = rows2;
+            Pagedata.data = list1;
+            return Pagedata;
+        }
+        //产品出库入库统计
     }
 }
