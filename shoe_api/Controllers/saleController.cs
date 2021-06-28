@@ -33,7 +33,7 @@ namespace shoe_api.Controllers
                             customer_name = od.customer_name,
                             order_starttime = pp.order_starttime,
                             order_endtime = pp.order_endtime,
-                            operator_per=pp.operator_per,
+                            person_handling = pp.person_handling,
                             order_paid = pp.order_paid,
                             order_unpaid = pp.order_unpaid,
                             order_status = pp.order_status

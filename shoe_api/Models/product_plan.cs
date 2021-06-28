@@ -22,7 +22,7 @@ namespace shoe_api.Models
         }
     
         public int product_plan_id { get; set; }
-        public int order_details_id { get; set; }
+        public string order_id { get; set; }
         public string operator_per { get; set; }
         public System.DateTime product_time { get; set; }
         public System.DateTime product_end_time { get; set; }
@@ -30,7 +30,7 @@ namespace shoe_api.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<get_materials> get_materials { get; set; }
-        public virtual order_details order_details { get; set; }
+        public virtual order order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<product_plan_details> product_plan_details { get; set; }
     }

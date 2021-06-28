@@ -32,6 +32,8 @@ namespace shoe_api.Models
         public virtual DbSet<customer> customer { get; set; }
         public virtual DbSet<get_materials> get_materials { get; set; }
         public virtual DbSet<in_materialr> in_materialr { get; set; }
+        public virtual DbSet<in_money> in_money { get; set; }
+        public virtual DbSet<in_repertory> in_repertory { get; set; }
         public virtual DbSet<materialr> materialr { get; set; }
         public virtual DbSet<materialr_details> materialr_details { get; set; }
         public virtual DbSet<materialr_epertory> materialr_epertory { get; set; }
@@ -41,8 +43,8 @@ namespace shoe_api.Models
         public virtual DbSet<materials_quality_testing> materials_quality_testing { get; set; }
         public virtual DbSet<order> order { get; set; }
         public virtual DbSet<order_details> order_details { get; set; }
-        public virtual DbSet<out_in_money> out_in_money { get; set; }
         public virtual DbSet<out_materialr> out_materialr { get; set; }
+        public virtual DbSet<out_money> out_money { get; set; }
         public virtual DbSet<out_repertory> out_repertory { get; set; }
         public virtual DbSet<pro_production> pro_production { get; set; }
         public virtual DbSet<pro_repertory> pro_repertory { get; set; }
@@ -177,6 +179,23 @@ namespace shoe_api.Models
                 new ObjectParameter("PageWhere", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_adminPage_Result>("xp_adminPage", pageSizeParameter, pageIndexParameter, pageWhereParameter);
+        }
+    
+        public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageSize, Nullable<int> pageIndex, string pageWhere)
+        {
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageWhereParameter = pageWhere != null ?
+                new ObjectParameter("PageWhere", pageWhere) :
+                new ObjectParameter("PageWhere", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageJihua_Result>("xp_SelectPageJihua", pageSizeParameter, pageIndexParameter, pageWhereParameter);
         }
     }
 }

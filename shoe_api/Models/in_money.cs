@@ -12,15 +12,12 @@ namespace shoe_api.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class order_details
+    public partial class in_money
     {
-        public int order_details_id { get; set; }
-        public int product_id { get; set; }
-        public string order_id { get; set; }
-        public decimal order_details_money { get; set; }
-        public int quantity { get; set; }
+        public int out_in_money_id { get; set; }
+        public string out_in_id { get; set; }
+        public string statue { get; set; }
     
         public virtual order order { get; set; }
-        public virtual product product { get; set; }
     }
 }
