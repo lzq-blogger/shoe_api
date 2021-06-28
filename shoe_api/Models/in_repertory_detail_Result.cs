@@ -10,19 +10,7 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-<<<<<<< HEAD:shoe_api/Models/buy_materials_details.cs
-    public partial class buy_materials_details
-    {
-        public int buy_materials_details_id { get; set; }
-        public string in_materialr_id { get; set; }
-        public int materialr_details_num { get; set; }
-        public int materialr_details_id { get; set; }
-    
-        public virtual in_materialr in_materialr { get; set; }
-        public virtual materialr materialr { get; set; }
-=======
     public partial class in_repertory_detail_Result
     {
         public int quality_testing_id { get; set; }
@@ -31,6 +19,5 @@ namespace shoe_api.Models
         public string product_name { get; set; }
         public string operator_per { get; set; }
         public int pro_production_id { get; set; }
->>>>>>> 4e67ba7110b18aca8319f40becc9c670632008b3:shoe_api/Models/in_repertory_detail_Result.cs
     }
 }
