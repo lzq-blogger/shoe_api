@@ -98,7 +98,7 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
             //根据对应页码和条数进行查询
-            var list1 = db.Database.SqlQuery<in_repertory_detail_Result>("exec in_repertory_detail").ToList(); ;
+            var list1 = db.Database.SqlQuery<in_repertory_detail_Result>("exec in_repertory_detail").ToList();
             //查询数据表总共有多少条记录
             int rows1 = list1.Count;
             //记录过滤后的条数

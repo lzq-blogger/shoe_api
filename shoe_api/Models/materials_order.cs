@@ -12,17 +12,17 @@ namespace shoe_api.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class in_materialr
+    public partial class materials_order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public in_materialr()
+        public materials_order()
         {
             this.buy_materials_details = new HashSet<buy_materials_details>();
             this.materials_quality_testing = new HashSet<materials_quality_testing>();
             this.out_money = new HashSet<out_money>();
         }
     
-        public string in_materialr_id { get; set; }
+        public string materials_order_id { get; set; }
         public int materialr_plan_id { get; set; }
         public string operator_per { get; set; }
         public string status { get; set; }

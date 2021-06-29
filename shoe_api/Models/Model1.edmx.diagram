@@ -4,44 +4,41 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e98ad392c44a4adc944bfbe5cbe5f71f" Name="Diagram1">
-        <EntityTypeShape EntityType="ShoeModel.admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.buy_materials_details" Width="1.5" PointX="22.25" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.customer" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.get_materials" Width="1.5" PointX="7.5" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.in_materialr" Width="1.5" PointX="20" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.in_money" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.in_repertory" Width="1.5" PointX="15" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.materialr" Width="1.5" PointX="7.5" PointY="23.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.materialr_details" Width="1.5" PointX="9.75" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.materialr_epertory" Width="1.5" PointX="9.75" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.materialr_type" Width="1.5" PointX="5.25" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.materials_plan" Width="1.5" PointX="17.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.materials_plan_details" Width="1.5" PointX="20" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.materials_quality_testing" Width="1.5" PointX="22.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.order" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.order_details" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.out_materialr" Width="1.5" PointX="9.75" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.out_money" Width="1.5" PointX="22.25" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.out_repertory" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.pro_production" Width="1.5" PointX="12.75" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.pro_repertory" Width="1.5" PointX="3" PointY="20.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.product" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.product_plan" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.product_plan_details" Width="1.5" PointX="10.5" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.product_quality_testing" Width="1.5" PointX="15" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.product_type" Width="1.5" PointX="3" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoeModel.proPlan_ordDetails" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="1e2cd8c39f814dc0a9b0b79709177b4d" Name="Diagram1">
+        <EntityTypeShape EntityType="ShoeModel.admin" Width="1.5" PointX="7.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.buy_materials_details" Width="1.5" PointX="7.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.customer" Width="1.5" PointX="1.5" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.get_materials" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.in_money" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.in_repertory" Width="1.5" PointX="16.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.materialr" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.materialr_details" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.materialr_epertory" Width="1.5" PointX="7.5" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.materialr_type" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.materials_order" Width="1.5" PointX="5.25" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.materials_plan" Width="1.5" PointX="3" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.materials_plan_details" Width="1.5" PointX="7.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.materials_quality_testing" Width="1.5" PointX="7.5" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.order" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.order_details" Width="1.5" PointX="13" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.out_materialr" Width="1.5" PointX="10.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.out_money" Width="1.5" PointX="7.5" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.out_repertory" Width="1.5" PointX="3" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.pro_production" Width="1.5" PointX="14.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.pro_repertory" Width="1.5" PointX="12" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.product" Width="1.5" PointX="9.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.product_plan" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.product_plan_details" Width="1.5" PointX="12" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.product_quality_testing" Width="1.5" PointX="16.5" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.product_type" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeModel.proPlan_ordDetails" Width="1.5" PointX="9.75" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="ShoeModel.FK_buy_materials_details_in_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_buy_materials_details_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_order_customer" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_get_materials_product_plan" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materialr_details_get_materials" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_materialr_get_materials" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoeModel.FK_in_materialr_materials_plan" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoeModel.FK_materials_quality_testing_in_materialr" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoeModel.FK_out_in_money_in_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_in_money_order" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_in_repertory_pro_production" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materialr_details_materialr" ManuallyRouted="false" />
@@ -50,9 +47,11 @@
         <AssociationConnector Association="ShoeModel.FK_materials_plan_details_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_materialr_materialr_details" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materialr_type_product_type" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeModel.FK_in_materialr_materials_plan" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeModel.FK_materials_quality_testing_in_materialr" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeModel.FK_out_in_money_in_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materials_plan_details_materials_plan1" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_order_details_order" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoeModel.FK_order_product" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_repertory_order" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_product_plan_order" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_order_details_product" ManuallyRouted="false" />

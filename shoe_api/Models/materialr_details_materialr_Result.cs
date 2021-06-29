@@ -10,16 +10,14 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class buy_materials_details
+    public partial class materialr_details_materialr_Result
     {
-        public int buy_materials_details_id { get; set; }
-        public string materialrs_order_id { get; set; }
-        public int materialr_details_num { get; set; }
         public int materialr_details_id { get; set; }
-    
-        public virtual materials_order materials_order { get; set; }
-        public virtual materialr materialr { get; set; }
+        public string materialr_details_name { get; set; }
+        public decimal materialr_details_price { get; set; }
+        public string materialr_type_name { get; set; }
+        public int materialr_details_num { get; set; }
+        public string material_supplier { get; set; }
     }
 }

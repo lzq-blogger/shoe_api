@@ -47,23 +47,11 @@ namespace shoe_api.Controllers
         [HttpGet]
         public string pro_plan_detail(int id)
         {
-            var info = from ppd in db.product_plan_details
-                       where (ppd.product_plan_id == id)
-                       join p in db.product on ppd.product_id equals p.product_id
-                       select new
-                       {
-                           product_plan_id = ppd.product_plan_id,
-                           product_plan_details_id = ppd.product_plan_details_id,
-                           product_name = p.product_name,
-                           product_type = p.product_type,
-                           product_price = p.product_price,
-                           product_details_num = ppd.product_details_num,
-                           unit = p.unit
-                       } into fu
-                       select fu;
-            return Newtonsoft.Json.JsonConvert.SerializeObject(info);
+            var list1 = db.Database.SqlQuery<pro_plan_details_Result>("exec pro_plan_details " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
         }
         //查询订单编号，用来显示在新增计划的那个下拉框里
+
         //生产计划查询
         [HttpPost]
         public BaseDataTables pro_plan_order([FromBody] GetDataTablesMessage obj)
@@ -156,11 +144,13 @@ namespace shoe_api.Controllers
             return Pagedata;
         }
         //查询领料单详情存储过程
-        //[HttpGet]
-        //public string select_get_materials_detail(int id)
-        //{
-        //    return Newtonsoft.Json.JsonConvert.SerializeObject(info);
-        //}
+        [HttpGet]
+        public string select_get_materials_detail(int id)
+        {
+            var list1 = db.Database.SqlQuery<materialr_details_materialr_Result>("exec materialr_details_materialr " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
+        //获取生产计划ID
         //查询生产单
         [HttpPost]
         public BaseDataTables select_pro_product([FromBody] GetDataTablesMessage obj)
@@ -256,6 +246,22 @@ namespace shoe_api.Controllers
             //保存数据
             db.SaveChanges();
             return 2;
+        }
+        [HttpGet]
+        //查询生产计划详情
+        public string select_pro_plan_details(int id)
+        {
+            var list1 = db.Database.SqlQuery<select_pro_plan_details_Result>("exec select_pro_plan_details " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
+        //查询处理中的生产计划详情ID
+        [HttpGet]
+        public string select_pro_plan_details_id()
+        {
+            var list1 = from ppd in db.product_plan_details
+                        where (ppd.pro_status.Contains("处理中"))
+                        select new { product_plan_details_id=ppd.product_plan_details_id };
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
         }
     }
 }

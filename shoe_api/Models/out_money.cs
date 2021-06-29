@@ -18,6 +18,6 @@ namespace shoe_api.Models
         public string out_in_id { get; set; }
         public string statue { get; set; }
     
-        public virtual in_materialr in_materialr { get; set; }
+        public virtual materials_order materials_order { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace shoe_api.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public materials_plan()
         {
-            this.in_materialr = new HashSet<in_materialr>();
+            this.materials_order = new HashSet<materials_order>();
             this.materials_plan_details = new HashSet<materials_plan_details>();
         }
     
@@ -28,7 +28,7 @@ namespace shoe_api.Models
         public System.DateTime materials_plan_time { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<in_materialr> in_materialr { get; set; }
+        public virtual ICollection<materials_order> materials_order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<materials_plan_details> materials_plan_details { get; set; }
     }
