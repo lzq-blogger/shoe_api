@@ -43,20 +43,26 @@ namespace shoe_api.Controllers
             Pagedata.data = list1;
             return Pagedata;
         }
-        //查询生产计划详情
-        //[HttpGet]
-        //public string pro_plan_detail(int id)
-        //{
-        //    var info = from ppd in db.product_plan_details
-        //               join
-        //                p in db.product on ppd.product_id equals p.product_id
-        //                into fu
-        //               select new { 
-        //                   product_plan_details_id = ppd.product_plan_details_id,
-
-        //               };
-
-        //}
+        //查询生产计划详情存储过程
+        [HttpGet]
+        public string pro_plan_detail(int id)
+        {
+            var info = from ppd in db.product_plan_details
+                       where (ppd.product_plan_id == id)
+                       join p in db.product on ppd.product_id equals p.product_id
+                       select new
+                       {
+                           product_plan_id = ppd.product_plan_id,
+                           product_plan_details_id = ppd.product_plan_details_id,
+                           product_name = p.product_name,
+                           product_type = p.product_type,
+                           product_price = p.product_price,
+                           product_details_num = ppd.product_details_num,
+                           unit = p.unit
+                       } into fu
+                       select fu;
+            return Newtonsoft.Json.JsonConvert.SerializeObject(info);
+        }
         //查询订单编号，用来显示在新增计划的那个下拉框里
         //生产计划查询
         [HttpPost]
@@ -125,14 +131,14 @@ namespace shoe_api.Controllers
             var list1 = from pp in db.get_materials
                 select new
                 {
-                    get_materials_id = pp.get_materials_id,
+                    w_materials_id = pp.w_materials_id,
                     product_plan_id = pp.product_plan_id,
                     get_department = pp.get_department,
                     operator_per = pp.operator_per,
                     status = pp.status,
                     get_time = pp.get_time
                 } into p
-                where (p.get_materials_id.ToString().Contains(info))
+                where (p.w_materials_id.ToString().Contains(info))
                 select p;
           //查询数据表总共有多少条记录
           int rows1 = db.get_materials.ToList().Count;
@@ -149,6 +155,12 @@ namespace shoe_api.Controllers
             Pagedata.data = list1;
             return Pagedata;
         }
+        //查询领料单详情存储过程
+        //[HttpGet]
+        //public string select_get_materials_detail(int id)
+        //{
+        //    return Newtonsoft.Json.JsonConvert.SerializeObject(info);
+        //}
         //查询生产单
         [HttpPost]
         public BaseDataTables select_pro_product([FromBody] GetDataTablesMessage obj)
@@ -213,7 +225,7 @@ namespace shoe_api.Controllers
             {
                 return 0;
             }
-            if (md.materialr_epertory_id.ToString() == null)
+            if (md.materialr_details_id.ToString() == null)
             {
                 return 1;
             }

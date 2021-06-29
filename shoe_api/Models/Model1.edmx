@@ -40,9 +40,9 @@
         </EntityType>
         <EntityType Name="get_materials">
           <Key>
-            <PropertyRef Name="get_materials_id" />
+            <PropertyRef Name="w_materials_id" />
           </Key>
-          <Property Name="get_materials_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="w_materials_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="product_plan_id" Type="int" Nullable="false" />
           <Property Name="get_department" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -94,7 +94,7 @@
           <Property Name="materials_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="w_materials_id" Type="int" Nullable="false" />
           <Property Name="materialr_details_num" Type="int" Nullable="false" />
-          <Property Name="materialr_epertory_id" Type="int" Nullable="false" />
+          <Property Name="materialr_details_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="materialr_epertory">
           <Key>
@@ -355,6 +355,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_materialr_details_get_materials">
+          <End Role="get_materials" Type="Self.get_materials" Multiplicity="1" />
+          <End Role="materialr_details" Type="Self.materialr_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="get_materials">
+              <PropertyRef Name="w_materials_id" />
+            </Principal>
+            <Dependent Role="materialr_details">
+              <PropertyRef Name="w_materials_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_materialr_details_materialr">
           <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
           <End Role="materialr_details" Type="Self.materialr_details" Multiplicity="*" />
@@ -363,19 +375,7 @@
               <PropertyRef Name="materialr_details_id" />
             </Principal>
             <Dependent Role="materialr_details">
-              <PropertyRef Name="materialr_details_num" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_materialr_details_materialr_details">
-          <End Role="get_materials" Type="Self.get_materials" Multiplicity="1" />
-          <End Role="materialr_details" Type="Self.materialr_details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="get_materials">
-              <PropertyRef Name="get_materials_id" />
-            </Principal>
-            <Dependent Role="materialr_details">
-              <PropertyRef Name="w_materials_id" />
+              <PropertyRef Name="materialr_details_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -516,7 +516,7 @@
           <End Role="out_materialr" Type="Self.out_materialr" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="get_materials">
-              <PropertyRef Name="get_materials_id" />
+              <PropertyRef Name="w_materials_id" />
             </Principal>
             <Dependent Role="out_materialr">
               <PropertyRef Name="get_materials_id" />
@@ -719,12 +719,12 @@
             <End Role="pro_production" EntitySet="pro_production" />
             <End Role="in_repertory" EntitySet="in_repertory" />
           </AssociationSet>
-          <AssociationSet Name="FK_materialr_details_materialr" Association="Self.FK_materialr_details_materialr">
-            <End Role="materialr" EntitySet="materialr" />
+          <AssociationSet Name="FK_materialr_details_get_materials" Association="Self.FK_materialr_details_get_materials">
+            <End Role="get_materials" EntitySet="get_materials" />
             <End Role="materialr_details" EntitySet="materialr_details" />
           </AssociationSet>
-          <AssociationSet Name="FK_materialr_details_materialr_details" Association="Self.FK_materialr_details_materialr_details">
-            <End Role="get_materials" EntitySet="get_materials" />
+          <AssociationSet Name="FK_materialr_details_materialr" Association="Self.FK_materialr_details_materialr">
+            <End Role="materialr" EntitySet="materialr" />
             <End Role="materialr_details" EntitySet="materialr_details" />
           </AssociationSet>
           <AssociationSet Name="FK_materialr_details_materialr_type" Association="Self.FK_materialr_details_materialr_type">
@@ -851,16 +851,16 @@
         </EntityType>
         <EntityType Name="get_materials">
           <Key>
-            <PropertyRef Name="get_materials_id" />
+            <PropertyRef Name="w_materials_id" />
           </Key>
-          <Property Name="get_materials_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="w_materials_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="product_plan_id" Type="Int32" Nullable="false" />
           <Property Name="get_department" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="get_time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="product_plan" Relationship="Self.FK_get_materials_product_plan" FromRole="get_materials" ToRole="product_plan" />
-          <NavigationProperty Name="materialr_details" Relationship="Self.FK_materialr_details_materialr_details" FromRole="get_materials" ToRole="materialr_details" />
+          <NavigationProperty Name="materialr_details" Relationship="Self.FK_materialr_details_get_materials" FromRole="get_materials" ToRole="materialr_details" />
           <NavigationProperty Name="out_materialr" Relationship="Self.FK_out_materialr_get_materials" FromRole="get_materials" ToRole="out_materialr" />
         </EntityType>
         <EntityType Name="in_materialr">
@@ -920,8 +920,8 @@
           <Property Name="materials_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="w_materials_id" Type="Int32" Nullable="false" />
           <Property Name="materialr_details_num" Type="Int32" Nullable="false" />
-          <Property Name="materialr_epertory_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="get_materials" Relationship="Self.FK_materialr_details_materialr_details" FromRole="materialr_details" ToRole="get_materials" />
+          <Property Name="materialr_details_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="get_materials" Relationship="Self.FK_materialr_details_get_materials" FromRole="materialr_details" ToRole="get_materials" />
           <NavigationProperty Name="materialr" Relationship="Self.FK_materialr_details_materialr" FromRole="materialr_details" ToRole="materialr" />
         </EntityType>
         <EntityType Name="materialr_epertory">
@@ -1193,12 +1193,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_materialr_details_materialr_details">
+        <Association Name="FK_materialr_details_get_materials">
           <End Role="get_materials" Type="Self.get_materials" Multiplicity="1" />
           <End Role="materialr_details" Type="Self.materialr_details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="get_materials">
-              <PropertyRef Name="get_materials_id" />
+              <PropertyRef Name="w_materials_id" />
             </Principal>
             <Dependent Role="materialr_details">
               <PropertyRef Name="w_materials_id" />
@@ -1210,7 +1210,7 @@
           <End Role="out_materialr" Type="Self.out_materialr" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="get_materials">
-              <PropertyRef Name="get_materials_id" />
+              <PropertyRef Name="w_materials_id" />
             </Principal>
             <Dependent Role="out_materialr">
               <PropertyRef Name="get_materials_id" />
@@ -1285,7 +1285,7 @@
               <PropertyRef Name="materialr_details_id" />
             </Principal>
             <Dependent Role="materialr_details">
-              <PropertyRef Name="materialr_details_num" />
+              <PropertyRef Name="materialr_details_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1526,7 +1526,7 @@
             <End Role="product_plan" EntitySet="product_plan" />
             <End Role="get_materials" EntitySet="get_materials" />
           </AssociationSet>
-          <AssociationSet Name="FK_materialr_details_materialr_details" Association="Self.FK_materialr_details_materialr_details">
+          <AssociationSet Name="FK_materialr_details_get_materials" Association="Self.FK_materialr_details_get_materials">
             <End Role="get_materials" EntitySet="get_materials" />
             <End Role="materialr_details" EntitySet="materialr_details" />
           </AssociationSet>
@@ -1744,7 +1744,7 @@
           <EntitySetMapping Name="get_materials">
             <EntityTypeMapping TypeName="ShoeModel.get_materials">
               <MappingFragment StoreEntitySet="get_materials">
-                <ScalarProperty Name="get_materials_id" ColumnName="get_materials_id" />
+                <ScalarProperty Name="w_materials_id" ColumnName="w_materials_id" />
                 <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
                 <ScalarProperty Name="get_department" ColumnName="get_department" />
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
@@ -1801,7 +1801,7 @@
                 <ScalarProperty Name="materials_id" ColumnName="materials_id" />
                 <ScalarProperty Name="w_materials_id" ColumnName="w_materials_id" />
                 <ScalarProperty Name="materialr_details_num" ColumnName="materialr_details_num" />
-                <ScalarProperty Name="materialr_epertory_id" ColumnName="materialr_epertory_id" />
+                <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

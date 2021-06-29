@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8e141862fe0c444fb71dfacaabe72ce6" Name="Diagram1">
+      <Diagram DiagramId="e98ad392c44a4adc944bfbe5cbe5f71f" Name="Diagram1">
         <EntityTypeShape EntityType="ShoeModel.admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShoeModel.buy_materials_details" Width="1.5" PointX="22.25" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ShoeModel.customer" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
@@ -37,7 +37,7 @@
         <AssociationConnector Association="ShoeModel.FK_buy_materials_details_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_order_customer" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_get_materials_product_plan" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoeModel.FK_materialr_details_materialr_details" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeModel.FK_materialr_details_get_materials" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_materialr_get_materials" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_in_materialr_materials_plan" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materials_quality_testing_in_materialr" ManuallyRouted="false" />
