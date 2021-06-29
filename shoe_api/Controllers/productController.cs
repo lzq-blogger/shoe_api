@@ -44,7 +44,19 @@ namespace shoe_api.Controllers
             return Pagedata;
         }
         //查询生产计划详情
-        
+        //[HttpGet]
+        //public string pro_plan_detail(int id)
+        //{
+        //    var info = from ppd in db.product_plan_details
+        //               join
+        //                p in db.product on ppd.product_id equals p.product_id
+        //                into fu
+        //               select new { 
+        //                   product_plan_details_id = ppd.product_plan_details_id,
+
+        //               };
+
+        //}
         //查询订单编号，用来显示在新增计划的那个下拉框里
         //生产计划查询
         [HttpPost]
