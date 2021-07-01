@@ -25,7 +25,17 @@ namespace shoe_api.Controllers
             }
             //根据对应页码和条数进行查询
             var list1 = from pp in db.product_plan
-                        select pp into q
+                        join od in db.product_plan_details
+             on pp.product_plan_id equals od.product_plan_id
+                        select new
+                        {
+                            product_plan_id = pp.product_plan_id,
+                            order_id = od.order_id,
+                            operator_per = pp.operator_per,
+                            product_time = pp.product_time,
+                            product_end_time = pp.product_end_time,
+                            status = pp.status
+                        } into q
                         where (q.product_plan_id.ToString().Contains(info))
                         select q;
             //查询数据表总共有多少条记录
@@ -97,6 +107,13 @@ namespace shoe_api.Controllers
             {
                 return 1;
             }
+            //if (pp.product_plan_num.ToString() == null ||
+            //  pp.operator_per == null ||
+            //  pp.product_time == null ||
+            //  pp.product_end_time == null)
+            //{
+            //    return 1;
+            //}
             //新增数据
             db.product_plan.Add(pp);
             //保存数据
@@ -165,7 +182,6 @@ namespace shoe_api.Controllers
             }
             //根据对应页码和条数进行查询
             var list1 = from pp in db.pro_production
-                        where (pp.pro_production_id.ToString().Contains(info))
                         select pp;
             //查询数据表总共有多少条记录
             int rows1 = db.pro_production.ToList().Count;
@@ -235,6 +251,7 @@ namespace shoe_api.Controllers
             {
                 return 0;
             }
+         
             if (pp.pro_production_dep.ToString() == null||
                 pp.operator_per.ToString() == null ||
                 pp.product_time.ToString() == null )

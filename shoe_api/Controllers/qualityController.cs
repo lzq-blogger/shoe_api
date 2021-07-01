@@ -27,7 +27,7 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
 
-            var list1 = db.pro_production.ToList().Where(p => p.pro_production_id.ToString().Contains(info)
+            var list1 = db.pro_production.ToList().Where(p => p.product_plan_details_id.ToString().Contains(info)
             || p.pro_production_dep.Contains(info)
             || p.operator_per.Contains(info) || p.product_time.ToString().Contains(info)
             || p.status.Contains(info));
@@ -74,7 +74,7 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
 
-            var list1 = db.product_quality_testing.ToList().Where(p => p.quality_testing_id.ToString().Contains(info)
+            var list1 = db.product_quality_testing.Where(p => p.quality_testing_id.ToString().Contains(info)
             || p.pro_production_id.ToString().Contains(info) || p.quality_testing_time.ToString().Contains(info)
             || p.operator_per.Contains(info) || p.result.Contains(info));
 

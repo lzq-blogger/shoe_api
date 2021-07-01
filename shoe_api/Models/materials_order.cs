@@ -30,10 +30,10 @@ namespace shoe_api.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<buy_materials_details> buy_materials_details { get; set; }
-        public virtual materials_plan materials_plan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<materials_quality_testing> materials_quality_testing { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<out_money> out_money { get; set; }
+        public virtual ICollection<out_in_money> out_in_money { get; set; }
+        public virtual materials_plan materials_plan { get; set; }
     }
 }
