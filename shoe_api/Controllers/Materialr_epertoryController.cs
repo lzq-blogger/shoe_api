@@ -109,9 +109,9 @@ namespace shoe_api.Controllers
             //            } into q
             //            where (q.orderr_id.Contains(info))
             //            select q; ;
-            var list1 = db.in_materialr.ToList();
+            var list1 = db.materials_order.ToList();
             //查询数据表总共有多少条记录
-            int rows1 = db.in_materialr.ToList().Count;
+            int rows1 = db.materials_order.ToList().Count;
 
             //记录过滤后的条数
             int rows2 = rows1;

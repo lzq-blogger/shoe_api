@@ -121,7 +121,7 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.materials_quality_testing.ToList().Where(p => p.quality_testing_id.ToString().Contains(info)
-            || p.in_materialr_id.ToString().Contains(info) || p.quality_testing_time.ToString().Contains(info)
+            || p.materialrs_order_id.ToString().Contains(info) || p.quality_testing_time.ToString().Contains(info)
             || p.operator_per.Contains(info) || p.result.Contains(info));
 
             //查询数据表总共有多少条记录
@@ -166,12 +166,12 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
 
-            var list1 = db.in_materialr.ToList().Where(p => p.in_materialr_id.ToString().Contains(info)
-            || p.materialr_plan_id.ToString().Contains(info) 
-            || p.operator_per.Contains(info) || p.status.Contains(info));
+            var list1 = db.materials_order.ToList().Where(p => p.materials_order_id.ToString().Contains(info)
+            || p.materialr_plan_id.ToString().Contains(info) ||  p.operator_per.Contains(info) ||
+            p.status.Contains(info));
 
             //查询数据表总共有多少条记录
-            int rows1 = db.in_materialr.ToList().Count;
+            int rows1 = db.materials_order.ToList().Count;
 
             //记录过滤后的条数
             int rows2 = rows1;

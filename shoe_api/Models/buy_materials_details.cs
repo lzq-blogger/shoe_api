@@ -15,11 +15,11 @@ namespace shoe_api.Models
     public partial class buy_materials_details
     {
         public int buy_materials_details_id { get; set; }
-        public string in_materialr_id { get; set; }
+        public string materialrs_order_id { get; set; }
         public int materialr_details_num { get; set; }
         public int materialr_details_id { get; set; }
     
-        public virtual in_materialr in_materialr { get; set; }
+        public virtual materials_order materials_order { get; set; }
         public virtual materialr materialr { get; set; }
     }
 }

@@ -33,7 +33,7 @@ namespace shoe_api.Controllers
                             customer_name = od.customer_name,
                             order_starttime = pp.order_starttime,
                             order_endtime = pp.order_endtime,
-                            operator_per=pp.operator_per,
+                            person_handling = pp.person_handling,
                             order_paid = pp.order_paid,
                             order_unpaid = pp.order_unpaid,
                             order_status = pp.order_status
@@ -54,6 +54,21 @@ namespace shoe_api.Controllers
             Pagedata.recordsFiltered = rows2;
             Pagedata.data = list1;
             return Pagedata;  
+        }
+        //查询客户订单详情
+        [HttpGet]
+        public string customer_order_detail(int id)
+        {
+            var list1 = db.Database.SqlQuery<customer_order_details_Result>("exec customer_order_details "+id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
+        //订单ID
+        [HttpGet]
+        public string customerID()
+        {
+            var list1 = from o in db.order
+                        select new { order_id = o.orderr_id };
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
         }
         [HttpPost]
         //新增出库详情

@@ -50,6 +50,9 @@
         <AssociationConnector Association="ShoeModel.FK_materials_plan_details_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_materialr_materialr_details" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materialr_type_product_type" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeModel.FK_in_materialr_materials_plan" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeModel.FK_materials_quality_testing_in_materialr" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeModel.FK_out_in_money_in_materialr" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_materials_plan_details_materials_plan1" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_order_details_order" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_out_repertory_order" ManuallyRouted="false" />
