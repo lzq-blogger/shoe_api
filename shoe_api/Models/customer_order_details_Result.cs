@@ -10,17 +10,23 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class order_details
+    public partial class customer_order_details_Result
     {
         public int order_details_id { get; set; }
         public int product_id { get; set; }
         public string order_id { get; set; }
         public decimal order_details_money { get; set; }
         public int quantity { get; set; }
-    
-        public virtual order order { get; set; }
-        public virtual product product { get; set; }
+        public string orderr_id { get; set; }
+        public int customer_id { get; set; }
+        public System.DateTime order_starttime { get; set; }
+        public Nullable<System.DateTime> order_endtime { get; set; }
+        public string person_handling { get; set; }
+        public string operator_per { get; set; }
+        public decimal order_paid { get; set; }
+        public decimal order_unpaid { get; set; }
+        public string order_status { get; set; }
+        public string order_delivery_way { get; set; }
     }
 }

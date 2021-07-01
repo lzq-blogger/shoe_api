@@ -113,7 +113,7 @@ namespace shoe_api.Controllers
                             order_unpaid = pp.order_unpaid,
                             order_status = pp.order_status
                         } into q
-                        where (q.orderr_id.Contains(info1))
+                        where (q.orderr_id.ToString().Contains(info1))
                         select q;
 
             //查询数据表总共有多少条记录

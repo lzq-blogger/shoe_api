@@ -32,6 +32,8 @@ namespace shoe_api.Models
         public virtual DbSet<customer> customer { get; set; }
         public virtual DbSet<get_materials> get_materials { get; set; }
         public virtual DbSet<in_materialr> in_materialr { get; set; }
+        public virtual DbSet<in_money> in_money { get; set; }
+        public virtual DbSet<in_repertory> in_repertory { get; set; }
         public virtual DbSet<materialr> materialr { get; set; }
         public virtual DbSet<materialr_details> materialr_details { get; set; }
         public virtual DbSet<materialr_epertory> materialr_epertory { get; set; }
@@ -41,8 +43,8 @@ namespace shoe_api.Models
         public virtual DbSet<materials_quality_testing> materials_quality_testing { get; set; }
         public virtual DbSet<order> order { get; set; }
         public virtual DbSet<order_details> order_details { get; set; }
-        public virtual DbSet<out_in_money> out_in_money { get; set; }
         public virtual DbSet<out_materialr> out_materialr { get; set; }
+        public virtual DbSet<out_money> out_money { get; set; }
         public virtual DbSet<out_repertory> out_repertory { get; set; }
         public virtual DbSet<pro_production> pro_production { get; set; }
         public virtual DbSet<pro_repertory> pro_repertory { get; set; }
@@ -54,9 +56,36 @@ namespace shoe_api.Models
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<proPlan_ordDetails> proPlan_ordDetails { get; set; }
     
+        public virtual ObjectResult<customer_order_details_Result> customer_order_details(Nullable<int> customer_orderid)
+        {
+            var customer_orderidParameter = customer_orderid.HasValue ?
+                new ObjectParameter("customer_orderid", customer_orderid) :
+                new ObjectParameter("customer_orderid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<customer_order_details_Result>("customer_order_details", customer_orderidParameter);
+        }
+    
         public virtual ObjectResult<in_repertory_detail_Result> in_repertory_detail()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<in_repertory_detail_Result>("in_repertory_detail");
+        }
+    
+        public virtual ObjectResult<materialr_details_materialr_Result> materialr_details_materialr(Nullable<int> material_id)
+        {
+            var material_idParameter = material_id.HasValue ?
+                new ObjectParameter("material_id", material_id) :
+                new ObjectParameter("material_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<materialr_details_materialr_Result>("materialr_details_materialr", material_idParameter);
+        }
+    
+        public virtual ObjectResult<pro_plan_details_Result> pro_plan_details(Nullable<int> pro_plan_id)
+        {
+            var pro_plan_idParameter = pro_plan_id.HasValue ?
+                new ObjectParameter("pro_plan_id", pro_plan_id) :
+                new ObjectParameter("pro_plan_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pro_plan_details_Result>("pro_plan_details", pro_plan_idParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
