@@ -60,6 +60,9 @@
         <AssociationConnector Association="ShoeModel.FK_pro_repertory_product_plan" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_product_plan_details_product" ManuallyRouted="false" />
         <AssociationConnector Association="ShoeModel.FK_product_plan_details_product_plan" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShoeModel.materials_plan" Width="1.5" PointX="0.75" PointY="21" />
+        <AssociationConnector Association="ShoeModel.FK_in_materialr_materials_plan" />
+        <AssociationConnector Association="ShoeModel.FK_materials_plan_details_materials_plan1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

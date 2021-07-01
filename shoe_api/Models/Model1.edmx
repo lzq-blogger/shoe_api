@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="ID" />
@@ -271,16 +271,6 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“Shoe.dbo.proPlan_ordDetails”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
-        <EntityType Name="proPlan_ordDetails">
-          <Key>
-            <PropertyRef Name="product_plan_id" />
-            <PropertyRef Name="product_plan_num" />
-          </Key>
-          <Property Name="product_plan_id" Type="int" Nullable="false" />
-          <Property Name="product_plan_num" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_buy_materials_details_in_materialr">
           <End Role="materials_order" Type="Self.materials_order" Multiplicity="1" />
@@ -688,12 +678,6 @@
           <EntitySet Name="product_quality_testing" EntityType="Self.product_quality_testing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_type" EntityType="Self.product_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="proPlan_ordDetails" EntityType="Self.proPlan_ordDetails" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [proPlan_ordDetails].[product_plan_id] AS [product_plan_id], 
-    [proPlan_ordDetails].[product_plan_num] AS [product_plan_num]
-    FROM [dbo].[proPlan_ordDetails] AS [proPlan_ordDetails]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_buy_materials_details_in_materialr" Association="Self.FK_buy_materials_details_in_materialr">
             <End Role="materials_order" EntitySet="materials_order" />
             <End Role="buy_materials_details" EntitySet="buy_materials_details" />
@@ -803,8 +787,7 @@
             <End Role="product_quality_testing" EntitySet="product_quality_testing" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShoeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -893,6 +876,7 @@
           <NavigationProperty Name="materialr_epertory" Relationship="Self.FK_materialr_epertory_materialr_details" FromRole="materialr" ToRole="materialr_epertory" />
           <NavigationProperty Name="materials_plan_details" Relationship="Self.FK_materials_plan_details_materialr" FromRole="materialr" ToRole="materials_plan_details" />
           <NavigationProperty Name="out_materialr" Relationship="Self.FK_out_materialr_materialr_details" FromRole="materialr" ToRole="out_materialr" />
+          <Property Name="material_supplier" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="materialr_details">
           <Key>
@@ -959,7 +943,7 @@
           <Property Name="materialr_details_num" Type="Int32" Nullable="false" />
           <Property Name="materialr_details_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="materialr" Relationship="Self.FK_materials_plan_details_materialr" FromRole="materials_plan_details" ToRole="materialr" />
-          <NavigationProperty Name="materials_plan" Relationship="Self.FK_materials_plan_details_materials_plan1" FromRole="materials_plan_details" ToRole="materials_plan" />
+          <NavigationProperty Name="materials_plan" Relationship="ShoeModel.FK_materials_plan_details_materials_plan1" FromRole="materials_plan_details" ToRole="materials_plan" />
         </EntityType>
         <EntityType Name="materials_quality_testing">
           <Key>
@@ -1128,14 +1112,6 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="proPlan_ordDetails">
-          <Key>
-            <PropertyRef Name="product_plan_id" />
-            <PropertyRef Name="product_plan_num" />
-          </Key>
-          <Property Name="product_plan_id" Type="Int32" Nullable="false" />
-          <Property Name="product_plan_num" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_buy_materials_details_in_materialr">
           <End Role="materials_order" Type="Self.materials_order" Multiplicity="1" />
@@ -1489,7 +1465,6 @@
           <EntitySet Name="product_quality_testing" EntityType="Self.product_quality_testing" />
           <EntitySet Name="product_type" EntityType="Self.product_type" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="proPlan_ordDetails" EntityType="Self.proPlan_ordDetails" />
           <AssociationSet Name="FK_buy_materials_details_in_materialr" Association="Self.FK_buy_materials_details_in_materialr">
             <End Role="materials_order" EntitySet="materials_order" />
             <End Role="buy_materials_details" EntitySet="buy_materials_details" />
@@ -1651,6 +1626,15 @@
             <Parameter Name="PageIndex" Mode="In" Type="Int32" />
             <Parameter Name="PageWhere" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="materials_plan" EntityType="ShoeModel.materials_plan" />
+          <AssociationSet Name="FK_in_materialr_materials_plan" Association="ShoeModel.FK_in_materialr_materials_plan">
+            <End Role="materials_plan" EntitySet="materials_plan" />
+            <End Role="in_materialr" EntitySet="in_materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_materials_plan_details_materials_plan1" Association="ShoeModel.FK_materials_plan_details_materials_plan1">
+            <End Role="materials_plan" EntitySet="materials_plan" />
+            <End Role="materials_plan_details" EntitySet="materials_plan_details" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="customer_order_details_Result">
           <Property Type="String" Name="order_id" Nullable="false" MaxLength="50" />
@@ -1730,6 +1714,42 @@
           <Property Type="Int32" Name="materialr_type_id" Nullable="false" />
           <Property Type="Decimal" Name="materialr_details_price" Nullable="false" Precision="19" />
         </ComplexType>
+        <EntityType Name="materials_plan">
+          <Key>
+            <PropertyRef Name="materialr_plan_id" />
+          </Key>
+          <Property Name="materialr_plan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="operator_per" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="person_handling" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="materials_plan_time" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="in_materialr" Relationship="ShoeModel.FK_in_materialr_materials_plan" FromRole="materials_plan" ToRole="in_materialr" />
+          <NavigationProperty Name="materials_plan_details" Relationship="ShoeModel.FK_materials_plan_details_materials_plan1" FromRole="materials_plan" ToRole="materials_plan_details" />
+        </EntityType>
+        <Association Name="FK_in_materialr_materials_plan">
+          <End Type="ShoeModel.materials_plan" Role="materials_plan" Multiplicity="1" />
+          <End Type="ShoeModel.in_materialr" Role="in_materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materials_plan">
+              <PropertyRef Name="materialr_plan_id" />
+            </Principal>
+            <Dependent Role="in_materialr">
+              <PropertyRef Name="materialr_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_materials_plan_details_materials_plan1">
+          <End Type="ShoeModel.materials_plan" Role="materials_plan" Multiplicity="1" />
+          <End Type="ShoeModel.materials_plan_details" Role="materials_plan_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materials_plan">
+              <PropertyRef Name="materialr_plan_id" />
+            </Principal>
+            <Dependent Role="materials_plan_details">
+              <PropertyRef Name="materialr_plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1807,6 +1827,7 @@
           <EntitySetMapping Name="materialr">
             <EntityTypeMapping TypeName="ShoeModel.materialr">
               <MappingFragment StoreEntitySet="materialr">
+                <ScalarProperty Name="material_supplier" ColumnName="material_supplier" />
                 <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
                 <ScalarProperty Name="materialr_details_name" ColumnName="materialr_details_name" />
                 <ScalarProperty Name="materialr_type_id" ColumnName="materialr_type_id" />
@@ -2157,6 +2178,17 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="materials_plan">
+            <EntityTypeMapping TypeName="ShoeModel.materials_plan">
+              <MappingFragment StoreEntitySet="materials_plan">
+                <ScalarProperty Name="materials_plan_time" ColumnName="materials_plan_time" />
+                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="materialr_plan_id" ColumnName="materialr_plan_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

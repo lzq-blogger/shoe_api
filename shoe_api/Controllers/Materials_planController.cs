@@ -14,15 +14,19 @@ namespace shoe_api.Controllers
 
         ShoeEntities db = new ShoeEntities();
 
+        //查询
         [Route("POSTAllData")]
         [HttpPost]
         public BaseDataTables FenYe([FromBody] GetDataTablesMessage obj)
         {
+            //新建返回实例对象
+            BaseDataTables Pagedata = new BaseDataTables();
+            try
+            {
+
             //防止序列化恶性循环===========================
             db.Configuration.ProxyCreationEnabled = false;
 
-            //新建返回实例对象
-            BaseDataTables Pagedata = new BaseDataTables();
 
             Pagedata.draw = obj.draw;
 
@@ -51,6 +55,11 @@ namespace shoe_api.Controllers
             Pagedata.recordsFiltered = rows2;
 
             Pagedata.data = list1;
+            }
+            catch (Exception mes)
+            {
+                Pagedata.error = mes.ToString();
+            }
 
             return Pagedata;
         }

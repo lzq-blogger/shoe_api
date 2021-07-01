@@ -26,6 +26,7 @@ namespace shoe_api.Models
         public string operator_per { get; set; }
         public string person_handling { get; set; }
         public System.DateTime materials_plan_time { get; set; }
+        public string operator_per { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<materials_order> materials_order { get; set; }
