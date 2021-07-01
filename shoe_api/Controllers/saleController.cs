@@ -91,5 +91,12 @@ namespace shoe_api.Controllers
             db.SaveChanges();
             return 2;
         }
+        //出库详情
+        [HttpGet]
+        public string select_customer_details(int id)
+        {
+            var list1 = db.Database.SqlQuery<select_customer_details_Result>("exec select_customer_details " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
     }
 }

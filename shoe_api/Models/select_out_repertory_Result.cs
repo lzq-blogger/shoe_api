@@ -11,12 +11,12 @@ namespace shoe_api.Models
 {
     using System;
     
-    public partial class xp_SelectPageJihua_Result
+    public partial class select_out_repertory_Result
     {
-        public int materialr_plan_id { get; set; }
-        public string status { get; set; }
-        public string operator_per { get; set; }
-        public string person_handling { get; set; }
-        public System.DateTime materials_plan_time { get; set; }
+        public string customer_name { get; set; }
+        public string customer_phone { get; set; }
+        public string product_name { get; set; }
+        public string product_price { get; set; }
+        public int quantity { get; set; }
     }
 }

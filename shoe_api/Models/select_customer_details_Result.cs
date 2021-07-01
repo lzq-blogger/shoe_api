@@ -11,11 +11,12 @@ namespace shoe_api.Models
 {
     using System;
     
-    public partial class xp_adminPage_Result
+    public partial class select_customer_details_Result
     {
-        public int ID { get; set; }
-        public string name { get; set; }
-        public string account { get; set; }
-        public string pwd { get; set; }
+        public int product_id { get; set; }
+        public string product_name { get; set; }
+        public string product_price { get; set; }
+        public int quantity { get; set; }
+        public string product_type { get; set; }
     }
 }

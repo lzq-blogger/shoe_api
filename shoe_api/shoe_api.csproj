@@ -183,6 +183,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\add_pro_repertory_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\admin.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -293,6 +296,12 @@
     <Compile Include="Models\pro_repertory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\select_customer_details_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\select_out_repertory_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\select_pro_plan_details_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -305,7 +314,7 @@
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\xp_adminPage_Result.cs">
+    <Compile Include="Models\xp_SelectPageJihua_detail_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\xp_SelectPageJihua_Result.cs">
