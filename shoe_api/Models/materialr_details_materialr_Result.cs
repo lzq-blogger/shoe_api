@@ -19,5 +19,6 @@ namespace shoe_api.Models
         public string materialr_type_name { get; set; }
         public int materialr_details_num { get; set; }
         public string material_supplier { get; set; }
+        public string pro_guige { get; set; }
     }
 }

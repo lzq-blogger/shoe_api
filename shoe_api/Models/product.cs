@@ -30,6 +30,7 @@ namespace shoe_api.Models
         public string product_price { get; set; }
         public string product_address { get; set; }
         public string unit { get; set; }
+        public string pro_guige { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order_details> order_details { get; set; }
