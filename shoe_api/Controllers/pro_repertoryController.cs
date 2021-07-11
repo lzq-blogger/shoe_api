@@ -85,6 +85,13 @@ namespace shoe_api.Controllers
             Pagedata.data = list1;
             return Pagedata;
         }
+        //出库详情
+        [HttpGet]
+        public string select_out_product_details(int id)
+        {
+            var list1 = db.Database.SqlQuery<select_out_repertory_Result>("exec select_out_repertory " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
         [HttpPost]
         //产品入库
         public BaseDataTables select_in_product([FromBody] GetDataTablesMessage obj)
@@ -113,6 +120,13 @@ namespace shoe_api.Controllers
             Pagedata.recordsFiltered = rows2;
             Pagedata.data = list1;
             return Pagedata;
+        }
+        //入库详情
+        [HttpGet]
+        public string pro_product_detail(int id)
+        {
+            var list1 = db.Database.SqlQuery<add_pro_repertory_Result>("exec add_pro_repertory " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
         }
         [HttpPost]
         //产品入库单

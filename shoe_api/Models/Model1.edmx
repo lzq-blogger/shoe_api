@@ -76,6 +76,7 @@
           <Property Name="materialr_type_id" Type="int" Nullable="false" />
           <Property Name="materialr_details_price" Type="money" Nullable="false" />
           <Property Name="material_supplier" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pro_guige" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="materialr_details">
           <Key>
@@ -224,6 +225,7 @@
           <Property Name="product_price" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="product_address" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="unit" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="pro_guige" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="product_plan">
           <Key>
@@ -234,6 +236,7 @@
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="product_time" Type="date" Nullable="false" />
           <Property Name="product_end_time" Type="date" Nullable="false" />
+          <Property Name="pro_status" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="product_plan_details">
           <Key>
@@ -243,7 +246,6 @@
           <Property Name="product_plan_id" Type="int" Nullable="false" />
           <Property Name="product_details_num" Type="int" Nullable="false" />
           <Property Name="product_id" Type="int" Nullable="false" />
-          <Property Name="pro_status" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="product_quality_testing">
           <Key>
@@ -261,26 +263,6 @@
           </Key>
           <Property Name="product_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="product_type_name" Type="nvarchar" MaxLength="20" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“Shoe.dbo.proPlan_ordDetails”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
-        <EntityType Name="proPlan_ordDetails">
-          <Key>
-            <PropertyRef Name="product_plan_id" />
-            <PropertyRef Name="product_plan_num" />
-          </Key>
-          <Property Name="product_plan_id" Type="int" Nullable="false" />
-          <Property Name="product_plan_num" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_buy_materials_details_in_materialr">
           <End Role="materials_order" Type="Self.materials_order" Multiplicity="1" />
@@ -612,7 +594,6 @@
         <Function Name="customer_order_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="customer_orderid" Type="int" Mode="In" />
         </Function>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="in_repertory_detail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="materialr_details_materialr" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="material_id" Type="int" Mode="In" />
@@ -632,21 +613,14 @@
         <Function Name="select_pro_plan_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pro_plan_details" Type="int" Mode="In" />
         </Function>
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        <Function Name="select_out_repertory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="out_repertory_id" Type="int" Mode="In" />
         </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        <Function Name="select_Pro_order_datails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Pro_order" Type="int" Mode="In" />
         </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
+        <Function Name="select_pro_plan_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pro_plan_details" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -662,7 +636,8 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="xp_SelectPageJihua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="xp_adminPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PageSize" Type="int" Mode="In" />
           <Parameter Name="PageIndex" Type="int" Mode="In" />
           <Parameter Name="PageSize" Type="int" Mode="In" />
           <Parameter Name="PageWhere" Type="nvarchar" Mode="In" />
@@ -699,13 +674,6 @@
           <EntitySet Name="product_plan_details" EntityType="Self.product_plan_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_quality_testing" EntityType="Self.product_quality_testing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_type" EntityType="Self.product_type" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="proPlan_ordDetails" EntityType="Self.proPlan_ordDetails" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [proPlan_ordDetails].[product_plan_id] AS [product_plan_id], 
-    [proPlan_ordDetails].[product_plan_num] AS [product_plan_num]
-    FROM [dbo].[proPlan_ordDetails] AS [proPlan_ordDetails]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_buy_materials_details_in_materialr" Association="Self.FK_buy_materials_details_in_materialr">
             <End Role="materials_order" EntitySet="materials_order" />
             <End Role="buy_materials_details" EntitySet="buy_materials_details" />
@@ -899,6 +867,7 @@
           <Property Name="materialr_type_id" Type="Int32" Nullable="false" />
           <Property Name="materialr_details_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="material_supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pro_guige" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="buy_materials_details" Relationship="Self.FK_buy_materials_details_materialr" FromRole="materialr" ToRole="buy_materials_details" />
           <NavigationProperty Name="materialr_details" Relationship="Self.FK_materialr_details_materialr" FromRole="materialr" ToRole="materialr_details" />
           <NavigationProperty Name="materialr_type" Relationship="Self.FK_materialr_details_materialr_type" FromRole="materialr" ToRole="materialr_type" />
@@ -1082,6 +1051,7 @@
           <Property Name="product_price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="product_address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="unit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="pro_guige" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="order_details" Relationship="Self.FK_order_details_product" FromRole="product" ToRole="order_details" />
           <NavigationProperty Name="pro_repertory" Relationship="Self.FK_pro_repertory_product_plan" FromRole="product" ToRole="pro_repertory" />
           <NavigationProperty Name="product_plan_details" Relationship="Self.FK_product_plan_details_product" FromRole="product" ToRole="product_plan_details" />
@@ -1095,6 +1065,7 @@
           <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="product_time" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="product_end_time" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="pro_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="get_materials" Relationship="Self.FK_get_materials_product_plan" FromRole="product_plan" ToRole="get_materials" />
           <NavigationProperty Name="order" Relationship="Self.FK_product_plan_order" FromRole="product_plan" ToRole="order" />
           <NavigationProperty Name="product_plan_details" Relationship="Self.FK_product_plan_details_product_plan" FromRole="product_plan" ToRole="product_plan_details" />
@@ -1107,7 +1078,6 @@
           <Property Name="product_plan_id" Type="Int32" Nullable="false" />
           <Property Name="product_details_num" Type="Int32" Nullable="false" />
           <Property Name="product_id" Type="Int32" Nullable="false" />
-          <Property Name="pro_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="pro_production" Relationship="Self.FK_pro_production_product_plan" FromRole="product_plan_details" ToRole="pro_production" />
           <NavigationProperty Name="product" Relationship="Self.FK_product_plan_details_product" FromRole="product_plan_details" ToRole="product" />
           <NavigationProperty Name="product_plan" Relationship="Self.FK_product_plan_details_product_plan" FromRole="product_plan_details" ToRole="product_plan" />
@@ -1130,24 +1100,6 @@
           <Property Name="product_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="product_type_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="materialr_type" Relationship="Self.FK_materialr_type_product_type" FromRole="product_type" ToRole="materialr_type" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="proPlan_ordDetails">
-          <Key>
-            <PropertyRef Name="product_plan_id" />
-            <PropertyRef Name="product_plan_num" />
-          </Key>
-          <Property Name="product_plan_id" Type="Int32" Nullable="false" />
-          <Property Name="product_plan_num" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_buy_materials_details_in_materialr">
           <End Role="materials_order" Type="Self.materials_order" Multiplicity="1" />
@@ -1500,8 +1452,6 @@
           <EntitySet Name="product_plan_details" EntityType="Self.product_plan_details" />
           <EntitySet Name="product_quality_testing" EntityType="Self.product_quality_testing" />
           <EntitySet Name="product_type" EntityType="Self.product_type" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="proPlan_ordDetails" EntityType="Self.proPlan_ordDetails" />
           <AssociationSet Name="FK_buy_materials_details_in_materialr" Association="Self.FK_buy_materials_details_in_materialr">
             <End Role="materials_order" EntitySet="materials_order" />
             <End Role="buy_materials_details" EntitySet="buy_materials_details" />
@@ -1623,15 +1573,6 @@
           <FunctionImport Name="pro_plan_details" ReturnType="Collection(ShoeModel.pro_plan_details_Result)">
             <Parameter Name="pro_plan_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="select_customer_details" ReturnType="Collection(ShoeModel.select_customer_details_Result)">
-            <Parameter Name="order_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="select_out_repertory" ReturnType="Collection(ShoeModel.select_out_repertory_Result)">
-            <Parameter Name="out_repertory_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="select_Pro_order_datails" ReturnType="Collection(ShoeModel.select_Pro_order_datails_Result)">
-            <Parameter Name="Pro_order" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="select_pro_plan_details" ReturnType="Collection(ShoeModel.select_pro_plan_details_Result)">
             <Parameter Name="pro_plan_details" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1651,29 +1592,25 @@
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ShoeModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          <FunctionImport Name="select_out_repertory" ReturnType="Collection(ShoeModel.select_out_repertory_Result)">
+            <Parameter Name="out_repertory_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ShoeModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          <FunctionImport Name="select_Pro_order_datails" ReturnType="Collection(ShoeModel.select_Pro_order_datails_Result)">
+            <Parameter Name="Pro_order" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          <FunctionImport Name="select_pro_plan_details" ReturnType="Collection(ShoeModel.select_pro_plan_details_Result)">
+            <Parameter Name="pro_plan_details" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="xp_SelectPageJihua" ReturnType="Collection(ShoeModel.xp_SelectPageJihua_Result)">
-            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+          <FunctionImport Name="xp_adminPage" ReturnType="Collection(ShoeModel.xp_adminPage_Result)">
             <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
             <Parameter Name="PageWhere" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="xp_SelectPageJihua_detail" ReturnType="Collection(ShoeModel.xp_SelectPageJihua_detail_Result)">
-            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+          <FunctionImport Name="xp_SelectPageJihua" ReturnType="Collection(ShoeModel.xp_SelectPageJihua_Result)">
             <Parameter Name="PageSize" Mode="In" Type="Int32" />
-            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageWhere" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="add_pro_repertory_Result">
@@ -1701,6 +1638,7 @@
           <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="product_address" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="unit" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="pro_guige" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="in_repertory_detail_Result">
           <Property Type="Int32" Name="quality_testing_id" Nullable="false" />
@@ -1717,6 +1655,7 @@
           <Property Type="String" Name="materialr_type_name" Nullable="false" MaxLength="20" />
           <Property Type="Int32" Name="materialr_details_num" Nullable="false" />
           <Property Type="String" Name="material_supplier" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="pro_guige" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="pro_plan_details_Result">
           <Property Type="Int32" Name="product_plan_details_id" Nullable="false" />
@@ -1725,7 +1664,35 @@
           <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="product_details_num" Nullable="false" />
           <Property Type="String" Name="unit" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="pro_status" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="pro_guige" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="select_customer_details_Result">
+          <Property Type="Int32" Name="product_id" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+          <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_num" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="select_out_repertory_Result">
+          <Property Type="String" Name="customer_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="customer_phone" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="select_Pro_order_datails_Result">
+          <Property Type="DateTime" Name="order_endtime" Nullable="true" />
+          <Property Type="String" Name="order_delivery_way" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="person_handling" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="operator_per" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="order_details_id" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="unit" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="product_num" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
         </ComplexType>
         <ComplexType Name="select_customer_details_Result">
           <Property Type="Int32" Name="product_id" Nullable="false" />
@@ -1773,6 +1740,12 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="xp_adminPage_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="account" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="pwd" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="xp_SelectPageJihua_Result">
           <Property Type="Int32" Name="materialr_plan_id" Nullable="false" />
@@ -1874,6 +1847,7 @@
                 <ScalarProperty Name="materialr_type_id" ColumnName="materialr_type_id" />
                 <ScalarProperty Name="materialr_details_price" ColumnName="materialr_details_price" />
                 <ScalarProperty Name="material_supplier" ColumnName="material_supplier" />
+                <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2037,6 +2011,7 @@
                 <ScalarProperty Name="product_price" ColumnName="product_price" />
                 <ScalarProperty Name="product_address" ColumnName="product_address" />
                 <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2048,6 +2023,7 @@
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="product_time" ColumnName="product_time" />
                 <ScalarProperty Name="product_end_time" ColumnName="product_end_time" />
+                <ScalarProperty Name="pro_status" ColumnName="pro_status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2058,7 +2034,6 @@
                 <ScalarProperty Name="product_plan_id" ColumnName="product_plan_id" />
                 <ScalarProperty Name="product_details_num" ColumnName="product_details_num" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="pro_status" ColumnName="pro_status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2100,19 +2075,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="add_pro_repertory" FunctionName="ShoeModel.Store.add_pro_repertory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.add_pro_repertory_Result">
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="product_type" ColumnName="product_type" />
-                <ScalarProperty Name="product_price" ColumnName="product_price" />
-                <ScalarProperty Name="product_details_num" ColumnName="product_details_num" />
-                <ScalarProperty Name="unit" ColumnName="unit" />
-                <ScalarProperty Name="product_address" ColumnName="product_address" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="customer_order_details" FunctionName="ShoeModel.Store.customer_order_details">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ShoeModel.customer_order_details_Result">
@@ -2131,6 +2093,7 @@
                 <ScalarProperty Name="product_price" ColumnName="product_price" />
                 <ScalarProperty Name="product_address" ColumnName="product_address" />
                 <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2155,6 +2118,7 @@
                 <ScalarProperty Name="materialr_type_name" ColumnName="materialr_type_name" />
                 <ScalarProperty Name="materialr_details_num" ColumnName="materialr_details_num" />
                 <ScalarProperty Name="material_supplier" ColumnName="material_supplier" />
+                <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2167,11 +2131,11 @@
                 <ScalarProperty Name="product_price" ColumnName="product_price" />
                 <ScalarProperty Name="product_details_num" ColumnName="product_details_num" />
                 <ScalarProperty Name="unit" ColumnName="unit" />
-                <ScalarProperty Name="pro_status" ColumnName="pro_status" />
+                <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_customer_details" FunctionName="ShoeModel.Store.select_customer_details">
+          <FunctionImportMapping FunctionImportName="select_pro_plan_details" FunctionName="ShoeModel.Store.select_pro_plan_details">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ShoeModel.select_customer_details_Result">
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
@@ -2179,6 +2143,7 @@
                 <ScalarProperty Name="product_price" ColumnName="product_price" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="product_type" ColumnName="product_type" />
+                <ScalarProperty Name="product_num" ColumnName="product_num" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2210,46 +2175,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_pro_plan_details" FunctionName="ShoeModel.Store.select_pro_plan_details">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.select_pro_plan_details_Result">
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="product_type" ColumnName="product_type" />
-                <ScalarProperty Name="product_price" ColumnName="product_price" />
-                <ScalarProperty Name="product_details_num" ColumnName="product_details_num" />
-                <ScalarProperty Name="unit" ColumnName="unit" />
-                <ScalarProperty Name="product_address" ColumnName="product_address" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ShoeModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ShoeModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ShoeModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ShoeModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ShoeModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ShoeModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ShoeModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="xp_SelectPageJihua" FunctionName="ShoeModel.Store.xp_SelectPageJihua">
+          <FunctionImportMapping FunctionImportName="xp_adminPage" FunctionName="ShoeModel.Store.xp_adminPage">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.xp_SelectPageJihua_Result">
+              <ComplexTypeMapping TypeName="ShoeModel.xp_adminPage_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="xp_SelectPageJihua_detail" FunctionName="ShoeModel.Store.xp_SelectPageJihua_detail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoeModel.xp_SelectPageJihua_detail_Result">
                 <ScalarProperty Name="materialr_plan_id" ColumnName="materialr_plan_id" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />

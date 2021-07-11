@@ -18,5 +18,6 @@ namespace shoe_api.Models
         public string product_price { get; set; }
         public int quantity { get; set; }
         public string product_type { get; set; }
+        public string product_num { get; set; }
     }
 }

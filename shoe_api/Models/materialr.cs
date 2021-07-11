@@ -29,6 +29,7 @@ namespace shoe_api.Models
         public int materialr_type_id { get; set; }
         public decimal materialr_details_price { get; set; }
         public string material_supplier { get; set; }
+        public string pro_guige { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<buy_materials_details> buy_materials_details { get; set; }
