@@ -57,14 +57,6 @@
           <Property Name="out_in_id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="statue" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <EntityType Name="in_money">
-          <Key>
-            <PropertyRef Name="out_in_money_id" />
-          </Key>
-          <Property Name="out_in_money_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="out_in_id" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="statue" Type="nchar" MaxLength="10" Nullable="false" />
-        </EntityType>
         <EntityType Name="in_repertory">
           <Key>
             <PropertyRef Name="in_repertory_id" />
@@ -495,7 +487,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_out_in_money_in_materialr">
-          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="1" />
+          <End Role="materials_order" Type="Self.materials_order" Multiplicity="1" />
           <End Role="out_money" Type="Self.out_money" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="materials_order">
@@ -614,6 +606,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="add_pro_repertory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pro_product_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="customer_order_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="customer_orderid" Type="int" Mode="In" />
         </Function>
@@ -624,6 +619,18 @@
         </Function>
         <Function Name="pro_plan_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pro_plan_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="select_customer_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="order_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="select_out_repertory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="out_repertory_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="select_Pro_order_datails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Pro_order" Type="int" Mode="In" />
+        </Function>
+        <Function Name="select_pro_plan_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pro_plan_details" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -655,22 +662,21 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="xp_adminPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PageSize" Type="int" Mode="In" />
+        <Function Name="xp_SelectPageJihua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PageIndex" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
           <Parameter Name="PageWhere" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="xp_SelectPageJihua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PageSize" Type="int" Mode="In" />
+        <Function Name="xp_SelectPageJihua_detail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PageIndex" Type="int" Mode="In" />
-          <Parameter Name="PageWhere" Type="nvarchar" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="ShoeModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="buy_materials_details" EntityType="Self.buy_materials_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="get_materials" EntityType="Self.get_materials" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="in_materialr" EntityType="Self.in_materialr" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="in_money" EntityType="Self.in_money" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="in_repertory" EntityType="Self.in_repertory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="materialr" EntityType="Self.materialr" Schema="dbo" store:Type="Tables" />
@@ -769,7 +775,7 @@
             <End Role="order_details" EntitySet="order_details" />
           </AssociationSet>
           <AssociationSet Name="FK_out_in_money_in_materialr" Association="Self.FK_out_in_money_in_materialr">
-            <End Role="in_materialr" EntitySet="in_materialr" />
+            <End Role="materials_order" EntitySet="materials_order" />
             <End Role="out_money" EntitySet="out_money" />
           </AssociationSet>
           <AssociationSet Name="FK_out_materialr_get_materials" Association="Self.FK_out_materialr_get_materials">
@@ -868,20 +874,6 @@
           <Key>
             <PropertyRef Name="out_in_money_id" />
           </Key>
-          <Property Name="in_materialr_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="materialr_plan_id" Type="Int32" Nullable="false" />
-          <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="person_handling" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="buy_materials_details" Relationship="Self.FK_buy_materials_details_in_materialr" FromRole="in_materialr" ToRole="buy_materials_details" />
-          <NavigationProperty Name="materials_plan" Relationship="Self.FK_in_materialr_materials_plan" FromRole="in_materialr" ToRole="materials_plan" />
-          <NavigationProperty Name="materials_quality_testing" Relationship="Self.FK_materials_quality_testing_in_materialr" FromRole="in_materialr" ToRole="materials_quality_testing" />
-          <NavigationProperty Name="out_money" Relationship="Self.FK_out_in_money_in_materialr" FromRole="in_materialr" ToRole="out_money" />
-        </EntityType>
-        <EntityType Name="in_money">
-          <Key>
-            <PropertyRef Name="out_in_money_id" />
-          </Key>
           <Property Name="out_in_money_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="out_in_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="statue" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
@@ -967,7 +959,7 @@
           <Property Name="operator_per" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="person_handling" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="materials_plan_time" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="in_materialr" Relationship="Self.FK_in_materialr_materials_plan" FromRole="materials_plan" ToRole="in_materialr" />
+          <NavigationProperty Name="materials_order" Relationship="Self.FK_in_materialr_materials_plan" FromRole="materials_plan" ToRole="materials_order" />
           <NavigationProperty Name="materials_plan_details" Relationship="Self.FK_materials_plan_details_materials_plan1" FromRole="materials_plan" ToRole="materials_plan_details" />
         </EntityType>
         <EntityType Name="materials_plan_details">
@@ -1041,7 +1033,7 @@
           <Property Name="out_in_money_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="out_in_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="statue" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="in_materialr" Relationship="Self.FK_out_in_money_in_materialr" FromRole="out_money" ToRole="in_materialr" />
+          <NavigationProperty Name="materials_order" Relationship="Self.FK_out_in_money_in_materialr" FromRole="out_money" ToRole="materials_order" />
         </EntityType>
         <EntityType Name="out_repertory">
           <Key>
@@ -1226,30 +1218,6 @@
             </Principal>
             <Dependent Role="out_materialr">
               <PropertyRef Name="get_materials_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_in_money_order">
-          <End Role="order" Type="Self.order" Multiplicity="1" />
-          <End Role="in_money" Type="Self.in_money" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="order">
-              <PropertyRef Name="orderr_id" />
-            </Principal>
-            <Dependent Role="in_money">
-              <PropertyRef Name="out_in_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_out_in_money_in_materialr">
-          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="1" />
-          <End Role="out_money" Type="Self.out_money" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="pro_production">
-              <PropertyRef Name="pro_production_id" />
-            </Principal>
-            <Dependent Role="out_money">
-              <PropertyRef Name="out_in_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1510,7 +1478,6 @@
           <EntitySet Name="buy_materials_details" EntityType="Self.buy_materials_details" />
           <EntitySet Name="customer" EntityType="Self.customer" />
           <EntitySet Name="get_materials" EntityType="Self.get_materials" />
-          <EntitySet Name="in_materialr" EntityType="Self.in_materialr" />
           <EntitySet Name="in_money" EntityType="Self.in_money" />
           <EntitySet Name="in_repertory" EntityType="Self.in_repertory" />
           <EntitySet Name="materialr" EntityType="Self.materialr" />
@@ -1558,14 +1525,6 @@
           <AssociationSet Name="FK_out_materialr_get_materials" Association="Self.FK_out_materialr_get_materials">
             <End Role="get_materials" EntitySet="get_materials" />
             <End Role="out_materialr" EntitySet="out_materialr" />
-          </AssociationSet>
-          <AssociationSet Name="FK_in_money_order" Association="Self.FK_in_money_order">
-            <End Role="order" EntitySet="order" />
-            <End Role="in_money" EntitySet="in_money" />
-          </AssociationSet>
-          <AssociationSet Name="FK_out_in_money_in_materialr" Association="Self.FK_out_in_money_in_materialr">
-            <End Role="in_materialr" EntitySet="in_materialr" />
-            <End Role="out_money" EntitySet="out_money" />
           </AssociationSet>
           <AssociationSet Name="FK_in_money_order" Association="Self.FK_in_money_order">
             <End Role="order" EntitySet="order" />
@@ -1651,6 +1610,9 @@
             <End Role="product_plan" EntitySet="product_plan" />
             <End Role="product_plan_details" EntitySet="product_plan_details" />
           </AssociationSet>
+          <FunctionImport Name="add_pro_repertory" ReturnType="Collection(ShoeModel.add_pro_repertory_Result)">
+            <Parameter Name="pro_product_id" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="customer_order_details" ReturnType="Collection(ShoeModel.customer_order_details_Result)">
             <Parameter Name="customer_orderid" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1660,6 +1622,18 @@
           </FunctionImport>
           <FunctionImport Name="pro_plan_details" ReturnType="Collection(ShoeModel.pro_plan_details_Result)">
             <Parameter Name="pro_plan_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="select_customer_details" ReturnType="Collection(ShoeModel.select_customer_details_Result)">
+            <Parameter Name="order_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="select_out_repertory" ReturnType="Collection(ShoeModel.select_out_repertory_Result)">
+            <Parameter Name="out_repertory_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="select_Pro_order_datails" ReturnType="Collection(ShoeModel.select_Pro_order_datails_Result)">
+            <Parameter Name="Pro_order" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="select_pro_plan_details" ReturnType="Collection(ShoeModel.select_pro_plan_details_Result)">
+            <Parameter Name="pro_plan_details" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -1691,33 +1665,42 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="xp_adminPage" ReturnType="Collection(ShoeModel.xp_adminPage_Result)">
-            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+          <FunctionImport Name="xp_SelectPageJihua" ReturnType="Collection(ShoeModel.xp_SelectPageJihua_Result)">
             <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
             <Parameter Name="PageWhere" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="xp_SelectPageJihua" ReturnType="Collection(ShoeModel.xp_SelectPageJihua_Result)">
-            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+          <FunctionImport Name="xp_SelectPageJihua_detail" ReturnType="Collection(ShoeModel.xp_SelectPageJihua_detail_Result)">
             <Parameter Name="PageIndex" Mode="In" Type="Int32" />
-            <Parameter Name="PageWhere" Mode="In" Type="String" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="customer_order_details_Result">
-          <Property Type="Int32" Name="order_details_id" Nullable="false" />
+        <ComplexType Name="add_pro_repertory_Result">
           <Property Type="Int32" Name="product_id" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="product_details_num" Nullable="false" />
+          <Property Type="String" Name="unit" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="product_address" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="customer_order_details_Result">
           <Property Type="String" Name="order_id" Nullable="false" MaxLength="50" />
-          <Property Type="Decimal" Name="order_details_money" Nullable="false" Precision="19" />
-          <Property Type="Int32" Name="quantity" Nullable="false" />
-          <Property Type="String" Name="orderr_id" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="customer_id" Nullable="false" />
-          <Property Type="DateTime" Name="order_starttime" Nullable="false" />
-          <Property Type="DateTime" Name="order_endtime" Nullable="true" />
+          <Property Type="String" Name="customer_name" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="person_handling" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="operator_per" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="order_endtime" Nullable="true" />
           <Property Type="Decimal" Name="order_paid" Nullable="false" Precision="19" />
           <Property Type="Decimal" Name="order_unpaid" Nullable="false" Precision="19" />
-          <Property Type="String" Name="order_status" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="order_delivery_way" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+          <Property Type="Int32" Name="product_id" Nullable="false" />
+          <Property Type="String" Name="product_num" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_producer" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_address" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="unit" Nullable="false" MaxLength="10" />
         </ComplexType>
         <ComplexType Name="in_repertory_detail_Result">
           <Property Type="Int32" Name="quality_testing_id" Nullable="false" />
@@ -1741,6 +1724,44 @@
           <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="product_details_num" Nullable="false" />
+          <Property Type="String" Name="unit" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="pro_status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="select_customer_details_Result">
+          <Property Type="Int32" Name="product_id" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+          <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="select_out_repertory_Result">
+          <Property Type="String" Name="customer_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="customer_phone" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="select_Pro_order_datails_Result">
+          <Property Type="DateTime" Name="order_endtime" Nullable="true" />
+          <Property Type="String" Name="order_delivery_way" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="person_handling" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="operator_per" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="order_details_id" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="unit" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="product_num" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="select_pro_plan_details_Result">
+          <Property Type="Int32" Name="product_id" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="product_price" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="product_details_num" Nullable="false" />
+          <Property Type="String" Name="unit" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="product_address" Nullable="false" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1753,21 +1774,23 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="xp_adminPage_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="account" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="pwd" Nullable="false" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="xp_SelectPageJihua_Result">
+          <Property Type="Int32" Name="materialr_plan_id" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="operator_per" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="person_handling" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="materials_plan_time" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="xp_SelectPageJihua_detail_Result">
           <Property Type="Int32" Name="materialr_plan_id" Nullable="false" />
           <Property Type="String" Name="status" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="operator_per" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="materials_plan__details_id" Nullable="false" />
           <Property Type="Int32" Name="materialr_details_num" Nullable="false" />
           <Property Type="String" Name="materialr_details_name" Nullable="false" MaxLength="20" />
-          <Property Type="Int32" Name="materialr_type_id" Nullable="false" />
           <Property Type="Decimal" Name="materialr_details_price" Nullable="false" Precision="19" />
+          <Property Type="String" Name="material_supplier" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="materialr_type_name" Nullable="false" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1820,27 +1843,6 @@
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="get_time" ColumnName="get_time" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="in_money">
-            <EntityTypeMapping TypeName="ShoeModel.in_money">
-              <MappingFragment StoreEntitySet="in_money">
-                <ScalarProperty Name="out_in_money_id" ColumnName="out_in_money_id" />
-                <ScalarProperty Name="out_in_id" ColumnName="out_in_id" />
-                <ScalarProperty Name="statue" ColumnName="statue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="in_repertory">
-            <EntityTypeMapping TypeName="ShoeModel.in_repertory">
-              <MappingFragment StoreEntitySet="in_repertory">
-                <ScalarProperty Name="in_repertory_id" ColumnName="in_repertory_id" />
-                <ScalarProperty Name="pro_production_id" ColumnName="pro_production_id" />
-                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
-                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2098,24 +2100,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="add_pro_repertory" FunctionName="ShoeModel.Store.add_pro_repertory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoeModel.add_pro_repertory_Result">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_type" ColumnName="product_type" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_details_num" ColumnName="product_details_num" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="product_address" ColumnName="product_address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="customer_order_details" FunctionName="ShoeModel.Store.customer_order_details">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ShoeModel.customer_order_details_Result">
-                <ScalarProperty Name="order_details_id" ColumnName="order_details_id" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="order_id" ColumnName="order_id" />
-                <ScalarProperty Name="order_details_money" ColumnName="order_details_money" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="orderr_id" ColumnName="orderr_id" />
-                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
-                <ScalarProperty Name="order_starttime" ColumnName="order_starttime" />
-                <ScalarProperty Name="order_endtime" ColumnName="order_endtime" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
                 <ScalarProperty Name="person_handling" ColumnName="person_handling" />
-                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
+                <ScalarProperty Name="order_endtime" ColumnName="order_endtime" />
                 <ScalarProperty Name="order_paid" ColumnName="order_paid" />
                 <ScalarProperty Name="order_unpaid" ColumnName="order_unpaid" />
-                <ScalarProperty Name="order_status" ColumnName="order_status" />
-                <ScalarProperty Name="order_delivery_way" ColumnName="order_delivery_way" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_num" ColumnName="product_num" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_producer" ColumnName="product_producer" />
+                <ScalarProperty Name="product_type" ColumnName="product_type" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_address" ColumnName="product_address" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2151,6 +2166,60 @@
                 <ScalarProperty Name="product_type" ColumnName="product_type" />
                 <ScalarProperty Name="product_price" ColumnName="product_price" />
                 <ScalarProperty Name="product_details_num" ColumnName="product_details_num" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="pro_status" ColumnName="pro_status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="select_customer_details" FunctionName="ShoeModel.Store.select_customer_details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoeModel.select_customer_details_Result">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_type" ColumnName="product_type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="select_out_repertory" FunctionName="ShoeModel.Store.select_out_repertory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoeModel.select_out_repertory_Result">
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="select_Pro_order_datails" FunctionName="ShoeModel.Store.select_Pro_order_datails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoeModel.select_Pro_order_datails_Result">
+                <ScalarProperty Name="order_endtime" ColumnName="order_endtime" />
+                <ScalarProperty Name="order_delivery_way" ColumnName="order_delivery_way" />
+                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
+                <ScalarProperty Name="order_details_id" ColumnName="order_details_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_type" ColumnName="product_type" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="product_num" ColumnName="product_num" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="select_pro_plan_details" FunctionName="ShoeModel.Store.select_pro_plan_details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoeModel.select_pro_plan_details_Result">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_type" ColumnName="product_type" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_details_num" ColumnName="product_details_num" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="product_address" ColumnName="product_address" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2178,27 +2247,29 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ShoeModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ShoeModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="xp_adminPage" FunctionName="ShoeModel.Store.xp_adminPage">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.xp_adminPage_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="account" ColumnName="account" />
-                <ScalarProperty Name="pwd" ColumnName="pwd" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="xp_SelectPageJihua" FunctionName="ShoeModel.Store.xp_SelectPageJihua">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ShoeModel.xp_SelectPageJihua_Result">
                 <ScalarProperty Name="materialr_plan_id" ColumnName="materialr_plan_id" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
+                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
+                <ScalarProperty Name="materials_plan_time" ColumnName="materials_plan_time" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="xp_SelectPageJihua_detail" FunctionName="ShoeModel.Store.xp_SelectPageJihua_detail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShoeModel.xp_SelectPageJihua_detail_Result">
+                <ScalarProperty Name="materialr_plan_id" ColumnName="materialr_plan_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="materials_plan__details_id" ColumnName="materials_plan _details_id" />
                 <ScalarProperty Name="materialr_details_num" ColumnName="materialr_details_num" />
                 <ScalarProperty Name="materialr_details_name" ColumnName="materialr_details_name" />
-                <ScalarProperty Name="materialr_type_id" ColumnName="materialr_type_id" />
                 <ScalarProperty Name="materialr_details_price" ColumnName="materialr_details_price" />
+                <ScalarProperty Name="material_supplier" ColumnName="material_supplier" />
+                <ScalarProperty Name="materialr_type_name" ColumnName="materialr_type_name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

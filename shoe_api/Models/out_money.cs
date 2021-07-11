@@ -12,20 +12,12 @@ namespace shoe_api.Models
     using System;
     using System.Collections.Generic;
     
-<<<<<<< HEAD:shoe_api/Models/out_money.cs
     public partial class out_money
-=======
-    public partial class in_money
->>>>>>> a89cf2ebbc8ce894424b3fb99a7ac5c70f63f3db:shoe_api/Models/in_money.cs
     {
         public int out_in_money_id { get; set; }
         public string out_in_id { get; set; }
         public string statue { get; set; }
     
-<<<<<<< HEAD:shoe_api/Models/out_money.cs
-        public virtual in_materialr in_materialr { get; set; }
-=======
-        public virtual order order { get; set; }
->>>>>>> a89cf2ebbc8ce894424b3fb99a7ac5c70f63f3db:shoe_api/Models/in_money.cs
+        public virtual materials_order materials_order { get; set; }
     }
 }

@@ -142,5 +142,14 @@ namespace shoe_api.Controllers
 
             return Pagedata;
         }
+
+        //客户订单详情
+
+        [HttpGet]
+        public string order_details(int id)
+        {
+            var list1 = db.Database.SqlQuery<select_Pro_order_datails_Result >("exec select_Pro_order_datails " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
     }
 }
