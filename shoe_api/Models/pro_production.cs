@@ -17,16 +17,20 @@ namespace shoe_api.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public pro_production()
         {
+            this.in_repertory = new HashSet<in_repertory>();
             this.product_quality_testing = new HashSet<product_quality_testing>();
         }
     
         public int pro_production_id { get; set; }
         public int product_plan_details_id { get; set; }
         public string pro_production_dep { get; set; }
+        public string person_handling { get; set; }
         public string operator_per { get; set; }
         public System.DateTime product_time { get; set; }
         public string status { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<in_repertory> in_repertory { get; set; }
         public virtual product_plan_details product_plan_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<product_quality_testing> product_quality_testing { get; set; }

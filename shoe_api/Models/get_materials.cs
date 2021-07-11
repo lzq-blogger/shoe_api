@@ -21,7 +21,7 @@ namespace shoe_api.Models
             this.out_materialr = new HashSet<out_materialr>();
         }
     
-        public int get_materials_id { get; set; }
+        public int w_materials_id { get; set; }
         public int product_plan_id { get; set; }
         public string get_department { get; set; }
         public string operator_per { get; set; }

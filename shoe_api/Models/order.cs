@@ -17,9 +17,10 @@ namespace shoe_api.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public order()
         {
+            this.in_money = new HashSet<in_money>();
             this.order_details = new HashSet<order_details>();
-            this.out_in_money = new HashSet<out_in_money>();
             this.out_repertory = new HashSet<out_repertory>();
+            this.product_plan = new HashSet<product_plan>();
         }
     
         public string orderr_id { get; set; }
@@ -32,15 +33,15 @@ namespace shoe_api.Models
         public decimal order_unpaid { get; set; }
         public string order_status { get; set; }
         public string order_delivery_way { get; set; }
-        public int order_product_id { get; set; }
     
         public virtual customer customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<order_details> order_details { get; set; }
-        public virtual product product { get; set; }
+        public virtual ICollection<in_money> in_money { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<out_in_money> out_in_money { get; set; }
+        public virtual ICollection<order_details> order_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<out_repertory> out_repertory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<product_plan> product_plan { get; set; }
     }
 }

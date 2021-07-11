@@ -32,8 +32,7 @@ namespace shoe_api.Controllers
                             product_plan_id = pp.product_plan_id,
                             operator_per = pp.operator_per,
                             product_time = pp.product_time,
-                            product_end_time = pp.product_end_time,
-                            status = pp.status
+                            product_end_time = pp.product_end_time                         
                         } into q
                         where (q.product_plan_id.ToString().Contains(info))
                         select q;
@@ -87,7 +86,7 @@ namespace shoe_api.Controllers
         {
             //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
             //判断非空
-            if (pp.order_details_id.ToString() == null)
+            if (pp.product_plan_id.ToString() == null)
             {
                 return 0;
             }
@@ -127,14 +126,13 @@ namespace shoe_api.Controllers
             var list1 = from pp in db.get_materials
                 select new
                 {
-                    get_materials_id = pp.get_materials_id,
                     product_plan_id = pp.product_plan_id,
                     get_department = pp.get_department,
                     operator_per = pp.operator_per,
                     status = pp.status,
                     get_time = pp.get_time
                 } into p
-                where (p.get_materials_id.ToString().Contains(info))
+                where (p.product_plan_id.ToString().Contains(info))
                 select p;
           //查询数据表总共有多少条记录
           int rows1 = db.get_materials.ToList().Count;
@@ -214,7 +212,7 @@ namespace shoe_api.Controllers
             {
                 return 0;
             }
-            if (md.materialr_epertory_id.ToString() == null)
+            if (md.materialr_details_id.ToString() == null)
             {
                 return 1;
             }

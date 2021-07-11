@@ -10,13 +10,14 @@
 namespace shoe_api.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagrams_Result
+    public partial class in_money
     {
-        public string Database { get; set; }
-        public string Name { get; set; }
-        public int ID { get; set; }
-        public string Owner { get; set; }
-        public int OwnerID { get; set; }
+        public int out_in_money_id { get; set; }
+        public string out_in_id { get; set; }
+        public string statue { get; set; }
+    
+        public virtual order order { get; set; }
     }
 }

@@ -11,24 +11,15 @@ namespace shoe_api.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class buy_materials_details
     {
         public int buy_materials_details_id { get; set; }
-        public string in_materialr_id { get; set; }
+        public string materialrs_order_id { get; set; }
         public int materialr_details_num { get; set; }
         public int materialr_details_id { get; set; }
-
-        public virtual in_materialr in_materialr { get; set; }
+    
+        public virtual materials_order materials_order { get; set; }
         public virtual materialr materialr { get; set; }
-    }
-    public partial class in_repertory_detail_Result
-    {
-        public int quality_testing_id { get; set; }
-        public System.DateTime quality_testing_time { get; set; }
-        public string result { get; set; }
-        public string product_name { get; set; }
-        public string operator_per { get; set; }
-        public int pro_production_id { get; set; }
     }
 }

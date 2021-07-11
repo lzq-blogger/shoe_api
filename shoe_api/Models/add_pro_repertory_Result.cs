@@ -11,9 +11,14 @@ namespace shoe_api.Models
 {
     using System;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class add_pro_repertory_Result
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int product_id { get; set; }
+        public string product_name { get; set; }
+        public string product_type { get; set; }
+        public string product_price { get; set; }
+        public int product_details_num { get; set; }
+        public string unit { get; set; }
+        public string product_address { get; set; }
     }
 }

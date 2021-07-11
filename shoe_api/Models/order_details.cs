@@ -14,12 +14,6 @@ namespace shoe_api.Models
     
     public partial class order_details
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public order_details()
-        {
-            this.product_plan = new HashSet<product_plan>();
-        }
-    
         public int order_details_id { get; set; }
         public int product_id { get; set; }
         public string order_id { get; set; }
@@ -28,7 +22,5 @@ namespace shoe_api.Models
     
         public virtual order order { get; set; }
         public virtual product product { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<product_plan> product_plan { get; set; }
     }
 }
