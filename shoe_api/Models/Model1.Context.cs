@@ -96,6 +96,101 @@ namespace shoe_api.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pro_plan_details_Result>("pro_plan_details", pro_plan_idParameter);
         }
     
+        public virtual ObjectResult<add_pro_repertory_Result> add_pro_repertory(Nullable<int> pro_product_id)
+        {
+            var pro_product_idParameter = pro_product_id.HasValue ?
+                new ObjectParameter("pro_product_id", pro_product_id) :
+                new ObjectParameter("pro_product_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<add_pro_repertory_Result>("add_pro_repertory", pro_product_idParameter);
+        }
+    
+        public virtual ObjectResult<customer_order_details_Result> customer_order_details(Nullable<int> customer_orderid)
+        {
+            var customer_orderidParameter = customer_orderid.HasValue ?
+                new ObjectParameter("customer_orderid", customer_orderid) :
+                new ObjectParameter("customer_orderid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<customer_order_details_Result>("customer_order_details", customer_orderidParameter);
+        }
+    
+        public virtual ObjectResult<in_repertory_detail_Result> in_repertory_detail()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<in_repertory_detail_Result>("in_repertory_detail");
+        }
+    
+        public virtual ObjectResult<materialr_details_materialr_Result> materialr_details_materialr(Nullable<int> material_id)
+        {
+            var material_idParameter = material_id.HasValue ?
+                new ObjectParameter("material_id", material_id) :
+                new ObjectParameter("material_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<materialr_details_materialr_Result>("materialr_details_materialr", material_idParameter);
+        }
+    
+        public virtual ObjectResult<pro_plan_details_Result> pro_plan_details(Nullable<int> pro_plan_id)
+        {
+            var pro_plan_idParameter = pro_plan_id.HasValue ?
+                new ObjectParameter("pro_plan_id", pro_plan_id) :
+                new ObjectParameter("pro_plan_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pro_plan_details_Result>("pro_plan_details", pro_plan_idParameter);
+        }
+    
+        public virtual ObjectResult<select_customer_details_Result> select_customer_details(Nullable<int> order_id)
+        {
+            var order_idParameter = order_id.HasValue ?
+                new ObjectParameter("order_id", order_id) :
+                new ObjectParameter("order_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_customer_details_Result>("select_customer_details", order_idParameter);
+        }
+    
+        public virtual ObjectResult<select_out_repertory_Result> select_out_repertory(Nullable<int> out_repertory_id)
+        {
+            var out_repertory_idParameter = out_repertory_id.HasValue ?
+                new ObjectParameter("out_repertory_id", out_repertory_id) :
+                new ObjectParameter("out_repertory_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_out_repertory_Result>("select_out_repertory", out_repertory_idParameter);
+        }
+    
+        public virtual ObjectResult<select_Pro_order_datails_Result> select_Pro_order_datails(Nullable<int> pro_order)
+        {
+            var pro_orderParameter = pro_order.HasValue ?
+                new ObjectParameter("Pro_order", pro_order) :
+                new ObjectParameter("Pro_order", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_Pro_order_datails_Result>("select_Pro_order_datails", pro_orderParameter);
+        }
+    
+        public virtual ObjectResult<select_pro_plan_details_Result> select_pro_plan_details(Nullable<int> pro_plan_details)
+        {
+            var order_idParameter = order_id.HasValue ?
+                new ObjectParameter("order_id", order_id) :
+                new ObjectParameter("order_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_customer_details_Result>("select_customer_details", order_idParameter);
+        }
+    
+        public virtual ObjectResult<select_out_repertory_Result> select_out_repertory(Nullable<int> out_repertory_id)
+        {
+            var out_repertory_idParameter = out_repertory_id.HasValue ?
+                new ObjectParameter("out_repertory_id", out_repertory_id) :
+                new ObjectParameter("out_repertory_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_out_repertory_Result>("select_out_repertory", out_repertory_idParameter);
+        }
+    
+        public virtual ObjectResult<select_Pro_order_datails_Result> select_Pro_order_datails(Nullable<int> pro_order)
+        {
+            var pro_orderParameter = pro_order.HasValue ?
+                new ObjectParameter("Pro_order", pro_order) :
+                new ObjectParameter("Pro_order", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_Pro_order_datails_Result>("select_Pro_order_datails", pro_orderParameter);
+        }
+    
         public virtual ObjectResult<select_pro_plan_details_Result> select_pro_plan_details(Nullable<int> pro_plan_details)
         {
             var pro_plan_detailsParameter = pro_plan_details.HasValue ?
@@ -104,6 +199,19 @@ namespace shoe_api.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_pro_plan_details_Result>("select_pro_plan_details", pro_plan_detailsParameter);
         }
+    
+        public virtual ObjectResult<select_pro_plan_details_Result> select_pro_plan_details(Nullable<int> pro_plan_details)
+        public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
+        {
+            var pro_plan_detailsParameter = pro_plan_details.HasValue ?
+                new ObjectParameter("pro_plan_details", pro_plan_details) :
+                new ObjectParameter("pro_plan_details", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_pro_plan_details_Result>("select_pro_plan_details", pro_plan_detailsParameter);
+        }
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
     
         public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
         {

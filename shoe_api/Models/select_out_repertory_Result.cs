@@ -11,17 +11,6 @@ namespace shoe_api.Models
 {
     using System;
     
-<<<<<<< HEAD:shoe_api/Models/add_pro_repertory_Result.cs
-    public partial class add_pro_repertory_Result
-    {
-        public int product_id { get; set; }
-        public string product_name { get; set; }
-        public string product_type { get; set; }
-        public string product_price { get; set; }
-        public int product_details_num { get; set; }
-        public string unit { get; set; }
-        public string product_address { get; set; }
-=======
     public partial class select_out_repertory_Result
     {
         public string customer_name { get; set; }
@@ -29,6 +18,5 @@ namespace shoe_api.Models
         public string product_name { get; set; }
         public string product_price { get; set; }
         public int quantity { get; set; }
->>>>>>> master:shoe_api/Models/select_out_repertory_Result.cs
     }
 }

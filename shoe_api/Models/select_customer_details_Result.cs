@@ -10,14 +10,14 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class select_customer_details_Result
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int product_id { get; set; }
+        public string product_name { get; set; }
+        public string product_price { get; set; }
+        public int quantity { get; set; }
+        public string product_type { get; set; }
+        public string product_num { get; set; }
     }
 }

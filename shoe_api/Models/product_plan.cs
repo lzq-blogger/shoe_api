@@ -26,6 +26,7 @@ namespace shoe_api.Models
         public string operator_per { get; set; }
         public System.DateTime product_time { get; set; }
         public System.DateTime product_end_time { get; set; }
+        public string pro_status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<get_materials> get_materials { get; set; }
