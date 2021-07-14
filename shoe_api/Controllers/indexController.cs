@@ -13,9 +13,10 @@ namespace shoe_api.Controllers
         ShoeEntities db = new ShoeEntities();
         //统计总销售量
         [HttpGet]
-        public string ss()
+        public int ss()
         {
-            return "";
+            var info = db.order.ToList();
+            return info.Count();
         }
     }
 }

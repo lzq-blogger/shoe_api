@@ -21,7 +21,6 @@ namespace shoe_api.Models
             this.materialr_details = new HashSet<materialr_details>();
             this.materialr_epertory = new HashSet<materialr_epertory>();
             this.materials_plan_details = new HashSet<materials_plan_details>();
-            this.out_materialr = new HashSet<out_materialr>();
         }
     
         public int materialr_details_id { get; set; }
@@ -40,7 +39,5 @@ namespace shoe_api.Models
         public virtual ICollection<materialr_epertory> materialr_epertory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<materials_plan_details> materials_plan_details { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<out_materialr> out_materialr { get; set; }
     }
 }

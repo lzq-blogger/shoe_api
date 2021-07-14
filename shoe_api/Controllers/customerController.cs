@@ -119,9 +119,8 @@ namespace shoe_api.Controllers
         }
 
         //客户订单详情
-
         [HttpGet]
-        public string order_details(int id)
+        public string order_details(string id)
         {
             var list1 = db.Database.SqlQuery<select_Pro_order_datails_Result >("exec select_Pro_order_datails " + id).ToList();
             return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
@@ -181,14 +180,6 @@ namespace shoe_api.Controllers
             db.SaveChanges();
             return 0;
         }
-        //查询所有产品名字，用来显示新增产品的下拉框内
-        [HttpGet]
-        public string pro_plan_name()
-        {
-            var info = from p in db.product
-                       select new { product_name = p.product_name };
-            return Newtonsoft.Json.JsonConvert.SerializeObject(info);
-        }
         //查询所有产品规格，用来显示新增产品规格的下拉框内
         [HttpPost]
         public string pro_guige([FromBody] product pp)
@@ -209,47 +200,59 @@ namespace shoe_api.Controllers
             int id = info.Count();
             return Newtonsoft.Json.JsonConvert.SerializeObject(info);
         }
-        //新增生产计划
+        //新增客户订单
         [HttpPost]
-        public int add_plan(string json)
+        public int add_customer_order(string json)
         {
             JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
             JArray array = (JArray)json1["infoList"];
-            //先新增计划表
-            product_plan pp = new product_plan();
-            pp.order_id = json1.Root["order_id"].ToString();
+            //先新增计划表+
+            string custemer_name = json1.Root["customer_name"].ToString();
+            //根据名字查询用户ID
+            string orderrid = (((DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000) * 1000).ToString();
+            int custmerid = db.customer.Where
+                (p=>p.customer_name.Contains(custemer_name)).ToList()[0].customer_id;
+            order pp = new order();
+            pp.orderr_id = "X"+orderrid;
+            pp.customer_id = custmerid;
+            pp.order_starttime = (DateTime)json1.Root["order_starttime"];
+            pp.order_endtime = ((DateTime)json1.Root["order_endtime"]);
+            pp.person_handling = json1.Root["person_handling"].ToString();
             pp.operator_per = json1.Root["operator_per"].ToString();
-            pp.product_time = ((DateTime)json1.Root["product_time"]);
-            pp.pro_status = json1.Root["status"].ToString();
-            pp.product_end_time = (DateTime)json1.Root["product_end_time"];
-            //首先新增计划表数据
-            db.product_plan.Add(pp);
+            pp.order_paid = decimal.Parse(json1.Root["order_paid"].ToString());
+            pp.order_unpaid = decimal.Parse(json1.Root["order_unpaid"].ToString());
+            pp.order_delivery_way = json1.Root["order_delivery_way"].ToString();
+            pp.order_status = json1.Root["order_status"].ToString();
+            //首先新增订单表数据
+            db.order.Add(pp);
             //保存数据
             db.SaveChanges();
-            //查询计划ID
-            string q = json1.Root["order_id"].ToString();
-            List<product_plan> list = db.product_plan.Where(p => p.order_id == q).ToList();
-            //新增计划详情
+            //新增订单详情
             foreach (var jObject in array)
             {
-                product_plan_details ppd = new product_plan_details();
+                order_details ppd = new order_details();
                 //赋值属性
-                string s = list[0].product_plan_id.ToString();
-                ppd.product_plan_id = int.Parse(s);
-                ppd.product_details_num = int.Parse(jObject["product_details_num"].ToString());
+                ppd.order_id = "X" + orderrid;
                 ppd.product_id = int.Parse(jObject["product_id"].ToString());
+                ppd.quantity = int.Parse(jObject["product_details_num"].ToString());
+                ppd.order_details_money = 41700;
+                   //decimal.Parse((int.Parse(jObject["product_details_num"].ToString())
+                   // * int.Parse(jObject["pro_price"].ToString())).ToString());
                 //再新增详情表数据
-                db.product_plan_details.Add(ppd);
+                db.order_details.Add(ppd);
                 //保存数据
                 db.SaveChanges();
             }
-            //修改订单的处理状态
-            order o = db.order.FirstOrDefault(p => p.orderr_id == q);
-            o.orderr_id = q;
-            o.order_status = "处理中";
-            db.Entry(o).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
             return 0;
+        }
+
+        //查询所有客户名
+        [HttpGet]
+        public string add_name()
+        {
+            var info = from p in db.customer
+                       select new { customer_name = p.customer_name };
+            return Newtonsoft.Json.JsonConvert.SerializeObject(info);
         }
     }
 }

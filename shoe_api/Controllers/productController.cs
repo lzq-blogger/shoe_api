@@ -14,6 +14,13 @@ namespace shoe_api.Controllers
     public class productController : ApiController
     {
         ShoeEntities db = new ShoeEntities();
+        //统计总销售量
+        [HttpGet]
+        public int ss()
+        {
+            var info = db.order.ToList();
+            return info.Count();
+        }
         //生产计划查询
         [HttpPost]
         public BaseDataTables pro_plan([FromBody] GetDataTablesMessage obj)
@@ -84,8 +91,9 @@ namespace shoe_api.Controllers
         [HttpGet]
         public string pro_plan_name()
         {
-            var info = from p in db.product
+            var info1 = from p in db.product
                        select new { product_name = p.product_name };
+            var info = info1.Distinct();
             return Newtonsoft.Json.JsonConvert.SerializeObject(info);
         }
 

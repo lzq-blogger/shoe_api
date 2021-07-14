@@ -10,13 +10,14 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class out_materialr
+    public partial class xp_SelectPageRuku_Result
     {
-        public int out_materialr_id { get; set; }
-        public int get_materials_id { get; set; }
-    
-        public virtual get_materials get_materials { get; set; }
+        public int quality_testing_id { get; set; }
+        public string materialrs_order_id { get; set; }
+        public System.DateTime quality_testing_time { get; set; }
+        public string operator_per { get; set; }
+        public string result { get; set; }
+        public string materialr_details_name { get; set; }
     }
 }
