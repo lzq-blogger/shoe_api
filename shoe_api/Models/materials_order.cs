@@ -18,6 +18,7 @@ namespace shoe_api.Models
         public materials_order()
         {
             this.buy_materials_details = new HashSet<buy_materials_details>();
+            this.in_materialr = new HashSet<in_materialr>();
             this.materials_quality_testing = new HashSet<materials_quality_testing>();
             this.out_money = new HashSet<out_money>();
         }
@@ -30,6 +31,8 @@ namespace shoe_api.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<buy_materials_details> buy_materials_details { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<in_materialr> in_materialr { get; set; }
         public virtual materials_plan materials_plan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<materials_quality_testing> materials_quality_testing { get; set; }

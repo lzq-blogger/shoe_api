@@ -150,121 +150,124 @@ namespace shoe_api.Controllers
         }
 
         //材料入库详情
-        [Route("POSTAllDataRK")]
-        [HttpPost]
-        public BaseDataTables RukuDetail([FromBody] GetDataTablesMessage obj)
-        {
-            //防止序列化恶性循环===========================
-            db.Configuration.ProxyCreationEnabled = false;
 
+        [HttpPost]
+        public BaseDataTables select_in_materialr([FromBody] GetDataTablesMessage obj)
+        {
             //新建返回实例对象
             BaseDataTables Pagedata = new BaseDataTables();
+            try
+            {
 
-            Pagedata.draw = obj.draw;
+                //防止序列化恶性循环===========================
+                db.Configuration.ProxyCreationEnabled = false;
 
-            //查询条件
-            string info = obj.search.value;
+                //记录请求次数
+                Pagedata.draw = obj.draw;
 
-            //根据对应页码和条数进行查询
-            //var list1 = from pp in db.order
-            //            join od in db.customer
-            // on pp.customer_id equals od.customer_id
-            //            select new
-            //            {
-            //                orderr_id = pp.orderr_id,
-            //                customer_name = od.customer_name,
-            //                order_starttime = pp.order_starttime,
-            //                order_endtime = pp.order_endtime,
-            //                operator_per = pp.operator_per,
-            //                order_paid = pp.order_paid,
-            //                order_unpaid = pp.order_unpaid,
-            //                order_status = pp.order_status
-            //            } into q
-            //            where (q.orderr_id.Contains(info))
-            //            select q; ;
-            var list1 = db.materials_order.ToList();
-            //查询数据表总共有多少条记录
-            int rows1 = db.materials_order.ToList().Count;
+                //查询条件
+                string info = "";
+                if (obj.search.value != null)
+                {
+                    info = obj.search.value;
+                }
+                //查询数据,数据库分页
+                //根据对应页码和条数进行查询               
 
-            //记录过滤后的条数
-            int rows2 = rows1;
-            //if (obj.search.value != null)
-            //{
-            //    rows2 = db.materials_plan.Where(a => a.name == obj.search.value).ToList().Count;
-            //    list1 = db.materials_plan.ToList();
-            //}
+                //调用存储过程，参数：1、从第几条开始，2、每页记录数，3、查询条件,
+                var list1 = db.xp_SelectPageRuku(obj.start, obj.length, info).ToList();
 
-            /// <summary>
-            /// 即没有过滤的记录数（数据库里总共记录数）
-            /// </summary>
-            Pagedata.recordsTotal = rows1;
+                //查询数据表总共有多少条记录             
 
-            /// <summary>
-            /// 过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数）
-            /// </summary>
-            Pagedata.recordsFiltered = rows2;
+                //调用存储过程，参数：1、从第几条开始(-1为查全部)，2、每页记录数(-1为查全部)，3、查询条件(为''查询全部)
+                int rows1 = db.xp_SelectPageRuku(-1, -1, "").ToList().Count();
 
-            Pagedata.data = list1;
+
+                //记录过滤后的条数(没有则默认为总共记录数)
+                int rows2 = rows1;
+                if (obj.search.value != null)
+                {
+                    rows2 = db.xp_SelectPageRuku(-1, -1, info).ToList().Count();
+                }
+
+                ///返回参数
+                /// <summary>
+                /// 即没有过滤的记录数（数据库里总共记录数）
+                /// </summary>
+                Pagedata.recordsTotal = rows1;
+
+                /// <summary>
+                /// 过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数）
+                /// </summary>
+                Pagedata.recordsFiltered = rows2;
+
+                Pagedata.data = list1;
+            }
+            catch (Exception mes)
+            {
+                Pagedata.error = mes.ToString();
+            }
 
             return Pagedata;
         }
 
         //材料出库详情
-        [Route("POSTAllDataCK")]
         [HttpPost]
-        public BaseDataTables ChukuDetail([FromBody] GetDataTablesMessage obj)
+        public BaseDataTables select_out_material_details([FromBody] GetDataTablesMessage obj)
         {
-            //防止序列化恶性循环===========================
-            db.Configuration.ProxyCreationEnabled = false;
-
             //新建返回实例对象
             BaseDataTables Pagedata = new BaseDataTables();
+            try
+            {
 
-            Pagedata.draw = obj.draw;
+                //防止序列化恶性循环===========================
+                db.Configuration.ProxyCreationEnabled = false;
 
-            //查询条件
-            string info = obj.search.value;
+                //记录请求次数
+                Pagedata.draw = obj.draw;
 
-            //根据对应页码和条数进行查询
-            //var list1 = from pp in db.order
-            //            join od in db.customer
-            // on pp.customer_id equals od.customer_id
-            //            select new
-            //            {
-            //                orderr_id = pp.orderr_id,
-            //                customer_name = od.customer_name,
-            //                order_starttime = pp.order_starttime,
-            //                order_endtime = pp.order_endtime,
-            //                operator_per = pp.operator_per,
-            //                order_paid = pp.order_paid,
-            //                order_unpaid = pp.order_unpaid,
-            //                order_status = pp.order_status
-            //            } into q
-            //            where (q.orderr_id.Contains(info))
-            //            select q; ;
-            var list1 = db.out_materialr.ToList();
-            //查询数据表总共有多少条记录
-            int rows1 = db.out_materialr.ToList().Count;
+                //查询条件
+                string info = "";
+                if (obj.search.value != null)
+                {
+                    info = obj.search.value;
+                }
+                //查询数据,数据库分页
+                //根据对应页码和条数进行查询               
 
-            //记录过滤后的条数
-            int rows2 = rows1;
-            //if (obj.search.value != null)
-            //{
-            //    rows2 = db.materials_plan.Where(a => a.name == obj.search.value).ToList().Count;
-            //    list1 = db.materials_plan.ToList();
-            //}
+                //调用存储过程，参数：1、从第几条开始，2、每页记录数，3、查询条件,
+                var list1 = db.xp_SelectPageChuku(obj.start, obj.length, info).ToList();
 
-            /// <summary>
-            /// 即没有过滤的记录数（数据库里总共记录数）
-            /// </summary>
-            Pagedata.recordsTotal = rows1;
+                //查询数据表总共有多少条记录             
 
-            /// <summary>
-            /// 过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数）
-            /// </summary>
-            Pagedata.recordsFiltered = rows2;
+                //调用存储过程，参数：1、从第几条开始(-1为查全部)，2、每页记录数(-1为查全部)，3、查询条件(为''查询全部)
+                int rows1 = db.xp_SelectPageChuku(-1, -1, "").ToList().Count();
 
-            Pagedata.data = list1;
+
+                //记录过滤后的条数(没有则默认为总共记录数)
+                int rows2 = rows1;
+                if (obj.search.value != null)
+                {
+                    rows2 = db.xp_SelectPageChuku(-1, -1, info).ToList().Count();
+                }
+
+                ///返回参数
+                /// <summary>
+                /// 即没有过滤的记录数（数据库里总共记录数）
+                /// </summary>
+                Pagedata.recordsTotal = rows1;
+
+                /// <summary>
+                /// 过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数）
+                /// </summary>
+                Pagedata.recordsFiltered = rows2;
+
+                Pagedata.data = list1;
+            }
+            catch (Exception mes)
+            {
+                Pagedata.error = mes.ToString();
+            }
 
             return Pagedata;
         }
