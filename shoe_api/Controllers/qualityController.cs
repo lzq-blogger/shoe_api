@@ -1,4 +1,6 @@
-﻿using shoe_api.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using shoe_api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace shoe_api.Controllers
     {
         ShoeEntities db = new ShoeEntities();
 
-        //查询产品生产
+        //查询待检产品
         [HttpPost]
         public BaseDataTables CpSc([FromBody] GetDataTablesMessage obj)
         {
@@ -27,11 +29,9 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
 
-            var list1 = db.pro_production.ToList().Where(p => p.product_plan_details_id.ToString().Contains(info)
-            || p.pro_production_dep.Contains(info)
-            || p.operator_per.Contains(info) || p.product_time.ToString().Contains(info)
-            || p.status.Contains(info));
-           
+            var list1 = db.pro_production.ToList().Where(p => (p.status.ToString().Contains(info)
+            || p.pro_production_id.ToString().Contains(info) || p.operator_per.Contains(info)) && p.status == "未质检");
+
             //查询数据表总共有多少条记录
             int rows1 = db.pro_production.ToList().Count;
 
@@ -75,7 +75,6 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.product_quality_testing.Where(p => p.quality_testing_id.ToString().Contains(info)
-            || p.pro_production_id.ToString().Contains(info) || p.quality_testing_time.ToString().Contains(info)
             || p.operator_per.Contains(info) || p.result.Contains(info));
 
             //查询数据表总共有多少条记录
@@ -121,7 +120,6 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.materials_quality_testing.ToList().Where(p => p.quality_testing_id.ToString().Contains(info)
-            || p.materialrs_order_id.ToString().Contains(info) || p.quality_testing_time.ToString().Contains(info)
             || p.operator_per.Contains(info) || p.result.Contains(info));
 
             //查询数据表总共有多少条记录
@@ -166,8 +164,8 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
 
-            var list1 = db.materials_order.ToList().Where(p => p.materials_order_id.ToString().Contains(info)
-            || p.materialr_plan_id.ToString().Contains(info) ||  p.operator_per.Contains(info) ||p.status.Contains(info));
+            var list1 = db.materials_order.ToList().Where(p => (p.materials_order_id.ToString().Contains(info)
+            || p.operator_per.Contains(info) || p.status.Contains(info)||p.person_handling.Contains(info)) && p.status == "未质检");
 
             //查询数据表总共有多少条记录
             int rows1 = db.materials_order.ToList().Count;
@@ -195,5 +193,60 @@ namespace shoe_api.Controllers
 
             return Pagedata;
         }
+        [HttpPost]
+        //新增产品质检单
+        public int addproduct_quality_testing(string json)
+        {
+            JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
+            //新增客户信息表
+            product_quality_testing pp = new product_quality_testing();
+            pp.pro_production_id = int.Parse(json1.Root["pro_production_id"].ToString());
+            pp.quality_testing_time = DateTime.Parse(json1.Root["quality_testing_time"].ToString());
+            pp.operator_per = json1.Root["operator_per"].ToString();
+            pp.result = json1.Root["result"].ToString();
+            //首先新增领料单表数据
+            db.product_quality_testing.Add(pp);
+            //保存数据
+            db.SaveChanges();
+            return 0;
+        }
+        [HttpPost]
+        //新增材料质检单
+        public int addselect_product_materials(string json)
+        {
+            JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
+            //新增客户信息表
+            materials_quality_testing pp = new materials_quality_testing();
+            pp.materialrs_order_id = json1.Root["pro_production_id"].ToString();
+            pp.quality_testing_time = DateTime.Parse(json1.Root["quality_testing_time"].ToString());
+            pp.operator_per = json1.Root["operator_per"].ToString();
+            pp.result = json1.Root["result"].ToString();
+            //首先新增领料单表数据
+            db.materials_quality_testing.Add(pp);
+            //保存数据
+            db.SaveChanges();
+            return 0;
+        }
+        //待检产品详情
+        [HttpGet]
+        public string plan_pro_detile(int id)
+        {
+            var list1 = db.Database.SqlQuery<select_product_pro_plan_Result>("exec select_product_pro_plan " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
+        //待检材料详情
+        [HttpGet]
+        public string order_details(int id)
+        {
+            var list1 = db.Database.SqlQuery<select_materialrs_details_Result>("exec select_materialrs_details " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
+
+        //材料质检单详情
+        //public string zhijianorder_details(int id)
+        //{
+        //    var list1 = db.Database.SqlQuery<select_materialrs_details_Result>("exec select_materialrs_details " + id).ToList();
+        //    return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        //}
     }
 }
