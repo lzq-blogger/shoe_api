@@ -11,13 +11,12 @@ namespace shoe_api.Models
 {
     using System;
     
-    public partial class select_out_repertory_Result
+    public partial class sp_helpdiagrams_Result
     {
-        public string customer_name { get; set; }
-        public string customer_phone { get; set; }
-        public string product_name { get; set; }
-        public string product_price { get; set; }
-        public int quantity { get; set; }
-        public string pro_guige { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

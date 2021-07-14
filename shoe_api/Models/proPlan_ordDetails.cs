@@ -10,14 +10,11 @@
 namespace shoe_api.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class select_out_repertory_Result
+    public partial class proPlan_ordDetails
     {
-        public string customer_name { get; set; }
-        public string customer_phone { get; set; }
-        public string product_name { get; set; }
-        public string product_price { get; set; }
-        public int quantity { get; set; }
-        public string pro_guige { get; set; }
+        public int product_plan_id { get; set; }
+        public int product_plan_num { get; set; }
     }
 }

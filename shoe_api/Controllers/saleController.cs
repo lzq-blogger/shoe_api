@@ -1,4 +1,6 @@
-﻿using shoe_api.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using shoe_api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,9 +59,10 @@ namespace shoe_api.Controllers
         }
         //查询客户订单详情
         [HttpGet]
-        public string customer_order_detail(int id)
+        public string customer_order_detail(string id)
         {
             var list1 = db.Database.SqlQuery<customer_order_details_Result>("exec customer_order_details "+id).ToList();
+            int s = list1.Count();
             return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
         }
         //订单ID
@@ -72,22 +75,28 @@ namespace shoe_api.Controllers
         }
         [HttpPost]
         //新增出库详情
-        public int add_out_repertory([FromBody] out_repertory pp)
+        public int add_out_repertory(string json)
         {
-            //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
-            //判断非空
-            if (pp.orderr_id.ToString() == null)
-            {
-                return 0;
-            }
-            if (pp.operator_per.ToString() == null ||
-                pp.out_time.ToString() == null)
-            {
-                return 1;
-            }
-            //新增数据
+            JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
+            //先新增计划表
+            string q = json1.Root["proid"].ToString();
+            out_repertory pp = new out_repertory();
+            pp.orderr_id = q;
+            pp.operator_per = json1.Root["operator_per"].ToString();
+            pp.out_time = ((DateTime)json1.Root["time2"]);
+            pp.person_handling = json1.Root["person_handling"].ToString();
+            pp.end_price = json1.Root["price"].ToString() ;
+            //首先新增计划表数据
             db.out_repertory.Add(pp);
             //保存数据
+            db.SaveChanges();
+
+            //订单状态修改
+            //修改订单的处理状态
+            order o = db.order.FirstOrDefault(p => p.orderr_id == q);
+            o.orderr_id = q;
+            o.order_status = "已出售";
+            db.Entry(o).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return 2;
         }
@@ -96,6 +105,13 @@ namespace shoe_api.Controllers
         public string select_customer_details(int id)
         {
             var list1 = db.Database.SqlQuery<select_customer_details_Result>("exec select_customer_details " + id).ToList();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
+        //销售订单的查询
+        [HttpGet]
+        public string sale_order(string id)
+        {
+            var list1 = db.Database.SqlQuery<select_order_details_cust_pro_Result >("exec select_order_details_cust_pro " + id).ToList();
             return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
         }
     }
