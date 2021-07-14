@@ -356,6 +356,14 @@ namespace shoe_api.Controllers
             o.pro_status = "处理中";
             db.Entry(o).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+
+            //新增一个出库详情
+            out_materialr om = new out_materialr();
+            int ss = int.Parse(json1.Root["product_plan_id"].ToString());
+            int getid = db.get_materials.Where(g=>g.product_plan_id==ss).ToList()[0].product_plan_id;
+            om.get_materials_id = getid;
+            db.out_materialr.Add(om);
+            db.SaveChanges();
             return 0;
         }
         [HttpGet]
@@ -410,6 +418,21 @@ namespace shoe_api.Controllers
             db.Entry(ppd).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return 0;
+        }
+        //删除==============================================================================
+        //删除生产计划
+        [HttpPost]
+        public string delete_pro_plan(string json)
+        {
+            JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
+            JArray array = (JArray)json1["infoList"];
+            for (int i = 0; i < array.Count; i++)
+            {
+                string id = array[i].ToString();
+                //循环删除
+
+            }
+            return "0";
         }
     }
 }

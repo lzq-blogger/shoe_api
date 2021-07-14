@@ -115,7 +115,23 @@ namespace shoe_api.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_customer_details_Result>("select_customer_details", order_idParameter);
         }
     
-       
+        public virtual ObjectResult<select_materialrs_details_Result> select_materialrs_details(string materialrs_order_id)
+        {
+            var materialrs_order_idParameter = materialrs_order_id != null ?
+                new ObjectParameter("materialrs_order_id", materialrs_order_id) :
+                new ObjectParameter("materialrs_order_id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_materialrs_details_Result>("select_materialrs_details", materialrs_order_idParameter);
+        }
+    
+        public virtual ObjectResult<select_materials_order_plan_mpd_Result> select_materials_order_plan_mpd(Nullable<int> materials_order_id)
+        {
+            var materials_order_idParameter = materials_order_id.HasValue ?
+                new ObjectParameter("materials_order_id", materials_order_id) :
+                new ObjectParameter("materials_order_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_materials_order_plan_mpd_Result>("select_materials_order_plan_mpd", materials_order_idParameter);
+        }
     
         public virtual ObjectResult<select_order_details_cust_pro_Result> select_order_details_cust_pro(string ord)
         {
@@ -124,33 +140,6 @@ namespace shoe_api.Models
                 new ObjectParameter("ord", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_order_details_cust_pro_Result>("select_order_details_cust_pro", ordParameter);
-        }
-    
-        public virtual ObjectResult<select_out_repertory_Result> select_out_repertory(Nullable<int> out_repertory_id)
-        {
-            var out_repertory_idParameter = out_repertory_id.HasValue ?
-                new ObjectParameter("out_repertory_id", out_repertory_id) :
-                new ObjectParameter("out_repertory_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_out_repertory_Result>("select_out_repertory", out_repertory_idParameter);
-        }
-    
-        public virtual ObjectResult<select_Pro_order_datails_Result> select_Pro_order_datails(Nullable<int> pro_order)
-        {
-            var pro_orderParameter = pro_order.HasValue ?
-                new ObjectParameter("Pro_order", pro_order) :
-                new ObjectParameter("Pro_order", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_Pro_order_datails_Result>("select_Pro_order_datails", pro_orderParameter);
-        }
-    
-        public virtual ObjectResult<select_pro_plan_details_Result> select_pro_plan_details(Nullable<int> pro_plan_details)
-        {
-            var order_idParameter = order_id.HasValue ?
-                new ObjectParameter("order_id", order_id) :
-                new ObjectParameter("order_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_customer_details_Result>("select_customer_details", order_idParameter);
         }
     
         public virtual ObjectResult<select_out_repertory_Result> select_out_repertory(Nullable<int> out_repertory_id)
@@ -342,12 +331,6 @@ namespace shoe_api.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageCaiLiao_Result>("xp_SelectPageCaiLiao", pageIndexParameter, pageSizeParameter, pageWhereParameter);
         }
-    
-        public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
-        {
-            var pageIndexParameter = pageIndex.HasValue ?
-                new ObjectParameter("PageIndex", pageIndex) :
-                new ObjectParameter("PageIndex", typeof(int));
     
         public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
         {
