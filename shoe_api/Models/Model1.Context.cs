@@ -115,18 +115,7 @@ namespace shoe_api.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_customer_details_Result>("select_customer_details", order_idParameter);
         }
     
-       
-    
-        public virtual ObjectResult<select_order_details_cust_pro_Result> select_order_details_cust_pro(string ord)
-        {
-            var ordParameter = ord != null ?
-                new ObjectParameter("ord", ord) :
-                new ObjectParameter("ord", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_order_details_cust_pro_Result>("select_order_details_cust_pro", ordParameter);
-        }
-    
-        public virtual ObjectResult<select_out_repertory_Result> select_out_repertory(Nullable<int> out_repertory_id)
+        public virtual ObjectResult<select_materialrs_details_Result> select_materialrs_details(string materialrs_order_id)
         {
             var materialrs_order_idParameter = materialrs_order_id != null ?
                 new ObjectParameter("materialrs_order_id", materialrs_order_id) :
@@ -327,23 +316,6 @@ namespace shoe_api.Models
         }
     
         public virtual ObjectResult<xp_SelectPageCaiLiao_Result> xp_SelectPageCaiLiao(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
-        {
-            var pageIndexParameter = pageIndex.HasValue ?
-                new ObjectParameter("PageIndex", pageIndex) :
-                new ObjectParameter("PageIndex", typeof(int));
-    
-            var pageSizeParameter = pageSize.HasValue ?
-                new ObjectParameter("PageSize", pageSize) :
-                new ObjectParameter("PageSize", typeof(int));
-    
-            var pageWhereParameter = pageWhere != null ?
-                new ObjectParameter("PageWhere", pageWhere) :
-                new ObjectParameter("PageWhere", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageCaiLiao_Result>("xp_SelectPageCaiLiao", pageIndexParameter, pageSizeParameter, pageWhereParameter);
-        }
-    
-        public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
         {
             var pageIndexParameter = pageIndex.HasValue ?
                 new ObjectParameter("PageIndex", pageIndex) :
