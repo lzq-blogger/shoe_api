@@ -10,13 +10,13 @@
 namespace shoe_api.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class out_materialr
+    public partial class select_in_money_Result
     {
-        public int out_materialr_id { get; set; }
-        public int get_materials_id { get; set; }
-    
-        public virtual get_materials get_materials { get; set; }
+        public string out_in_id { get; set; }
+        public int out_in_money_id { get; set; }
+        public Nullable<decimal> zong { get; set; }
+        public string product_name { get; set; }
+        public string product_type { get; set; }
     }
 }
