@@ -211,6 +211,102 @@ namespace shoe_api.Controllers
             return Pagedata;
         }
 
+        //查询订单编号
+        [HttpGet]
+        public string orderid(string ids)
+        {
+            var info = from p in db.materials_order
+                       where (p.materials_order_id==ids)
+                       select new { materialr_plan_id = p.materialr_plan_id };
+            return Newtonsoft.Json.JsonConvert.SerializeObject(info);
+        }
+
+        //新增库存（材料入库）
+        [HttpPost]
+        public string add_materialr_epertory(string json)
+        {
+            JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
+            JArray array = (JArray)json1["infoList"];
+            //先新增材料入库详情
+            string ids = json1.Root["materials_order__id"].ToString();
+            in_materialr pp = new in_materialr();
+            pp.materials_order__id = ids;
+            pp.operator_per = json1.Root["operator_per"].ToString();
+            pp.person_handling = json1.Root["person_handling"].ToString();
+            pp.in_time = json1.Root["time"].ToString();
+            //首先新增材料入库详情
+            db.in_materialr.Add(pp);
+            //保存数据
+            db.SaveChanges();
+
+            //入库完成后删除本条数据
+            materials_quality_testing o = db.materials_quality_testing.FirstOrDefault(p => p.materialrs_order_id == ids);
+            db.materials_quality_testing.Remove(o);
+            db.SaveChanges();
+
+            //先循环查找是否存在此库存，无则新增，有则修改
+
+            foreach (var item in array)
+            {
+                int materid = int.Parse(item["materialr_details_id"].ToString());
+                int mater_num = int.Parse(item["materialr_details_num"].ToString());
+                //条件成立说明存在此库存，否则就新增库存
+                if (db.materialr_epertory.Where(m=>m.materialr_details_id== materid).ToList().Count()>0)
+                {
+                    var me = db.materialr_epertory.Where(m => m.materialr_details_id == materid).FirstOrDefault();
+                    me.materialr_num = me.materialr_num + mater_num;
+                    db.Entry(me).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    materialr_epertory me = new materialr_epertory();
+                    me.materialr_details_id = materid;
+                    me.materialr_num = mater_num;
+                    db.materialr_epertory.Add(me);
+                    db.SaveChanges();
+                }
+            }
+
+            return "0";
+        }
+
+        //查询
+        [HttpPost]
+        //材料入库单
+        public BaseDataTables select_in_materialr_order([FromBody] GetDataTablesMessage obj)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            BaseDataTables Pagedata = new BaseDataTables();
+            Pagedata.draw = obj.draw;
+            string info = "";
+            if (obj.search.value != null)
+            {
+                info = obj.search.value;
+            }
+            //根据对应页码和条数进行查询
+            var list1 = from p in db.in_materialr
+                        select p into q
+                        where (q.in_materialr_id.ToString().Contains(info))
+                        select q;
+            //查询数据表总共有多少条记录
+            int rows1 = list1.ToList().Count;
+            //记录过滤后的条数
+            int rows2 = rows1;
+            /// <summary>
+            /// 即没有过滤的记录数（数据库里总共记录数）
+            /// </summary>
+            Pagedata.recordsTotal = rows1;
+            /// <summary>
+            /// 过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数）
+            /// </summary>
+            Pagedata.recordsFiltered = rows2;
+            Pagedata.data = list1;
+            return Pagedata;
+        }
+
+
+
         //材料出库详情
         [HttpPost]
         public BaseDataTables select_out_material_details([FromBody] GetDataTablesMessage obj)
