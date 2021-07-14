@@ -55,7 +55,17 @@ namespace shoe_api.Models
         /// <summary>
         /// 参数4
         /// </summary>
-        public int parameter4 { get; set; }
+        public int parameter4 { get; set; } 
+        
+        /// <summary>
+        /// 自定义参数
+        /// </summary>
+        public int detail_id { get; set; }
+        
+        /// <summary>
+        /// 自定义参数查询采购订单
+        /// </summary>
+        public string detail_ids{ get; set; }
     }
 
     /// <summary>

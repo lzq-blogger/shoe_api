@@ -191,6 +191,7 @@ namespace shoe_api.Controllers
             {
                 info = obj.search.value;
             }
+
             //根据对应页码和条数进行查询
             var list1 = from pp in db.get_materials
                 select new
