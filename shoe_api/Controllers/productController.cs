@@ -14,6 +14,13 @@ namespace shoe_api.Controllers
     public class productController : ApiController
     {
         ShoeEntities db = new ShoeEntities();
+        //统计总销售量
+        [HttpGet]
+        public int ss()
+        {
+            var info = db.order.ToList();
+            return info.Count();
+        }
         //生产计划查询
         [HttpPost]
         public BaseDataTables pro_plan([FromBody] GetDataTablesMessage obj)
@@ -84,8 +91,9 @@ namespace shoe_api.Controllers
         [HttpGet]
         public string pro_plan_name()
         {
-            var info = from p in db.product
+            var info1 = from p in db.product
                        select new { product_name = p.product_name };
+            var info = info1.Distinct();
             return Newtonsoft.Json.JsonConvert.SerializeObject(info);
         }
 
@@ -166,6 +174,7 @@ namespace shoe_api.Controllers
                 ppd.product_plan_id = int.Parse(s);
                 ppd.product_details_num=int.Parse(jObject["product_details_num"].ToString());
                 ppd.product_id = int.Parse(jObject["product_id"].ToString());
+                ppd.pro_status = "未登记";
                 //再新增详情表数据
                 db.product_plan_details.Add(ppd);
                 //保存数据
@@ -357,6 +366,14 @@ namespace shoe_api.Controllers
             o.pro_status = "处理中";
             db.Entry(o).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+
+            //新增一个出库详情
+            out_materialr om = new out_materialr();
+            int ss = int.Parse(json1.Root["product_plan_id"].ToString());
+            int getid = db.get_materials.Where(g=>g.product_plan_id==ss).ToList()[0].product_plan_id;
+            om.get_materials_id = getid;
+            db.out_materialr.Add(om);
+            db.SaveChanges();
             return 0;
         }
         [HttpGet]
@@ -411,6 +428,21 @@ namespace shoe_api.Controllers
             db.Entry(ppd).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return 0;
+        }
+        //删除==============================================================================
+        //删除生产计划
+        [HttpPost]
+        public string delete_pro_plan(string json)
+        {
+            JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
+            JArray array = (JArray)json1["infoList"];
+            for (int i = 0; i < array.Count; i++)
+            {
+                string id = array[i].ToString();
+                //循环删除
+
+            }
+            return "0";
         }
     }
 }

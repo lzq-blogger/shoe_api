@@ -11,6 +11,12 @@ namespace shoe_api.Controllers
     public class indexController : ApiController
     {
         ShoeEntities db = new ShoeEntities();
-        //统计当月的
+        //统计总销售量
+        [HttpGet]
+        public int ss()
+        {
+            var info = db.order.ToList();
+            return info.Count();
+        }
     }
 }

@@ -167,6 +167,19 @@ namespace shoe_api.Controllers
                 db.pro_repertory.Add(prr);
             }
             db.SaveChanges();
+
+            //对订单表进行订单设置已处理
+            int scjhxq = db.pro_production.Where(p => p.pro_production_id == ids).ToList()[0].product_plan_details_id;
+            //查询声称计划ID 
+            int scjhid = db.product_plan_details.Where(p => p.product_plan_details_id == scjhxq).ToList()[0].product_plan_id;
+            //查询订单ID
+            string ddid = db.product_plan.Where(p => p.product_plan_id == scjhid).ToList()[0].order_id;
+            //根据订单去修改订单状态
+            order o1 = db.order.FirstOrDefault(p=>p.orderr_id==ddid);
+            o1.orderr_id = o1.orderr_id;
+            o1.order_status = "已处理";
+            db.Entry(o1).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
             return 0;
         }
         //查询

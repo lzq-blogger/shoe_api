@@ -165,7 +165,7 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.materials_order.ToList().Where(p => (p.materials_order_id.ToString().Contains(info)
-            || p.operator_per.Contains(info) || p.status.Contains(info)||p.person_handling.Contains(info)) && p.status == "未质检");
+            || p.operator_per.Contains(info) || p.status.Contains(info) || p.person_handling.Contains(info)) && p.status == "未质检");
 
             //查询数据表总共有多少条记录
             int rows1 = db.materials_order.ToList().Count;
@@ -201,8 +201,9 @@ namespace shoe_api.Controllers
         {
             JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
             //新增客户信息表
+           int pro_production_id= int.Parse(json1.Root["pro_production_id"].ToString());
             product_quality_testing pp = new product_quality_testing();
-            pp.pro_production_id = int.Parse(json1.Root["pro_production_id"].ToString());
+            pp.pro_production_id = pro_production_id;
             pp.quality_testing_time = DateTime.Parse(json1.Root["quality_testing_time"].ToString());
             pp.operator_per = json1.Root["operator_per"].ToString();
             pp.result = json1.Root["result"].ToString();
@@ -210,6 +211,13 @@ namespace shoe_api.Controllers
             db.product_quality_testing.Add(pp);
             //保存数据
             db.SaveChanges();
+
+            //查询生产编号为pro_production_id对应的状态修改
+            var pro_obj = db.pro_production.Where(x => x.pro_production_id == pro_production_id).FirstOrDefault();
+            pro_obj.status = "已质检";
+            db.Entry(pro_obj).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
             return 0;
         }
         [HttpPost]
@@ -218,14 +226,21 @@ namespace shoe_api.Controllers
         {
             JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
             //新增客户信息表
+            string materialrs_order_id = (json1.Root["materials_order_id"].ToString());
             materials_quality_testing pp = new materials_quality_testing();
-            pp.materialrs_order_id = json1.Root["pro_production_id"].ToString();
+            pp.materialrs_order_id = materialrs_order_id;
             pp.quality_testing_time = DateTime.Parse(json1.Root["quality_testing_time"].ToString());
             pp.operator_per = json1.Root["operator_per"].ToString();
             pp.result = json1.Root["result"].ToString();
             //首先新增领料单表数据
             db.materials_quality_testing.Add(pp);
             //保存数据
+            db.SaveChanges();
+
+            //查询生产编号为pro_production_id对应的状态修改
+            var pro_obj = db.materials_order.Where(x => x.materials_order_id == materialrs_order_id).FirstOrDefault();
+            pro_obj.status = "已质检";
+            db.Entry(pro_obj).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return 0;
         }
