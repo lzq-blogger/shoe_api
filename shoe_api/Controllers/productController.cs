@@ -174,6 +174,7 @@ namespace shoe_api.Controllers
                 ppd.product_plan_id = int.Parse(s);
                 ppd.product_details_num=int.Parse(jObject["product_details_num"].ToString());
                 ppd.product_id = int.Parse(jObject["product_id"].ToString());
+                ppd.pro_status = "未登记";
                 //再新增详情表数据
                 db.product_plan_details.Add(ppd);
                 //保存数据
