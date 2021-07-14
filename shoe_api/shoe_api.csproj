@@ -312,6 +312,9 @@
     <Compile Include="Models\select_order_details_cust_pro_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\select_order_details_cust_pro_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\select_out_repertory_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -64,10 +64,18 @@ namespace shoe_api.Controllers
         }
         //查询订单编号，用来显示在新增计划的那个下拉框里(未处理的订单号)
         [HttpGet]
-        public string weichuli_order()
+        public string weichuli_order(int status)
         {
+            string sss = "未处理";
+            if (status==1)
+            {
+                sss = "已处理";
+            }else if (status==2)
+            {
+                sss = "已出售";
+            }
             var info = from p in db.order
-                       where(p.order_status== "未处理")
+                       where(p.order_status== sss)
                        select new { order_id = p.orderr_id };
             return Newtonsoft.Json.JsonConvert.SerializeObject(info);
         }
@@ -90,7 +98,6 @@ namespace shoe_api.Controllers
                        select new { pro_guige = p.pro_guige };
             return Newtonsoft.Json.JsonConvert.SerializeObject(info);
         }
-
         //根据产品名查询产品信息
         [HttpPost]
         public string pro_name_info([FromBody]product pp)
@@ -234,8 +241,10 @@ namespace shoe_api.Controllers
         [HttpGet]
         public string materials_name()
         {
-            var info = from p in db.materialr
-                       select new { materialr_details_name = p.materialr_details_name };
+            var info1 = from p in db.materialr
+                       select new { materialr_details_name = p.materialr_details_name};
+            var info = info1.Distinct();
+            int s = info.Count();
             return Newtonsoft.Json.JsonConvert.SerializeObject(info);
         }
 
@@ -246,9 +255,9 @@ namespace shoe_api.Controllers
             var info = from mm in db.materialr
                        where (mm.materialr_details_name.Contains(m.materialr_details_name))
                        select new { pro_guige = mm.pro_guige };
+            int s = info.Count();
             return Newtonsoft.Json.JsonConvert.SerializeObject(info);
         }
-
         //根据材料名查询材料信息
         [HttpPost]
         public string materials_name_info([FromBody] materialr m)
@@ -282,7 +291,17 @@ namespace shoe_api.Controllers
             }
             //根据对应页码和条数进行查询
             var list1 = from pp in db.pro_production
-                        select pp;
+                        join ppd in db.product_plan_details
+                        on pp.product_plan_details_id equals ppd.product_plan_details_id
+                        select new{
+                            pro_production_id=pp.pro_production_id,
+                            product_plan_details_id = pp.product_plan_details_id,
+                            pro_production_dep = pp.pro_production_dep,
+                            operator_per = pp.operator_per,
+                            product_time = pp.product_time,
+                            status = pp.status,
+                            status1 = ppd.pro_status,
+                        };
             //查询数据表总共有多少条记录
             int rows1 = db.pro_production.ToList().Count;
             //记录过滤后的条数
@@ -340,44 +359,58 @@ namespace shoe_api.Controllers
             db.SaveChanges();
             return 0;
         }
-        [HttpPost]
-        //产品登记表
-        public int add_product([FromBody] pro_production pp)
-        {
-            //返回0,1,2，用来前端调用接口的时候判断应该给用户数目提示。
-            //判断非空
-            if (pp.product_plan_details_id.ToString() == null)
-            {
-                return 0;
-            }
-         
-            if (pp.pro_production_dep.ToString() == null||
-                pp.operator_per.ToString() == null ||
-                pp.product_time.ToString() == null )
-            {
-                return 1;
-            }
-            //新增数据
-            db.pro_production.Add(pp);
-            //保存数据
-            db.SaveChanges();
-            return 2;
-        }
         [HttpGet]
         //查询生产计划详情
-        public string select_pro_plan_details(int id)
+        public string select_pro_plan_details(int id,string status)
         {
-            var list1 = db.Database.SqlQuery<select_pro_plan_details_Result>("exec select_pro_plan_details " + id).ToList();
-            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+            if (status == "好")
+            {
+                //先查详情ID
+                var ids = db.pro_production.Where(p => p.pro_production_id == id).ToList();
+                int idss = ids[0].product_plan_details_id;
+                var list1 = db.Database.SqlQuery<select_pro_plan_details_Result>("exec select_pro_plan_details " + idss).ToList();
+                int s1 = list1.Count();
+                return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+            }
+            var list2 = db.Database.SqlQuery<select_pro_plan_details_Result>("exec select_pro_plan_details " + id).ToList();
+            int s = list2.Count();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(list2);
         }
-        //查询处理中的生产计划ID
+        //查询未登记的生产计划详情ID
         [HttpGet]
         public string select_pro_plan_details_id()
         {
-            var list1 = from ppd in db.product_plan
-                        where (ppd.pro_status.Contains("处理中"))
-                        select new { product_plan_details_id=ppd.product_plan_id };
+            var list1 = from ppd in db.product_plan_details
+                        where (ppd.pro_status.Contains("未登记"))
+                        select new { product_plan_details_id=ppd.product_plan_details_id };
+            int count = list1.Count();
             return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        }
+        [HttpPost]
+        //新增产品登记
+        public int add_pro_product(string json)
+        {
+            JObject json1 = (JObject)JsonConvert.DeserializeObject(json);
+            //先新增领料单表
+            pro_production pp = new pro_production();
+            int ppd_id = int.Parse(json1.Root["product_plan_details_id"].ToString());
+            pp.product_plan_details_id = ppd_id;
+            pp.operator_per = json1.Root["operator_per"].ToString();
+            pp.person_handling = "张三";
+            pp.pro_production_dep = json1.Root["pro_production_dep"].ToString();
+            pp.status = json1.Root["status"].ToString();
+            pp.product_time = (DateTime)json1.Root["product_time"];
+            //首先新增领料单表数据
+            db.pro_production.Add(pp);
+            //保存数据
+            db.SaveChanges();
+            //修改订单的处理状态
+            product_plan_details ppd = db.product_plan_details.FirstOrDefault(p => p.product_plan_details_id == ppd_id);
+            ppd.product_plan_details_id = ppd_id;
+            ppd.pro_status = "已登记";
+            db.Entry(ppd).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return 0;
         }
     }
 }

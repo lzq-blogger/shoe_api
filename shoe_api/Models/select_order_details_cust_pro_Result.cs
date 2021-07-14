@@ -30,5 +30,6 @@ namespace shoe_api.Models
         public string product_address { get; set; }
         public string unit { get; set; }
         public string pro_guige { get; set; }
+        public int quantity { get; set; }
     }
 }

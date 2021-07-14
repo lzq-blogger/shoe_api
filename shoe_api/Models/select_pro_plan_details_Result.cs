@@ -21,5 +21,6 @@ namespace shoe_api.Models
         public string unit { get; set; }
         public string product_producer { get; set; }
         public string pro_guige { get; set; }
+        public string get_department { get; set; }
     }
 }
