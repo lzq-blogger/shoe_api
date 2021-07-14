@@ -53,6 +53,8 @@ namespace shoe_api.Models
         public virtual DbSet<product_plan_details> product_plan_details { get; set; }
         public virtual DbSet<product_quality_testing> product_quality_testing { get; set; }
         public virtual DbSet<product_type> product_type { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<proPlan_ordDetails> proPlan_ordDetails { get; set; }
     
         public virtual ObjectResult<add_pro_repertory_Result> add_pro_repertory(Nullable<int> pro_product_id)
         {
@@ -63,13 +65,22 @@ namespace shoe_api.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<add_pro_repertory_Result>("add_pro_repertory", pro_product_idParameter);
         }
     
-        public virtual ObjectResult<customer_order_details_Result> customer_order_details(Nullable<int> customer_orderid)
+        public virtual ObjectResult<customer_order_details_Result> customer_order_details(string customer_orderid)
         {
-            var customer_orderidParameter = customer_orderid.HasValue ?
+            var customer_orderidParameter = customer_orderid != null ?
                 new ObjectParameter("customer_orderid", customer_orderid) :
-                new ObjectParameter("customer_orderid", typeof(int));
+                new ObjectParameter("customer_orderid", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<customer_order_details_Result>("customer_order_details", customer_orderidParameter);
+        }
+    
+        public virtual ObjectResult<daijianchanpinbianxie_Result> daijianchanpinbianxie(Nullable<int> pro_production_id)
+        {
+            var pro_production_idParameter = pro_production_id.HasValue ?
+                new ObjectParameter("pro_production_id", pro_production_id) :
+                new ObjectParameter("pro_production_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<daijianchanpinbianxie_Result>("daijianchanpinbianxie", pro_production_idParameter);
         }
     
         public virtual ObjectResult<in_repertory_detail_Result> in_repertory_detail()
@@ -104,31 +115,31 @@ namespace shoe_api.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_customer_details_Result>("select_customer_details", order_idParameter);
         }
     
-        public virtual ObjectResult<select_out_repertory_Result> select_out_repertory(Nullable<int> out_repertory_id)
+        public virtual ObjectResult<select_materialrs_details_Result> select_materialrs_details(string materialrs_order_id)
         {
-            var out_repertory_idParameter = out_repertory_id.HasValue ?
-                new ObjectParameter("out_repertory_id", out_repertory_id) :
-                new ObjectParameter("out_repertory_id", typeof(int));
+            var materialrs_order_idParameter = materialrs_order_id != null ?
+                new ObjectParameter("materialrs_order_id", materialrs_order_id) :
+                new ObjectParameter("materialrs_order_id", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_out_repertory_Result>("select_out_repertory", out_repertory_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_materialrs_details_Result>("select_materialrs_details", materialrs_order_idParameter);
         }
     
-        public virtual ObjectResult<select_Pro_order_datails_Result> select_Pro_order_datails(Nullable<int> pro_order)
+        public virtual ObjectResult<select_materials_order_plan_mpd_Result> select_materials_order_plan_mpd(Nullable<int> materials_order_id)
         {
-            var pro_orderParameter = pro_order.HasValue ?
-                new ObjectParameter("Pro_order", pro_order) :
-                new ObjectParameter("Pro_order", typeof(int));
+            var materials_order_idParameter = materials_order_id.HasValue ?
+                new ObjectParameter("materials_order_id", materials_order_id) :
+                new ObjectParameter("materials_order_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_Pro_order_datails_Result>("select_Pro_order_datails", pro_orderParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_materials_order_plan_mpd_Result>("select_materials_order_plan_mpd", materials_order_idParameter);
         }
     
-        public virtual ObjectResult<select_pro_plan_details_Result> select_pro_plan_details(Nullable<int> pro_plan_details)
+        public virtual ObjectResult<select_order_details_cust_pro_Result> select_order_details_cust_pro(string ord)
         {
-            var order_idParameter = order_id.HasValue ?
-                new ObjectParameter("order_id", order_id) :
-                new ObjectParameter("order_id", typeof(int));
+            var ordParameter = ord != null ?
+                new ObjectParameter("ord", ord) :
+                new ObjectParameter("ord", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_customer_details_Result>("select_customer_details", order_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_order_details_cust_pro_Result>("select_order_details_cust_pro", ordParameter);
         }
     
         public virtual ObjectResult<select_out_repertory_Result> select_out_repertory(Nullable<int> out_repertory_id)
@@ -158,11 +169,168 @@ namespace shoe_api.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_pro_plan_details_Result>("select_pro_plan_details", pro_plan_detailsParameter);
         }
     
-        public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
+        public virtual ObjectResult<select_product_pro_plan_Result> select_product_pro_plan(Nullable<int> pro_production_id)
+        {
+            var pro_production_idParameter = pro_production_id.HasValue ?
+                new ObjectParameter("pro_production_id", pro_production_id) :
+                new ObjectParameter("pro_production_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_product_pro_plan_Result>("select_product_pro_plan", pro_production_idParameter);
+        }
+    
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<xp_SelectPageCaigou_Result> xp_SelectPageCaigou(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
         {
             var pageIndexParameter = pageIndex.HasValue ?
                 new ObjectParameter("PageIndex", pageIndex) :
                 new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var pageWhereParameter = pageWhere != null ?
+                new ObjectParameter("PageWhere", pageWhere) :
+                new ObjectParameter("PageWhere", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageCaigou_Result>("xp_SelectPageCaigou", pageIndexParameter, pageSizeParameter, pageWhereParameter);
+        }
+    
+        public virtual ObjectResult<xp_SelectPageCaigou_Detail_Result> xp_SelectPageCaigou_Detail(Nullable<int> pageIndex, Nullable<int> pageSize, string id)
+        {
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageCaigou_Detail_Result>("xp_SelectPageCaigou_Detail", pageIndexParameter, pageSizeParameter, idParameter);
+        }
+    
+        public virtual ObjectResult<xp_SelectPageCaiLiao_Result> xp_SelectPageCaiLiao(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
+        {
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var pageWhereParameter = pageWhere != null ?
+                new ObjectParameter("PageWhere", pageWhere) :
+                new ObjectParameter("PageWhere", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageCaiLiao_Result>("xp_SelectPageCaiLiao", pageIndexParameter, pageSizeParameter, pageWhereParameter);
+        }
     
         public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
         {

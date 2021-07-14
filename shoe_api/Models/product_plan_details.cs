@@ -24,6 +24,7 @@ namespace shoe_api.Models
         public int product_plan_id { get; set; }
         public int product_details_num { get; set; }
         public int product_id { get; set; }
+        public string pro_status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pro_production> pro_production { get; set; }
