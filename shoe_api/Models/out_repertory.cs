@@ -19,6 +19,7 @@ namespace shoe_api.Models
         public string operator_per { get; set; }
         public System.DateTime out_time { get; set; }
         public string person_handling { get; set; }
+        public string end_price { get; set; }
     
         public virtual order order { get; set; }
     }

@@ -11,15 +11,12 @@ namespace shoe_api.Models
 {
     using System;
     
-    public partial class select_pro_plan_details_Result
+    public partial class select_product_pro_plan_Result
     {
-        public int product_id { get; set; }
         public string product_name { get; set; }
         public string product_type { get; set; }
-        public string product_price { get; set; }
         public int product_details_num { get; set; }
-        public string unit { get; set; }
-        public string product_producer { get; set; }
+        public System.DateTime product_time { get; set; }
         public string pro_guige { get; set; }
     }
 }
