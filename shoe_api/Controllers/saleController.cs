@@ -107,12 +107,12 @@ namespace shoe_api.Controllers
             var list1 = db.Database.SqlQuery<select_customer_details_Result>("exec select_customer_details " + id).ToList();
             return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
         }
-        //销售订单的查询
-        [HttpGet]
-        public string sale_order(string id)
-        {
-            var list1 = db.Database.SqlQuery<select_order_details_cust_pro_Result >("exec select_order_details_cust_pro " + id).ToList();
-            return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
-        }
+        ////销售订单的查询
+        //[HttpGet]
+        //public string sale_order(string id)
+        //{
+        //    var list1 = db.Database.SqlQuery<select_order_details_cust_pro_Result >("exec select_order_details_cust_pro " + id).ToList();
+        //    return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
+        //}
     }
 }

@@ -14,7 +14,7 @@ namespace shoe_api.Controllers
     {
         ShoeEntities db = new ShoeEntities();
 
-        //查询产品生产
+        //查询待检产品
         [HttpPost]
         public BaseDataTables CpSc([FromBody] GetDataTablesMessage obj)
         {
@@ -29,11 +29,9 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
 
-            var list1 = db.pro_production.ToList().Where(p => p.product_plan_details_id.ToString().Contains(info)
-            || p.pro_production_dep.Contains(info)
-            || p.operator_per.Contains(info) || p.product_time.ToString().Contains(info)
-            || p.status.Contains(info));
-           
+            var list1 = db.pro_production.ToList().Where(p => (p.status.ToString().Contains(info)
+            || p.pro_production_id.ToString().Contains(info) || p.operator_per.Contains(info)) && p.status == "未质检");
+
             //查询数据表总共有多少条记录
             int rows1 = db.pro_production.ToList().Count;
 
@@ -77,7 +75,6 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.product_quality_testing.Where(p => p.quality_testing_id.ToString().Contains(info)
-            || p.pro_production_id.ToString().Contains(info) || p.quality_testing_time.ToString().Contains(info)
             || p.operator_per.Contains(info) || p.result.Contains(info));
 
             //查询数据表总共有多少条记录
@@ -123,7 +120,6 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.materials_quality_testing.ToList().Where(p => p.quality_testing_id.ToString().Contains(info)
-            || p.materialrs_order_id.ToString().Contains(info) || p.quality_testing_time.ToString().Contains(info)
             || p.operator_per.Contains(info) || p.result.Contains(info));
 
             //查询数据表总共有多少条记录
@@ -168,8 +164,8 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
 
-            var list1 = db.materials_order.ToList().Where(p => p.materials_order_id.ToString().Contains(info)
-            || p.materialr_plan_id.ToString().Contains(info) ||  p.operator_per.Contains(info) ||p.status.Contains(info));
+            var list1 = db.materials_order.ToList().Where(p => (p.materials_order_id.ToString().Contains(info)
+            || p.operator_per.Contains(info) || p.status.Contains(info) || p.person_handling.Contains(info)) && p.status == "未质检");
 
             //查询数据表总共有多少条记录
             int rows1 = db.materials_order.ToList().Count;
@@ -197,8 +193,6 @@ namespace shoe_api.Controllers
 
             return Pagedata;
         }
-
-
         [HttpPost]
         //新增产品质检单
         public int addproduct_quality_testing(string json)
