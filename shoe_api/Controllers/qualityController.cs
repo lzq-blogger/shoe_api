@@ -167,8 +167,7 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.materials_order.ToList().Where(p => p.materials_order_id.ToString().Contains(info)
-            || p.materialr_plan_id.ToString().Contains(info) ||  p.operator_per.Contains(info) ||
-            p.status.Contains(info));
+            || p.materialr_plan_id.ToString().Contains(info) ||  p.operator_per.Contains(info) ||p.status.Contains(info));
 
             //查询数据表总共有多少条记录
             int rows1 = db.materials_order.ToList().Count;
