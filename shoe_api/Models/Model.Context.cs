@@ -31,7 +31,6 @@ namespace shoe_api.Models
         public virtual DbSet<buy_materials_details> buy_materials_details { get; set; }
         public virtual DbSet<customer> customer { get; set; }
         public virtual DbSet<get_materials> get_materials { get; set; }
-        public virtual DbSet<in_materialr> in_materialr { get; set; }
         public virtual DbSet<in_money> in_money { get; set; }
         public virtual DbSet<in_repertory> in_repertory { get; set; }
         public virtual DbSet<materialr> materialr { get; set; }
@@ -116,11 +115,6 @@ namespace shoe_api.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_customer_details_Result>("select_customer_details", order_idParameter);
         }
     
-        public virtual ObjectResult<select_in_money_Result> select_in_money()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_in_money_Result>("select_in_money");
-        }
-    
         public virtual ObjectResult<select_materialrs_details_Result> select_materialrs_details(string materialrs_order_id)
         {
             var materialrs_order_idParameter = materialrs_order_id != null ?
@@ -146,11 +140,6 @@ namespace shoe_api.Models
                 new ObjectParameter("ord", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_order_details_cust_pro_Result>("select_order_details_cust_pro", ordParameter);
-        }
-    
-        public virtual ObjectResult<select_out_money_Result> select_out_money()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<select_out_money_Result>("select_out_money");
         }
     
         public virtual ObjectResult<select_out_repertory_Result> select_out_repertory(Nullable<int> out_repertory_id)
@@ -343,23 +332,6 @@ namespace shoe_api.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageCaiLiao_Result>("xp_SelectPageCaiLiao", pageIndexParameter, pageSizeParameter, pageWhereParameter);
         }
     
-        public virtual ObjectResult<xp_SelectPageChuku_Result> xp_SelectPageChuku(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
-        {
-            var pageIndexParameter = pageIndex.HasValue ?
-                new ObjectParameter("PageIndex", pageIndex) :
-                new ObjectParameter("PageIndex", typeof(int));
-    
-            var pageSizeParameter = pageSize.HasValue ?
-                new ObjectParameter("PageSize", pageSize) :
-                new ObjectParameter("PageSize", typeof(int));
-    
-            var pageWhereParameter = pageWhere != null ?
-                new ObjectParameter("PageWhere", pageWhere) :
-                new ObjectParameter("PageWhere", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageChuku_Result>("xp_SelectPageChuku", pageIndexParameter, pageSizeParameter, pageWhereParameter);
-        }
-    
         public virtual ObjectResult<xp_SelectPageJihua_Result> xp_SelectPageJihua(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
         {
             var pageIndexParameter = pageIndex.HasValue ?
@@ -392,23 +364,6 @@ namespace shoe_api.Models
                 new ObjectParameter("id", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageJihua_detail_Result>("xp_SelectPageJihua_detail", pageIndexParameter, pageSizeParameter, idParameter);
-        }
-    
-        public virtual ObjectResult<xp_SelectPageRuku_Result> xp_SelectPageRuku(Nullable<int> pageIndex, Nullable<int> pageSize, string pageWhere)
-        {
-            var pageIndexParameter = pageIndex.HasValue ?
-                new ObjectParameter("PageIndex", pageIndex) :
-                new ObjectParameter("PageIndex", typeof(int));
-    
-            var pageSizeParameter = pageSize.HasValue ?
-                new ObjectParameter("PageSize", pageSize) :
-                new ObjectParameter("PageSize", typeof(int));
-    
-            var pageWhereParameter = pageWhere != null ?
-                new ObjectParameter("PageWhere", pageWhere) :
-                new ObjectParameter("PageWhere", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xp_SelectPageRuku_Result>("xp_SelectPageRuku", pageIndexParameter, pageSizeParameter, pageWhereParameter);
         }
     }
 }

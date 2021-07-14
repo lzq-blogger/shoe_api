@@ -16,7 +16,9 @@ namespace shoe_api.Models
     {
         public int out_materialr_id { get; set; }
         public int get_materials_id { get; set; }
+        public int materialr_details_id { get; set; }
     
         public virtual get_materials get_materials { get; set; }
+        public virtual materialr materialr { get; set; }
     }
 }

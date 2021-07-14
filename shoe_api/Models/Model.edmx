@@ -49,16 +49,6 @@
           <Property Name="status" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="get_time" Type="date" Nullable="false" />
         </EntityType>
-        <EntityType Name="in_materialr">
-          <Key>
-            <PropertyRef Name="in_materialr_id" />
-          </Key>
-          <Property Name="in_materialr_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="materials_order _id" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="person_handling" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="operator_per" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="in_time" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="in_money">
           <Key>
             <PropertyRef Name="out_in_money_id" />
@@ -183,6 +173,7 @@
           </Key>
           <Property Name="out_materialr_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="get_materials_id" Type="int" Nullable="false" />
+          <Property Name="materialr_details_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="out_money">
           <Key>
@@ -328,18 +319,6 @@
             </Principal>
             <Dependent Role="get_materials">
               <PropertyRef Name="product_plan_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_in_materialr_materials_order">
-          <End Role="materials_order" Type="Self.materials_order" Multiplicity="1" />
-          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="materials_order">
-              <PropertyRef Name="materials_order_id" />
-            </Principal>
-            <Dependent Role="in_materialr">
-              <PropertyRef Name="materials_order _id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -535,6 +514,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_out_materialr_materialr_details">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="out_materialr" Type="Self.out_materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="out_materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_out_repertory_order">
           <End Role="order" Type="Self.order" Multiplicity="1" />
           <End Role="out_repertory" Type="Self.out_repertory" Multiplicity="*" />
@@ -639,7 +630,6 @@
         <Function Name="select_customer_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="order_id" Type="int" Mode="In" />
         </Function>
-        <Function Name="select_in_money" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="select_materialrs_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="materialrs_order_id" Type="nvarchar" Mode="In" />
         </Function>
@@ -649,7 +639,6 @@
         <Function Name="select_order_details_cust_pro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ord" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="select_out_money" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="select_out_repertory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="out_repertory_id" Type="int" Mode="In" />
         </Function>
@@ -707,11 +696,6 @@
           <Parameter Name="PageSize" Type="int" Mode="In" />
           <Parameter Name="PageWhere" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="xp_SelectPageChuku" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PageIndex" Type="int" Mode="In" />
-          <Parameter Name="PageSize" Type="int" Mode="In" />
-          <Parameter Name="PageWhere" Type="nvarchar" Mode="In" />
-        </Function>
         <Function Name="xp_SelectPageJihua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PageIndex" Type="int" Mode="In" />
           <Parameter Name="PageSize" Type="int" Mode="In" />
@@ -722,17 +706,11 @@
           <Parameter Name="PageSize" Type="int" Mode="In" />
           <Parameter Name="id" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="xp_SelectPageRuku" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PageIndex" Type="int" Mode="In" />
-          <Parameter Name="PageSize" Type="int" Mode="In" />
-          <Parameter Name="PageWhere" Type="nvarchar" Mode="In" />
-        </Function>
         <EntityContainer Name="ShoeModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="buy_materials_details" EntityType="Self.buy_materials_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="get_materials" EntityType="Self.get_materials" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="in_materialr" EntityType="Self.in_materialr" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="in_money" EntityType="Self.in_money" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="in_repertory" EntityType="Self.in_repertory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="materialr" EntityType="Self.materialr" Schema="dbo" store:Type="Tables" />
@@ -773,10 +751,6 @@
           <AssociationSet Name="FK_get_materials_product_plan" Association="Self.FK_get_materials_product_plan">
             <End Role="product_plan" EntitySet="product_plan" />
             <End Role="get_materials" EntitySet="get_materials" />
-          </AssociationSet>
-          <AssociationSet Name="FK_in_materialr_materials_order" Association="Self.FK_in_materialr_materials_order">
-            <End Role="materials_order" EntitySet="materials_order" />
-            <End Role="in_materialr" EntitySet="in_materialr" />
           </AssociationSet>
           <AssociationSet Name="FK_in_materialr_materials_plan" Association="Self.FK_in_materialr_materials_plan">
             <End Role="materials_plan" EntitySet="materials_plan" />
@@ -840,6 +814,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_out_materialr_get_materials" Association="Self.FK_out_materialr_get_materials">
             <End Role="get_materials" EntitySet="get_materials" />
+            <End Role="out_materialr" EntitySet="out_materialr" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_materialr_materialr_details" Association="Self.FK_out_materialr_materialr_details">
+            <End Role="materialr" EntitySet="materialr" />
             <End Role="out_materialr" EntitySet="out_materialr" />
           </AssociationSet>
           <AssociationSet Name="FK_out_repertory_order" Association="Self.FK_out_repertory_order">
@@ -926,17 +904,6 @@
           <NavigationProperty Name="materialr_details" Relationship="Self.FK_materialr_details_get_materials" FromRole="get_materials" ToRole="materialr_details" />
           <NavigationProperty Name="out_materialr" Relationship="Self.FK_out_materialr_get_materials" FromRole="get_materials" ToRole="out_materialr" />
         </EntityType>
-        <EntityType Name="in_materialr">
-          <Key>
-            <PropertyRef Name="in_materialr_id" />
-          </Key>
-          <Property Name="in_materialr_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="materials_order__id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="person_handling" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="operator_per" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="in_time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="materials_order" Relationship="Self.FK_in_materialr_materials_order" FromRole="in_materialr" ToRole="materials_order" />
-        </EntityType>
         <EntityType Name="in_money">
           <Key>
             <PropertyRef Name="out_in_money_id" />
@@ -972,6 +939,7 @@
           <NavigationProperty Name="materialr_type" Relationship="Self.FK_materialr_details_materialr_type" FromRole="materialr" ToRole="materialr_type" />
           <NavigationProperty Name="materialr_epertory" Relationship="Self.FK_materialr_epertory_materialr_details" FromRole="materialr" ToRole="materialr_epertory" />
           <NavigationProperty Name="materials_plan_details" Relationship="Self.FK_materials_plan_details_materialr" FromRole="materialr" ToRole="materials_plan_details" />
+          <NavigationProperty Name="out_materialr" Relationship="Self.FK_out_materialr_materialr_details" FromRole="materialr" ToRole="out_materialr" />
         </EntityType>
         <EntityType Name="materialr_details">
           <Key>
@@ -1013,7 +981,6 @@
           <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="person_handling" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="buy_materials_details" Relationship="Self.FK_buy_materials_details_in_materialr" FromRole="materials_order" ToRole="buy_materials_details" />
-          <NavigationProperty Name="in_materialr" Relationship="Self.FK_in_materialr_materials_order" FromRole="materials_order" ToRole="in_materialr" />
           <NavigationProperty Name="materials_plan" Relationship="Self.FK_in_materialr_materials_plan" FromRole="materials_order" ToRole="materials_plan" />
           <NavigationProperty Name="materials_quality_testing" Relationship="Self.FK_materials_quality_testing_in_materialr" FromRole="materials_order" ToRole="materials_quality_testing" />
           <NavigationProperty Name="out_money" Relationship="Self.FK_out_in_money_in_materialr" FromRole="materials_order" ToRole="out_money" />
@@ -1090,7 +1057,9 @@
           </Key>
           <Property Name="out_materialr_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="get_materials_id" Type="Int32" Nullable="false" />
+          <Property Name="materialr_details_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="get_materials" Relationship="Self.FK_out_materialr_get_materials" FromRole="out_materialr" ToRole="get_materials" />
+          <NavigationProperty Name="materialr" Relationship="Self.FK_out_materialr_materialr_details" FromRole="out_materialr" ToRole="materialr" />
         </EntityType>
         <EntityType Name="out_money">
           <Key>
@@ -1290,18 +1259,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_in_materialr_materials_order">
-          <End Role="materials_order" Type="Self.materials_order" Multiplicity="1" />
-          <End Role="in_materialr" Type="Self.in_materialr" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="materials_order">
-              <PropertyRef Name="materials_order_id" />
-            </Principal>
-            <Dependent Role="in_materialr">
-              <PropertyRef Name="materials_order__id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_in_money_order">
           <End Role="order" Type="Self.order" Multiplicity="1" />
           <End Role="in_money" Type="Self.in_money" Multiplicity="*" />
@@ -1370,6 +1327,18 @@
               <PropertyRef Name="materialr_details_id" />
             </Principal>
             <Dependent Role="materials_plan_details">
+              <PropertyRef Name="materialr_details_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_out_materialr_materialr_details">
+          <End Role="materialr" Type="Self.materialr" Multiplicity="1" />
+          <End Role="out_materialr" Type="Self.out_materialr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materialr">
+              <PropertyRef Name="materialr_details_id" />
+            </Principal>
+            <Dependent Role="out_materialr">
               <PropertyRef Name="materialr_details_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1547,7 +1516,6 @@
           <EntitySet Name="buy_materials_details" EntityType="Self.buy_materials_details" />
           <EntitySet Name="customer" EntityType="Self.customer" />
           <EntitySet Name="get_materials" EntityType="Self.get_materials" />
-          <EntitySet Name="in_materialr" EntityType="Self.in_materialr" />
           <EntitySet Name="in_money" EntityType="Self.in_money" />
           <EntitySet Name="in_repertory" EntityType="Self.in_repertory" />
           <EntitySet Name="materialr" EntityType="Self.materialr" />
@@ -1596,10 +1564,6 @@
             <End Role="get_materials" EntitySet="get_materials" />
             <End Role="out_materialr" EntitySet="out_materialr" />
           </AssociationSet>
-          <AssociationSet Name="FK_in_materialr_materials_order" Association="Self.FK_in_materialr_materials_order">
-            <End Role="materials_order" EntitySet="materials_order" />
-            <End Role="in_materialr" EntitySet="in_materialr" />
-          </AssociationSet>
           <AssociationSet Name="FK_in_money_order" Association="Self.FK_in_money_order">
             <End Role="order" EntitySet="order" />
             <End Role="in_money" EntitySet="in_money" />
@@ -1623,6 +1587,10 @@
           <AssociationSet Name="FK_materials_plan_details_materialr" Association="Self.FK_materials_plan_details_materialr">
             <End Role="materialr" EntitySet="materialr" />
             <End Role="materials_plan_details" EntitySet="materials_plan_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_out_materialr_materialr_details" Association="Self.FK_out_materialr_materialr_details">
+            <End Role="materialr" EntitySet="materialr" />
+            <End Role="out_materialr" EntitySet="out_materialr" />
           </AssociationSet>
           <AssociationSet Name="FK_materialr_type_product_type" Association="Self.FK_materialr_type_product_type">
             <End Role="product_type" EntitySet="product_type" />
@@ -1699,7 +1667,6 @@
           <FunctionImport Name="select_customer_details" ReturnType="Collection(ShoeModel.select_customer_details_Result)">
             <Parameter Name="order_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="select_in_money" ReturnType="Collection(ShoeModel.select_in_money_Result)" />
           <FunctionImport Name="select_materialrs_details" ReturnType="Collection(ShoeModel.select_materialrs_details_Result)">
             <Parameter Name="materialrs_order_id" Mode="In" Type="String" />
           </FunctionImport>
@@ -1709,7 +1676,6 @@
           <FunctionImport Name="select_order_details_cust_pro" ReturnType="Collection(ShoeModel.select_order_details_cust_pro_Result)">
             <Parameter Name="ord" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="select_out_money" ReturnType="Collection(ShoeModel.select_out_money_Result)" />
           <FunctionImport Name="select_out_repertory" ReturnType="Collection(ShoeModel.select_out_repertory_Result)">
             <Parameter Name="out_repertory_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1767,11 +1733,6 @@
             <Parameter Name="PageSize" Mode="In" Type="Int32" />
             <Parameter Name="PageWhere" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="xp_SelectPageChuku" ReturnType="Collection(ShoeModel.xp_SelectPageChuku_Result)">
-            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
-            <Parameter Name="PageSize" Mode="In" Type="Int32" />
-            <Parameter Name="PageWhere" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="xp_SelectPageJihua" ReturnType="Collection(ShoeModel.xp_SelectPageJihua_Result)">
             <Parameter Name="PageIndex" Mode="In" Type="Int32" />
             <Parameter Name="PageSize" Mode="In" Type="Int32" />
@@ -1781,11 +1742,6 @@
             <Parameter Name="PageIndex" Mode="In" Type="Int32" />
             <Parameter Name="PageSize" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="xp_SelectPageRuku" ReturnType="Collection(ShoeModel.xp_SelectPageRuku_Result)">
-            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
-            <Parameter Name="PageSize" Mode="In" Type="Int32" />
-            <Parameter Name="PageWhere" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="add_pro_repertory_Result">
@@ -1884,13 +1840,6 @@
           <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="product_num" Nullable="false" MaxLength="50" />
         </ComplexType>
-        <ComplexType Name="select_in_money_Result">
-          <Property Type="String" Name="out_in_id" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="out_in_money_id" Nullable="false" />
-          <Property Type="Decimal" Name="zong" Nullable="true" Precision="19" />
-          <Property Type="String" Name="product_name" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="product_type" Nullable="false" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="select_materialrs_details_Result">
           <Property Type="Int32" Name="materialr_details_id" Nullable="false" />
           <Property Type="String" Name="materialr_details_name" Nullable="false" MaxLength="20" />
@@ -1929,14 +1878,6 @@
           <Property Type="String" Name="unit" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="pro_guige" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="quantity" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="select_out_money_Result">
-          <Property Type="Int32" Name="out_in_id" Nullable="true" />
-          <Property Type="Int32" Name="materialrs_order_id" Nullable="true" />
-          <Property Type="String" Name="materialr_type_name" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="materialr_details_name" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="pro_guige" Nullable="false" MaxLength="50" />
-          <Property Type="Decimal" Name="zong" Nullable="true" Precision="19" />
         </ComplexType>
         <ComplexType Name="select_out_repertory_Result">
           <Property Type="String" Name="customer_name" Nullable="false" MaxLength="200" />
@@ -2016,15 +1957,6 @@
           <Property Type="String" Name="materialr_type_name" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="product_type_name" Nullable="false" MaxLength="20" />
         </ComplexType>
-        <ComplexType Name="xp_SelectPageChuku_Result">
-          <Property Type="Int32" Name="out_materialr_id" Nullable="false" />
-          <Property Type="Int32" Name="materialr_details_num" Nullable="false" />
-          <Property Type="String" Name="materialr_details_name" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="materialr_type_name" Nullable="false" MaxLength="20" />
-          <Property Type="Decimal" Name="materialr_details_price" Nullable="false" Precision="19" />
-          <Property Type="String" Name="material_supplier" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="pro_guige" Nullable="false" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="xp_SelectPageJihua_Result">
           <Property Type="Int32" Name="materialr_plan_id" Nullable="false" />
           <Property Type="String" Name="status" Nullable="false" MaxLength="20" />
@@ -2042,28 +1974,6 @@
           <Property Type="Decimal" Name="materialr_details_price" Nullable="false" Precision="19" />
           <Property Type="String" Name="material_supplier" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="materialr_type_name" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="pro_guige" Nullable="false" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="xp_SelectPageRuku_Result">
-          <Property Type="Int32" Name="quality_testing_id" Nullable="false" />
-          <Property Type="String" Name="materialrs_order_id" Nullable="false" MaxLength="50" />
-          <Property Type="DateTime" Name="quality_testing_time" Nullable="false" />
-          <Property Type="String" Name="operator_per" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="result" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="materials_order_id" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="materialr_plan_id" Nullable="false" />
-          <Property Type="String" Name="operator_per1" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="status" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="person_handling" Nullable="false" MaxLength="20" />
-          <Property Type="Int32" Name="buy_materials_details_id" Nullable="false" />
-          <Property Type="String" Name="materialrs_order_id1" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="materialr_details_num" Nullable="false" />
-          <Property Type="Int32" Name="materialr_details_id" Nullable="false" />
-          <Property Type="Int32" Name="materialr_details_id1" Nullable="false" />
-          <Property Type="String" Name="materialr_details_name" Nullable="false" MaxLength="20" />
-          <Property Type="Int32" Name="materialr_type_id" Nullable="false" />
-          <Property Type="Decimal" Name="materialr_details_price" Nullable="false" Precision="19" />
-          <Property Type="String" Name="material_supplier" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="pro_guige" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
@@ -2117,17 +2027,6 @@
                 <ScalarProperty Name="operator_per" ColumnName="operator_per" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="get_time" ColumnName="get_time" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="in_materialr">
-            <EntityTypeMapping TypeName="ShoeModel.in_materialr">
-              <MappingFragment StoreEntitySet="in_materialr">
-                <ScalarProperty Name="in_materialr_id" ColumnName="in_materialr_id" />
-                <ScalarProperty Name="materials_order__id" ColumnName="materials_order _id" />
-                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
-                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
-                <ScalarProperty Name="in_time" ColumnName="in_time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2266,6 +2165,7 @@
               <MappingFragment StoreEntitySet="out_materialr">
                 <ScalarProperty Name="out_materialr_id" ColumnName="out_materialr_id" />
                 <ScalarProperty Name="get_materials_id" ColumnName="get_materials_id" />
+                <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2512,17 +2412,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_in_money" FunctionName="ShoeModel.Store.select_in_money">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.select_in_money_Result">
-                <ScalarProperty Name="out_in_id" ColumnName="out_in_id" />
-                <ScalarProperty Name="out_in_money_id" ColumnName="out_in_money_id" />
-                <ScalarProperty Name="zong" ColumnName="zong" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="product_type" ColumnName="product_type" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="select_materialrs_details" FunctionName="ShoeModel.Store.select_materialrs_details">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ShoeModel.select_materialrs_details_Result">
@@ -2571,18 +2460,6 @@
                 <ScalarProperty Name="unit" ColumnName="unit" />
                 <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="select_out_money" FunctionName="ShoeModel.Store.select_out_money">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.select_out_money_Result">
-                <ScalarProperty Name="out_in_id" ColumnName="out_in_id" />
-                <ScalarProperty Name="materialrs_order_id" ColumnName="materialrs_order_id" />
-                <ScalarProperty Name="materialr_type_name" ColumnName="materialr_type_name" />
-                <ScalarProperty Name="materialr_details_name" ColumnName="materialr_details_name" />
-                <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
-                <ScalarProperty Name="zong" ColumnName="zong" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2705,19 +2582,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="xp_SelectPageChuku" FunctionName="ShoeModel.Store.xp_SelectPageChuku">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.xp_SelectPageChuku_Result">
-                <ScalarProperty Name="out_materialr_id" ColumnName="out_materialr_id" />
-                <ScalarProperty Name="materialr_details_num" ColumnName="materialr_details_num" />
-                <ScalarProperty Name="materialr_details_name" ColumnName="materialr_details_name" />
-                <ScalarProperty Name="materialr_type_name" ColumnName="materialr_type_name" />
-                <ScalarProperty Name="materialr_details_price" ColumnName="materialr_details_price" />
-                <ScalarProperty Name="material_supplier" ColumnName="material_supplier" />
-                <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="xp_SelectPageJihua" FunctionName="ShoeModel.Store.xp_SelectPageJihua">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ShoeModel.xp_SelectPageJihua_Result">
@@ -2741,32 +2605,6 @@
                 <ScalarProperty Name="materialr_details_price" ColumnName="materialr_details_price" />
                 <ScalarProperty Name="material_supplier" ColumnName="material_supplier" />
                 <ScalarProperty Name="materialr_type_name" ColumnName="materialr_type_name" />
-                <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="xp_SelectPageRuku" FunctionName="ShoeModel.Store.xp_SelectPageRuku">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ShoeModel.xp_SelectPageRuku_Result">
-                <ScalarProperty Name="quality_testing_id" ColumnName="quality_testing_id" />
-                <ScalarProperty Name="materialrs_order_id" ColumnName="materialrs_order_id" />
-                <ScalarProperty Name="quality_testing_time" ColumnName="quality_testing_time" />
-                <ScalarProperty Name="operator_per" ColumnName="operator_per" />
-                <ScalarProperty Name="result" ColumnName="result" />
-                <ScalarProperty Name="materials_order_id" ColumnName="materials_order_id" />
-                <ScalarProperty Name="materialr_plan_id" ColumnName="materialr_plan_id" />
-                <ScalarProperty Name="operator_per1" ColumnName="operator_per1" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="person_handling" ColumnName="person_handling" />
-                <ScalarProperty Name="buy_materials_details_id" ColumnName="buy_materials_details_id" />
-                <ScalarProperty Name="materialrs_order_id1" ColumnName="materialrs_order_id1" />
-                <ScalarProperty Name="materialr_details_num" ColumnName="materialr_details_num" />
-                <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
-                <ScalarProperty Name="materialr_details_id1" ColumnName="materialr_details_id1" />
-                <ScalarProperty Name="materialr_details_name" ColumnName="materialr_details_name" />
-                <ScalarProperty Name="materialr_type_id" ColumnName="materialr_type_id" />
-                <ScalarProperty Name="materialr_details_price" ColumnName="materialr_details_price" />
-                <ScalarProperty Name="material_supplier" ColumnName="material_supplier" />
                 <ScalarProperty Name="pro_guige" ColumnName="pro_guige" />
               </ComplexTypeMapping>
             </ResultMapping>
