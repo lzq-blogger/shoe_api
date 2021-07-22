@@ -30,7 +30,8 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.customer.ToList().Where(c => c.customer_id.ToString().Contains(info)
-            || c.customer_name.ToString().Contains(info) || c.customer_linkman.ToString().Contains(info));
+            || c.customer_name.ToString().Contains(info) ||
+            c.customer_linkman.ToString().Contains(info)).Skip(obj.start).Take(obj.length);
 
             //查询数据表总共有多少条记录
             int rows1 = db.customer .ToList().Count;
@@ -73,8 +74,8 @@ namespace shoe_api.Controllers
             {
                 info1 = obj.search.value;
             }
-            //时间.ToLongDateString().ToString()
-            var list1 = from pp in db.order
+
+            var list1 = (from pp in db.order
                         join od in db.customer
              on pp.customer_id equals od.customer_id
                         select new
@@ -89,7 +90,8 @@ namespace shoe_api.Controllers
                             order_status = pp.order_status
                         } into q
                         where (q.orderr_id.ToString().Contains(info1))
-                        select q;
+                        select q).Skip(obj.start).Take(obj.length);
+
             //查询数据表总共有多少条记录
             int rows1 = db.order.ToList().Count;
 

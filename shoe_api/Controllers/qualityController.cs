@@ -30,7 +30,8 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.pro_production.ToList().Where(p => (p.status.ToString().Contains(info)
-            || p.pro_production_id.ToString().Contains(info) || p.operator_per.Contains(info)) && p.status == "未质检");
+            || p.pro_production_id.ToString().Contains(info) ||
+            p.operator_per.Contains(info)) && p.status == "未质检").Skip(obj.start).Take(obj.length);
 
             //查询数据表总共有多少条记录
             int rows1 = db.pro_production.ToList().Count;
@@ -120,7 +121,7 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.materials_quality_testing.ToList().Where(p => p.quality_testing_id.ToString().Contains(info)
-            || p.operator_per.Contains(info) || p.result.Contains(info));
+            || p.operator_per.Contains(info) || p.result.Contains(info)).Skip(obj.start).Take(obj.length);
 
             //查询数据表总共有多少条记录
             int rows1 = db.materials_quality_testing.ToList().Count;
@@ -165,7 +166,8 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.materials_order.ToList().Where(p => (p.materials_order_id.ToString().Contains(info)
-            || p.operator_per.Contains(info) || p.status.Contains(info) || p.person_handling.Contains(info)) && p.status == "未质检");
+            || p.operator_per.Contains(info) || p.status.Contains(info) ||
+            p.person_handling.Contains(info)) && p.status == "未质检").Skip(obj.start).Take(obj.length);
 
             //查询数据表总共有多少条记录
             int rows1 = db.materials_order.ToList().Count;
