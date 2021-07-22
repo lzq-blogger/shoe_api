@@ -26,7 +26,7 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
             //根据对应页码和条数进行查询
-            var list1 = from pp in db.order
+            var list1 = (from pp in db.order
                         join od in db.customer
              on pp.customer_id equals od.customer_id
                         select new
@@ -40,8 +40,12 @@ namespace shoe_api.Controllers
                             order_unpaid = pp.order_unpaid,
                             order_status = pp.order_status
                         } into q
-                        where (q.orderr_id.Contains(info))
-                        select q;
+                        where (q.orderr_id.Contains(info)||q.customer_name.Contains(info)||
+                        q.order_starttime.ToString().Contains(info) || q.order_endtime.ToString().Contains(info) ||
+                        q.person_handling.Contains(info) || q.order_paid.ToString().Contains(info) ||
+                        q.order_unpaid.ToString().Contains(info) || q.order_status==(info))
+                        orderby q.order_starttime descending
+                        select q).Skip(obj.start).Take(obj.length);
             //查询数据表总共有多少条记录
             int rows1 = db.order.ToList().Count;
             //记录过滤后的条数

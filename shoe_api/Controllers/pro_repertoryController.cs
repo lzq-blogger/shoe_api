@@ -26,7 +26,7 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
             //根据对应页码和条数进行查询
-            var list1 = from p in db.product
+            var list1 = (from p in db.product
                         join pr in db.pro_repertory on
              p.product_id equals pr.product_id
                         select new
@@ -37,11 +37,19 @@ namespace shoe_api.Controllers
                             product_price = p.product_price,
                             pro_repertory_num = pr.pro_repertory_num,
                             pro_guige = p.pro_guige
-                        } into q
-                        where (q.product_name.Contains(info))
-                        select q;
+                        }
+                        into q
+                        where (q.repertory_id.ToString().Contains(info) ||
+                        q.product_name.Contains(info) ||
+                        q.product_type.Contains(info) ||
+                        q.product_price.ToString().Contains(info) ||
+                        q.pro_repertory_num.ToString().Contains(info) ||
+                        q.pro_guige.Contains(info))
+                        orderby q.pro_repertory_num descending
+                        select q)
+                        .Skip(obj.start).Take(obj.length);
             //查询数据表总共有多少条记录
-            int rows1 = db.product.ToList().Count;
+            int rows1 = db.pro_repertory.Count();
             //记录过滤后的条数
             int rows2 = rows1;
             /// <summary>
@@ -69,10 +77,15 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
             //根据对应页码和条数进行查询
-            var list1 = from p in db.out_repertory
+            var list1 = (from p in db.out_repertory
                         select p into q
-                        where (q.orderr_id.Contains(info))
-                        select q;
+                        where (q.out_repertory_id.ToString().Contains(info)||
+                        q.orderr_id.Contains(info) ||
+                        q.operator_per.Contains(info) ||
+                        q.out_time.ToString().Contains(info))
+                        orderby q.out_time descending
+                        select q
+                        ).Skip(obj.start).Take(obj.length);
             //查询数据表总共有多少条记录
             int rows1 = db.out_repertory.ToList().Count;
             //记录过滤后的条数
@@ -108,9 +121,16 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
             //根据对应页码和条数进行查询
-            var list1 = db.Database.SqlQuery<in_repertory_detail_Result>("exec in_repertory_detail").ToList();
+            var list1 = db.Database.SqlQuery<in_repertory_detail_Result>("exec in_repertory_detail")
+                .Where(p=>p.product_name.Contains(info)||
+                p.operator_per.Contains(info) ||
+                p.result.ToString()==info ||
+                p.quality_testing_time.ToString().Contains(info) ||
+                p.quality_testing_id.ToString().Contains(info))  
+                .ToList()
+                .Skip(obj.start).Take(obj.length);
             //查询数据表总共有多少条记录
-            int rows1 = list1.Count;
+            int rows1 = list1.Count();
             //记录过滤后的条数
             int rows2 = rows1;
             /// <summary>
@@ -135,7 +155,7 @@ namespace shoe_api.Controllers
             pp.pro_production_id = ids;
             pp.operator_per = json1.Root["person1"].ToString();
             pp.person_handling = json1.Root["person2"].ToString();
-            pp.in_time = json1.Root["time"].ToString();
+            pp.in_time = (DateTime)json1.Root["time"];
             //首先新增计划表数据
             db.in_repertory.Add(pp);
             //保存数据
@@ -196,12 +216,20 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
             //根据对应页码和条数进行查询
-            var list1 = from p in db.in_repertory
-                        select p into q
-                        where (q.pro_production_id.ToString().Contains(info))
-                        select q;
+            var list1 =
+                (
+                from p in db.in_repertory
+                select p into q
+                where (q.in_repertory_id.ToString().Contains(info) ||
+                q.pro_production_id.ToString().Contains(info) ||
+                q.person_handling.ToString().Contains(info) ||
+                q.operator_per.ToString().Contains(info) ||
+                q.in_time.ToString().Contains(info))
+                orderby q.in_time descending
+                select q
+                        ).Skip(obj.start).Take(obj.length);
             //查询数据表总共有多少条记录
-            int rows1 = list1.ToList().Count;
+            int rows1 = db.in_repertory.Count();
             //记录过滤后的条数
             int rows2 = rows1;
             /// <summary>

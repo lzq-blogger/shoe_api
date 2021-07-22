@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ShoeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="ID" />
@@ -75,7 +75,7 @@
           <Property Name="pro_production_id" Type="int" Nullable="false" />
           <Property Name="person_handling" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="operator_per" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="in_time" Type="nvarchar" MaxLength="50" />
+          <Property Name="in_time" Type="date" />
         </EntityType>
         <EntityType Name="materialr">
           <Key>
@@ -246,7 +246,7 @@
           <Property Name="operator_per" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="product_time" Type="date" Nullable="false" />
           <Property Name="product_end_time" Type="date" Nullable="false" />
-          <Property Name="pro_status" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="pro_status" Type="nchar" MaxLength="3" Nullable="false" />
         </EntityType>
         <EntityType Name="product_plan_details">
           <Key>
@@ -871,7 +871,8 @@
             <End Role="product_quality_testing" EntitySet="product_quality_testing" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShoeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -953,7 +954,7 @@
           <Property Name="pro_production_id" Type="Int32" Nullable="false" />
           <Property Name="person_handling" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="operator_per" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="in_time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="in_time" Type="DateTime" Precision="0" />
           <NavigationProperty Name="pro_production" Relationship="Self.FK_in_repertory_pro_production" FromRole="in_repertory" ToRole="pro_production" />
         </EntityType>
         <EntityType Name="materialr">
@@ -1162,7 +1163,7 @@
           <Property Name="operator_per" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="product_time" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="product_end_time" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="pro_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="pro_status" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="get_materials" Relationship="Self.FK_get_materials_product_plan" FromRole="product_plan" ToRole="get_materials" />
           <NavigationProperty Name="order" Relationship="Self.FK_product_plan_order" FromRole="product_plan" ToRole="order" />
           <NavigationProperty Name="product_plan_details" Relationship="Self.FK_product_plan_details_product_plan" FromRole="product_plan" ToRole="product_plan_details" />
@@ -1680,46 +1681,46 @@
             <End Role="product_plan_details" EntitySet="product_plan_details" />
           </AssociationSet>
           <FunctionImport Name="add_pro_repertory" ReturnType="Collection(ShoeModel.add_pro_repertory_Result)">
-          <Parameter Name="pro_product_id" Mode="In" Type="Int32" />
+            <Parameter Name="pro_product_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="customer_order_details" ReturnType="Collection(ShoeModel.customer_order_details_Result)">
-          <Parameter Name="customer_orderid" Mode="In" Type="String" />
+            <Parameter Name="customer_orderid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="daijianchanpinbianxie" ReturnType="Collection(ShoeModel.daijianchanpinbianxie_Result)">
-          <Parameter Name="pro_production_id" Mode="In" Type="Int32" />
+            <Parameter Name="pro_production_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="in_repertory_detail" ReturnType="Collection(ShoeModel.in_repertory_detail_Result)" />
           <FunctionImport Name="materialr_details_materialr" ReturnType="Collection(ShoeModel.materialr_details_materialr_Result)">
-          <Parameter Name="material_id" Mode="In" Type="Int32" />
+            <Parameter Name="material_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pro_plan_details" ReturnType="Collection(ShoeModel.pro_plan_details_Result)">
-          <Parameter Name="pro_plan_id" Mode="In" Type="Int32" />
+            <Parameter Name="pro_plan_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="select_customer_details" ReturnType="Collection(ShoeModel.select_customer_details_Result)">
-          <Parameter Name="order_id" Mode="In" Type="Int32" />
+            <Parameter Name="order_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="select_in_money" ReturnType="Collection(ShoeModel.select_in_money_Result)" />
           <FunctionImport Name="select_materialrs_details" ReturnType="Collection(ShoeModel.select_materialrs_details_Result)">
-          <Parameter Name="materialrs_order_id" Mode="In" Type="String" />
+            <Parameter Name="materialrs_order_id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="select_materials_order_plan_mpd" ReturnType="Collection(ShoeModel.select_materials_order_plan_mpd_Result)">
-          <Parameter Name="materials_order_id" Mode="In" Type="Int32" />
+            <Parameter Name="materials_order_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="select_order_details_cust_pro" ReturnType="Collection(ShoeModel.select_order_details_cust_pro_Result)">
-          <Parameter Name="ord" Mode="In" Type="String" />
+            <Parameter Name="ord" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="select_out_money" ReturnType="Collection(ShoeModel.select_out_money_Result)" />
           <FunctionImport Name="select_out_repertory" ReturnType="Collection(ShoeModel.select_out_repertory_Result)">
-          <Parameter Name="out_repertory_id" Mode="In" Type="Int32" />
+            <Parameter Name="out_repertory_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="select_Pro_order_datails" ReturnType="Collection(ShoeModel.select_Pro_order_datails_Result)">
-          <Parameter Name="Pro_order" Mode="In" Type="String" />
+            <Parameter Name="Pro_order" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="select_pro_plan_details" ReturnType="Collection(ShoeModel.select_pro_plan_details_Result)">
-          <Parameter Name="pro_plan_details" Mode="In" Type="Int32" />
+            <Parameter Name="pro_plan_details" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="select_product_pro_plan" ReturnType="Collection(ShoeModel.select_product_pro_plan_Result)">
-          <Parameter Name="pro_production_id" Mode="In" Type="Int32" />
+            <Parameter Name="pro_production_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -1837,7 +1838,7 @@
           <Property Type="String" Name="operator_per2" Nullable="false" MaxLength="20" />
           <Property Type="DateTime" Name="product_time1" Nullable="false" />
           <Property Type="DateTime" Name="product_end_time" Nullable="false" />
-          <Property Type="String" Name="pro_status1" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="pro_status1" Nullable="false" MaxLength="3" />
           <Property Type="String" Name="orderr_id" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="customer_id" Nullable="false" />
           <Property Type="DateTime" Name="order_starttime" Nullable="false" />
@@ -2038,6 +2039,7 @@
           <Property Type="Int32" Name="materials_plan__details_id" Nullable="false" />
           <Property Type="Int32" Name="materialr_details_num" Nullable="false" />
           <Property Type="String" Name="materialr_details_name" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="materialr_details_id" Nullable="false" />
           <Property Type="Decimal" Name="materialr_details_price" Nullable="false" Precision="19" />
           <Property Type="String" Name="material_supplier" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="materialr_type_name" Nullable="false" MaxLength="20" />
@@ -2723,6 +2725,7 @@
                 <ScalarProperty Name="materials_plan__details_id" ColumnName="materials_plan _details_id" />
                 <ScalarProperty Name="materialr_details_num" ColumnName="materialr_details_num" />
                 <ScalarProperty Name="materialr_details_name" ColumnName="materialr_details_name" />
+                <ScalarProperty Name="materialr_details_id" ColumnName="materialr_details_id" />
                 <ScalarProperty Name="materialr_details_price" ColumnName="materialr_details_price" />
                 <ScalarProperty Name="material_supplier" ColumnName="material_supplier" />
                 <ScalarProperty Name="materialr_type_name" ColumnName="materialr_type_name" />
