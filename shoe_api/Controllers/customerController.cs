@@ -73,7 +73,7 @@ namespace shoe_api.Controllers
             {
                 info1 = obj.search.value;
             }
-
+            //时间.ToLongDateString().ToString()
             var list1 = from pp in db.order
                         join od in db.customer
              on pp.customer_id equals od.customer_id
@@ -81,8 +81,8 @@ namespace shoe_api.Controllers
                         {
                             orderr_id = pp.orderr_id,
                             customer_name = od.customer_name,
-                            order_starttime = pp.order_starttime,
-                            order_endtime = pp.order_endtime,
+                            order_starttime = ((DateTime)pp.order_starttime),
+                            order_endtime = ((DateTime)pp.order_endtime),
                             operator_per = pp.operator_per,
                             order_paid = pp.order_paid,
                             order_unpaid = pp.order_unpaid,
@@ -90,7 +90,6 @@ namespace shoe_api.Controllers
                         } into q
                         where (q.orderr_id.ToString().Contains(info1))
                         select q;
-
             //查询数据表总共有多少条记录
             int rows1 = db.order.ToList().Count;
 

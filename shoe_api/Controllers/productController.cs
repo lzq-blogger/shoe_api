@@ -34,7 +34,7 @@ namespace shoe_api.Controllers
                 info = obj.search.value;
             }
             //根据对应页码和条数进行查询
-            var list1 = from pp in db.product_plan
+            var list1 = (from pp in db.product_plan
                         select new
                         {
                             product_plan_id = pp.product_plan_id,
@@ -45,10 +45,16 @@ namespace shoe_api.Controllers
                             product_end_time = pp.product_end_time,
 
                         } into q
-                        where (q.product_plan_id.ToString().Contains(info))
-                        select q;
+                        where (q.product_plan_id.ToString().Contains(info)||
+                        q.order_id.ToString().Contains(info) ||
+                        q.operator_per.ToString().Contains(info) ||
+                        q.product_time.ToString().Contains(info) ||
+                        q.product_status.ToString().Contains(info) ||
+                        q.product_end_time.ToString().Contains(info))
+                        orderby q.product_time descending
+                        select q).Skip(obj.start).Take(obj.length); ;
             //查询数据表总共有多少条记录
-            int rows1 = list1.ToList().Count;
+            int rows1 = db.product_plan.ToList().Count;
             //记录过滤后的条数
             int rows2 = rows1;
             /// <summary>
@@ -202,7 +208,7 @@ namespace shoe_api.Controllers
             }
 
             //根据对应页码和条数进行查询
-            var list1 = from pp in db.get_materials
+            var list1 = (from pp in db.get_materials
                 select new
                 {
                     w_materials_id = pp.w_materials_id,
@@ -212,8 +218,14 @@ namespace shoe_api.Controllers
                     status = pp.status,
                     get_time = pp.get_time
                 } into p
-                where (p.w_materials_id.ToString().Contains(info))
-                select p;
+                where (p.w_materials_id.ToString().Contains(info)||
+                p.product_plan_id.ToString().Contains(info) ||
+                p.get_department.ToString().Contains(info) ||
+                p.operator_per.ToString().Contains(info) ||
+                p.status.ToString().Contains(info) ||
+                p.get_time.ToString().Contains(info))
+                orderby p.get_time descending
+                select p).Skip(obj.start).Take(obj.length);
           //查询数据表总共有多少条记录
           int rows1 = db.get_materials.ToList().Count;
             //记录过滤后的条数
@@ -293,13 +305,14 @@ namespace shoe_api.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             BaseDataTables Pagedata = new BaseDataTables();
             Pagedata.draw = obj.draw;
+            int fenyehang = obj.start;
             string info = "";
             if (obj.search.value != null)
             {
                 info = obj.search.value;
             }
             //根据对应页码和条数进行查询
-            var list1 = from pp in db.pro_production
+            var list1 = (from pp in db.pro_production
                         join ppd in db.product_plan_details
                         on pp.product_plan_details_id equals ppd.product_plan_details_id
                         select new{
@@ -310,7 +323,16 @@ namespace shoe_api.Controllers
                             product_time = pp.product_time,
                             status = pp.status,
                             status1 = ppd.pro_status,
-                        };
+                        } into p
+                        where (p.pro_production_id.ToString().Contains(info)||
+                        p.product_plan_details_id.ToString().Contains(info) ||
+                        p.pro_production_dep.ToString().Contains(info) ||
+                        p.operator_per.ToString().Contains(info) ||
+                        p.product_time.ToString().Contains(info) ||
+                        p.status.ToString().Contains(info) ||
+                        p.status1.ToString().Contains(info))
+                        orderby p.product_time descending
+                        select p).Skip(fenyehang).Take(obj.length);
             //查询数据表总共有多少条记录
             int rows1 = db.pro_production.ToList().Count;
             //记录过滤后的条数

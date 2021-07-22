@@ -18,7 +18,7 @@ namespace shoe_api.Models
         public int pro_production_id { get; set; }
         public string person_handling { get; set; }
         public string operator_per { get; set; }
-        public string in_time { get; set; }
+        public Nullable<System.DateTime> in_time { get; set; }
     
         public virtual pro_production pro_production { get; set; }
     }

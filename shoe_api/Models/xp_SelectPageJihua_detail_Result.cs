@@ -19,6 +19,7 @@ namespace shoe_api.Models
         public int materials_plan__details_id { get; set; }
         public int materialr_details_num { get; set; }
         public string materialr_details_name { get; set; }
+        public int materialr_details_id { get; set; }
         public decimal materialr_details_price { get; set; }
         public string material_supplier { get; set; }
         public string materialr_type_name { get; set; }
