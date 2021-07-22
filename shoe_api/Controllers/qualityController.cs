@@ -253,7 +253,7 @@ namespace shoe_api.Controllers
         }
         //待检材料详情
         [HttpGet]
-        public string order_details(int id)
+        public string order_details(string id)
         {
             var list1 = db.Database.SqlQuery<select_materialrs_details_Result>("exec select_materialrs_details " + id).ToList();
             return Newtonsoft.Json.JsonConvert.SerializeObject(list1);
