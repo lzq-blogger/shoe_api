@@ -45,8 +45,8 @@ namespace shoe_api.Controllers
                         q.product_price.ToString().Contains(info) ||
                         q.pro_repertory_num.ToString().Contains(info) ||
                         q.pro_guige.Contains(info))
-                        orderby q.pro_repertory_num descending
-                        select q)
+                         orderby q.pro_repertory_num descending
+                         select q)
                         .Skip(obj.start).Take(obj.length);
             //查询数据表总共有多少条记录
             int rows1 = db.pro_repertory.Count();

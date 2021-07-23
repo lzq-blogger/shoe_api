@@ -18,8 +18,25 @@ namespace shoe_api.Controllers
         [HttpGet]
         public int ss()
         {
-            var info = db.order.ToList();
-            return info.Count();
+            //订单总销量
+            int info = db.order.ToList().Count();
+            //今年订单总销量
+            //获取今年的年份
+            DateTime dt = DateTime.Now;
+            int year = dt.Year;
+            int info2 = db.order.Where(p=>p.order_starttime.ToString().Contains(year.ToString())).ToList().Count();
+            return info;
+        }
+        //统计今年销售量
+        [HttpGet]
+        public int sss()
+        {
+            //今年订单总销量
+            //获取今年的年份
+            DateTime dt = DateTime.Now;
+            int year = dt.Year;
+            int info2 = db.order.Where(p => p.order_starttime.ToString().Contains(year.ToString())).ToList().Count();
+            return info2;
         }
         //生产计划查询
         [HttpPost]
