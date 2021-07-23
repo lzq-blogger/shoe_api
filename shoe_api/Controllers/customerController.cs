@@ -90,7 +90,8 @@ namespace shoe_api.Controllers
                             order_status = pp.order_status
                         } into q
                         where (q.orderr_id.ToString().Contains(info1))
-                        select q).Skip(obj.start).Take(obj.length);
+                         orderby q.order_endtime descending
+                         select q).Skip(obj.start).Take(obj.length);
 
             //查询数据表总共有多少条记录
             int rows1 = db.order.ToList().Count;

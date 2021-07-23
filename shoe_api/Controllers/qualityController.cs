@@ -76,7 +76,8 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.product_quality_testing.Where(p => p.quality_testing_id.ToString().Contains(info)
-            || p.operator_per.Contains(info) || p.result.Contains(info));
+            || p.operator_per.Contains(info) 
+            || p.result.Contains(info)).OrderByDescending(p=>p.quality_testing_time).Skip(obj.start).Take(obj.length);
 
             //查询数据表总共有多少条记录
             int rows1 = db.product_quality_testing.ToList().Count;
@@ -121,7 +122,8 @@ namespace shoe_api.Controllers
             }
 
             var list1 = db.materials_quality_testing.ToList().Where(p => p.quality_testing_id.ToString().Contains(info)
-            || p.operator_per.Contains(info) || p.result.Contains(info)).Skip(obj.start).Take(obj.length);
+            || p.operator_per.Contains(info) 
+            || p.result.Contains(info)).OrderByDescending(p => p.quality_testing_time).Skip(obj.start).Take(obj.length);
 
             //查询数据表总共有多少条记录
             int rows1 = db.materials_quality_testing.ToList().Count;
